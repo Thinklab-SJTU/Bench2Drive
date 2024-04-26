@@ -24,14 +24,14 @@
 5. [Citation](#citation)
 
 ## News <a name="news"></a>
-  - [2024/04/27] Bench2Drive releases Mini(10 scenarios) and Base (1000 scenarios) datasets.
+  - [2024/04/27] Bench2Drive releases the Mini(10 clips) and Base (1000 clips) split of the official training set.
 
 ## Datasets <a name="datasets"></a>
-  - The datasets has 3 subsets, namely Mini(10 scenarios), Base(1000 scenarios) and Full(10000 scenarios). Users can choose different types of datasets based on the performance of their graphics cards.
+  - The datasets has 3 subsets, namely Mini(10 clips), Base(1000 clips) and Full(10000 clips), to accommodate different levels of computational resource.
   - Download datasets from [huggingface]() or [baiduyun]().
-  - [Detailed explanation](docs/anno.md) of annotation information and visualization of datasets.
+  - [Detailed explanation](docs/anno.md) of dataset structure, annotation information, and visualization of data.
 
-## Benchmark(Coming soon) <a name="benchmark"></a>
+## Benchmark (Coming soon) <a name="benchmark"></a>
 
 ## License <a name="license"></a>
 
