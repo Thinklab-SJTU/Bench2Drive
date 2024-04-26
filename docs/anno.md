@@ -1,0 +1,257 @@
+```diff
+- The data of sensors all come from the official Carla API. 
+- However, due to deviations in the Carla API, please refer to our visualize.py code.
+```
+# Detailed explanation of annotation information and visualization of datasets.
+
+## Data Download
+```
+
+```
+
+## Data Compression
+- RGB image:
+    - JPG compressed.
+- anno:
+    - Use GZIP to compress json file.
+- LiDAR
+    - Use a specialized algorithm called laszip to compress LiDAR point clouds.
+- Radar
+    - Use h5py format and use GZIP to compress.
+- Others
+    - Maintain original accuracy. 
+
+## How to Visualize?
+
+``` bash
+cd tools
+python visualize.py -f FILE_PATH -m LANEMARK_PATH
+# for example, 
+# FILE_PATH is NonSignalizedJunctionLeftTurnEnterFlow/Town13_723
+# LANEMARK_PATH is maps/Town13_lanemarkings.npz
+```
+
+## Data structure
+
+``` python
+- scenario_name/
+    - Town[id]_weather[id]_route[id]/
+        - anno
+            - 00000.json.gz
+        - camera
+            - depth_back
+                - 00000.png
+            - depth_back
+                - 00000.png
+            - depth_back_left
+                - 00000.png
+            - depth_back_right
+                - 00000.png
+            - depth_front
+                - 00000.png
+            - depth_front_left
+                - 00000.png
+            - depth_front_right
+                - 00000.png
+            - instance_back
+                - 00000.png
+            - instance_back_left
+                - 00000.png
+            - instance_back_right
+                - 00000.png
+            - instance_front
+                - 00000.png
+            - instance_front_left
+                - 00000.png
+            - instance_front_right
+                - 00000.png
+            - rgb_back
+                - 00000.jpg
+            - rgb_back_left
+                - 00000.jpg
+            - rgb_back_right
+                - 00000.jpg
+            - rgb_front
+                - 00000.jpg
+            - rgb_front_left
+                - 00000.jpg
+            - rgb_front_right
+                - 00000.jpg
+            - rgb_top_down
+                - 00000.jpg
+            - semantic_back
+                - 00000.png
+            - semantic_back_left
+                - 00000.png
+            - semantic_back_right
+                - 00000.png
+            - semantic_front
+            - semantic_front_left
+                - 00000.png
+            - semantic_front_right
+                - 00000.png
+        - expert_assessment
+            - 00000.npz
+        - lidar
+            - 00000.laz
+        - radar
+            - 00000.h5
+```
+
+## Anno structure
+``` shell
+    - x # current position in world coordinates.
+    - y # current position in world coordinates.
+    - throttle
+    - steer
+    - brake
+    - reverse
+    - theta
+    - speed
+    - x_command_far # farther waypoint x in world coordinates.
+    - y_command_far # farther waypoint y in world coordinates.
+    - command_far #  the command to farther waypoint.
+    - x_command_near # nearby waypoint x in world coordinates.
+    - y_command_near # nearby waypoint y in world coordinates.
+    - command_near # the command to nearby waypoint.
+    - should_brake # inherit from TCP
+    - x_target # target waypoint 
+    - y_target # target waypoint 
+    - next_command # next command
+    - weather
+    - acceleration
+    - angular_velocity
+    - only_ap_brake # inherit from TCP
+    - sensors
+        - CAM_XXXX
+            - location # Location coordinates of the CAM_XXXX(x,y,z in world coordinates)
+            - rotation # Orientation of the CAM_XXXX in world coordinates.
+            - intrinsic # The intrinsic of camera.
+            - world2cam # Transformation from world coordinates to camera coordinates
+            - cam2ego # Transformation from camera coordinates to ego_vehicle coordinates
+            - fov
+            - image_size_x # 1600
+            - image_size_y # 900
+        - RADAR_XXXX
+            - location # Location coordinates of the RADAR_XXXX(x,y,z in world coordinates)
+            - rotation # Orientation of the RADAR_XXXX in world coordinates.
+            - world2radar # Transformation from world coordinates to radar coordinates
+            - radar2ego # Transformation from radar coordinates to ego_vehicle coordinates
+        - LIDAR_TOP
+            - location # Location coordinates of the LIDAR_TOP(x,y,z in world coordinates)
+            - rotation  # Orientation of the LIDAR_TOP in world coordinates.
+            - world2lidar # Transformation from world coordinates to lidar coordinates
+            - lidar2ego # Transformation from lidar coordinates to ego_vehicle coordinates
+    - bounding_boxes
+        - ego_vehicle 
+            - class: 'vehicle'
+            - id # unique actor id
+            - type_id # Type name for the ego_vehicle
+            - base_type # The ego_vehicle's base type in CARLA.
+            - location # Location coordinates of the ego_vehicle(x,y,z in world coordinates)
+            - rotation # Orientation of the ego_vehicle in world coordinates.
+            - bbx_loc # Bounding box location(x,y,z in ego coordinates)
+            - center # Center point of the ego_vehicle in world coordinates.
+            - extent # Extension length of ego_vehicle in world coordinates.
+            - world_cord # Bounding box verts coordinates in world coordinates.
+            - semantic_tags # Descriptive tags related to the vehicle.
+            - color # The color of ego_vehicle.
+            - speed
+            - brake
+            - road_id # Road identifier where the ego_vehicle is located
+            - lane_id # Lane identifier for the lane affected by the ego_vehicle
+            - section_id # Section of the road where the ego_vehicle is located
+            - world2ego # Transformation from world coordinates to ego_vehicle coordinates
+        - vehicle
+            - class: 'vehicle'
+            - state # dynamic or static
+            - id # Unique identifier for the vehicle
+            - location # Location coordinates of the vehicle(x,y,z in world coordinates)
+            - rotation # Orientation of the vehicle in world coordinates.
+            - bbx_loc # Bounding box location(x,y,z in ego coordinates)
+            - center # Center point of the vehicle in world coordinates.
+            - extent # Extension length of vehicle in world coordinates.
+            - world_cord # Bounding box verts coordinates in world coordinates.
+            - semantic_tags # Descriptive tags related to the vehicle.
+            - type_id # Type name for the vehicle.
+            - color # The color of vehicle.
+            - base_type # The vehicle's base type in CARLA.
+            - num_points # num of LiDAR point cloud.
+            - distance # Distance of the vehicle from the ego vehicle.
+            - speed
+            - brake
+            - light_state # The state of vehicle.
+            - road_id # Road identifier where the vehicle is located
+            - lane_id # Lane identifier for the lane affected by the vehicle
+            - section_id # Section of the road where the vehicle is located
+            - world2vehicle # Transformation from world coordinates to vehicle coordinates
+
+        - traffic_light
+            - class: 'traffic_light'
+            - id # Unique identifier for the traffic light
+            - location # Location coordinates of the traffic light(x,y,z in world coordinates)
+            - rotation # Orientation of the traffic light in world coordinates.
+            - center # Center point of the traffic light in world coordinates.
+            - extent # Extension length of traffic light in world coordinates.
+            - semantic_tags # Descriptive tags related to the traffic light.
+            - type_id # Type name for the traffic light
+            - distance # Distance of the traffic light from the ego vehicle
+            - state # The state(color) of traffic light.
+            - affects_ego # Whether the traffic light affects the ego vehicle
+            - trigger_volume_location # Location for the trigger area for specific light
+            - trigger_volume_rotation # Orientation of the trigger volume for specific light
+            - trigger_volume_extent # Extension length of the trigger volume for specific light
+            - road_id # Road identifier where the traffic light is located
+            - lane_id # Lane identifier for the lane affected by the traffic light
+            - section_id # Section of the road where the traffic light is located
+
+        - traffic_sign
+            - class: 'traffic_sign'
+            - id # Unique identifier for the traffic sign
+            - location # Location coordinates of the traffic sign(x,y,z in world coordinates)
+            - rotation # Orientation of the traffic sign in world coordinates.
+            - center # Center point of the traffic sign in world coordinates.
+            - extent # Extension length of traffic sign in world coordinates.
+            - semantic_tags # Descriptive tags related to the traffic sign.
+            - type_id # Type name for the traffic sign
+            - distance # Distance of the traffic sign from the ego vehicle
+            - affects_ego # Whether the traffic sign affects the ego vehicle
+            - road_id # Road identifier where the traffic sign is located
+            - lane_id # Lane identifier for the lane affected by the traffic sign
+            - section_id # Section of the road where the traffic sign is located
+            - world2sign # Transformation from world coordinates to sign coordinates
+
+            # for stop sign/ speed_limit sign specified
+            - trigger_volume_location # Location for the trigger area for specific signs like stop or speed limit
+            - trigger_volume_rotation # Orientation of the trigger volume for specific signs
+            - trigger_volume_extent # Extension length of the trigger volume for specific signs
+
+            # for others sign specified, because CARLA API get incorrect coordinates, so we need to adjust it.
+            - bbx_loc # Bounding box location(x,y,z in ego coordinates)
+            - world_cord # Bounding box verts coordinates in world coordinates.
+
+        - pedestrian
+            - class: 'walker'
+            - id # Unique identifier for the pedestrian
+            - location # Location coordinates of the pedestrian(x,y,z in world coordinates)
+            - rotation # Orientation of pedestrian in world coordinates
+            - bbx_loc # Bounding box location(x,y,z in ego coordinates)
+            - center # Center point of the pedestrian in world coordinates.
+            - extent # Extension length ofpedestrian in world coordinates.
+            - world_cord  # Bounding box verts coordinates in world coordinates.
+            - semantic_tags  # Descriptive tags related to the pedestrian.
+            - type_id # Type name for the pedestrian.
+            - gender
+            - age
+            - num_points # num of LiDAR point cloud.
+            - distance # Distance of the pedestrian from the ego vehicle
+            - speed # Speed of pedestrian.
+            - bone # Bone of pedestrian.
+            - road_id # Road identifier where the pedestrian is located
+            - lane_id # Lane identifier for the lane affected by the pedestrian
+            - section_id # Section of the road where the pedestrian is located
+            - world2ped # Transformation from world coordinates to pedestrian coordinates
+```
+
+
+
