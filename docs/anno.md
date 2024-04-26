@@ -1,25 +1,46 @@
-```diff
-- Most of the recorded data is **directly from CARLA API** to avoid information loss. The data collection code is in TODO. We suggest reading it aided by CARLA official Python API docs(https://carla.readthedocs.io/en/latest/python_api/).
-- Keep in mind that the recorded data might be in different coordinate systems
-```
+
 # Detailed explanation of annotation information and visualization of datasets.
+
+## Get Started
+- Most of the recorded data is **directly from CARLA API** to avoid information loss. The data collection code is in (TODO:Sensor Agent Code with annotations almost per line). We suggest reading it aided by [CARLA official Python API docs](https://carla.readthedocs.io/en/latest/python_api/).
+- Keep in mind that the recorded data might be **in different coordinate systems** (World, Ego, LiDAR, Compass). We provide a [visualization code](../tools/visualize.py) (TODO: much more annotations regarding the coordinate system! Almost per line)  for you to get familiar with these coordinate systems. You might refer to [this explanations](https://github.com/autonomousvision/carla_garage/blob/main/docs/coordinate_systems.md) (awsome codebase!).
+- For fair/legal comparision, make sure your model only use the information from [**allowed sensors**](https://leaderboard.carla.org/#sensors-track) + high level command as input. Other information is only allowed to use during training.
+- Note that sometimes **CARLA API could be buggy**, we record some known issues below:
+  - The speed value of all pedestrians are 0. You might want to calculate by youself.
+  - The returned value of the sensor Speedometer might be None. You might want to deal with it.
+  - Some stop signs in CARLA are on the ground and thus there is no bounding box. However, we denote all stop signs in the map pickle file of each town with rectangles to denote their [trigger volume](https://carla.readthedocs.io/en/latest/python_api/#carla.TrafficSign.trigger_volume)
+  - The extent in CARLA means **half** of the Height, Width, Length!
+  - TODO More explanations about the map pickle file!
+  - TODO: static?
+  - TODO: (-y, x)
+  - Lots of TODO: which data could be inaccurate? 
 
 ## Data Download
 ```
 
 ```
 
-## Data Compression
-- RGB image:
+## Data
+[CARLAs docs about sensors](https://carla.readthedocs.io/en/latest/ref_sensors/)
+- RGB image * 6:
     - JPG compressed.
+    - (TODO: compressed quality, which line of code?)
+    - The position and FoV is similar to [nuScenes](https://www.nuscenes.org/).
+    - Since JPG is lossy compression, you might need to compress the image from sensors during inference to avoid train-val gap!
 - anno:
     - Use GZIP to compress json file.
+    - (TODO: which line of code?)
 - LiDAR
     - Use a specialized algorithm called laszip to compress LiDAR point clouds.
+    - (TODO: which line of code?)
 - Radar
     - Use h5py format and use GZIP to compress.
-- Others
-    - Maintain original accuracy. 
+    - The position is similar to [nuScenes](https://www.nuscenes.org/).
+    -  (TODO: which line of code?)
+- Depth, Semantic, Instance
+  - Please refer to CARLAs docs about sensors about obtaining the labels.
+  - Their sensors' position is exactly the same as RGB Cameras'.
+- TODO: map data?
 
 ## How to Visualize?
 
@@ -99,6 +120,7 @@ python visualize.py -f FILE_PATH -m LANEMARK_PATH
 ```
 
 ## Anno structure
+**TODO: For all items, tell which sensors/CARLA API it is from and which lines of code in the sensor agent!!! Especially for those from sensors to make sure people can make legal agent.**
 ``` shell
     - x # current position in world coordinates.
     - y # current position in world coordinates.
@@ -115,13 +137,13 @@ python visualize.py -f FILE_PATH -m LANEMARK_PATH
     - y_command_near # nearby waypoint y in world coordinates.
     - command_near # the command to nearby waypoint.
     - should_brake # inherit from TCP
+    - only_ap_brake # inherit from TCP
     - x_target # target waypoint 
     - y_target # target waypoint 
     - next_command # next command
     - weather
     - acceleration
     - angular_velocity
-    - only_ap_brake # inherit from TCP
     - sensors
         - CAM_XXXX
             - location # Location coordinates of the CAM_XXXX(x,y,z in world coordinates)
@@ -237,7 +259,7 @@ python visualize.py -f FILE_PATH -m LANEMARK_PATH
             - rotation # Orientation of pedestrian in world coordinates
             - bbx_loc # Bounding box location(x,y,z in ego coordinates)
             - center # Center point of the pedestrian in world coordinates.
-            - extent # Extension length ofpedestrian in world coordinates.
+            - extent # Extension length of pedestrian in world coordinates.
             - world_cord  # Bounding box verts coordinates in world coordinates.
             - semantic_tags  # Descriptive tags related to the pedestrian.
             - type_id # Type name for the pedestrian.
