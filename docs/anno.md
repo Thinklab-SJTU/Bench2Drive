@@ -1,6 +1,6 @@
 ```diff
-- The data of sensors all come from the official Carla API. 
-- However, due to deviations in the Carla API, please refer to our visualize.py code.
+- Most of the recorded data is **directly from CARLA API** to avoid information loss. The data collection code is in TODO. We suggest reading it aided by CARLA official Python API docs(https://carla.readthedocs.io/en/latest/python_api/).
+- Keep in mind that the recorded data might be in different coordinate systems
 ```
 # Detailed explanation of annotation information and visualization of datasets.
 
