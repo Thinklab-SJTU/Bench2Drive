@@ -6,7 +6,8 @@
 <h2 align="center">
   <a href="https://rethinklab.github.io/bench2drive/">Website</a> |
   <a href="https://huggingface.co/datasets/rethinlab/Bench2Drive">Huggingface</a> |
-  <a href="https://github.com/Thinklab-SJTU/Bench2Drive">arXiv</a>
+  <a href="https://github.com/Thinklab-SJTU/Bench2Drive">arXiv</a> |
+  <a href="https://discord.gg/uZuU3JXVNV">Discord</a>
 </h2>
 
 ![overview](./assets/overview.jpg)
