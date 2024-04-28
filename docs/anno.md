@@ -30,10 +30,10 @@
 - anno:
     - Use GZIP to compress json file.
     - (TODO: which line of code?)
-- LiDAR
+- LiDAR*1
     - Use a specialized algorithm called laszip to compress LiDAR point clouds.
     - (TODO: which line of code?)
-- Radar
+- Radar*5
     - Use h5py format and use GZIP to compress.
     - The position is similar to [nuScenes](https://www.nuscenes.org/).
     -  (TODO: which line of code?)

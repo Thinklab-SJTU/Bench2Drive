@@ -5,6 +5,11 @@ import math
 WINDOW_HEIGHT = 900
 WINDOW_WIDTH = 1600
 
+DIS_CAR_SAVE = 100
+DIS_WALKER_SAVE = 100
+DIS_SIGN_SAVE = 100
+DIS_LIGHT_SAVE = 100
+
 edges = [[0,1], [1,3], [3,2], [2,0], [0,4], [4,5], [5,1], [5,7], [7,6], [6,4], [6,2], [7,3]]
 
 def get_image_point(loc, K, w2c):
@@ -48,8 +53,12 @@ def get_forward_vector(yaw):
     return np.array([x, y, z])
 
 def calculate_cube_vertices(center, extent):
-    cx, cy, cz = center
-    x, y, z = extent
+    if isinstance(center, list):
+        cx, cy, cz = center
+        x, y, z = extent
+    else:
+        cx, cy, cz = center.x,  center.y,  center.z
+        x, y, z = extent.x, extent.y, extent.z
     vertices = [
         (cx + x, cy + y, cz + z),
         (cx + x, cy + y, cz - z),
@@ -121,3 +130,99 @@ def get_weather_id(weather_conditions):
         if conditions_match(weather, weather_conditions):
             return case.items()[0][1]
     return None
+
+def compute_2d_distance(loc1, loc2):
+    return math.sqrt((loc1.x-loc2.x)**2+(loc1.y-loc2.y)**2)
+
+def build_projection_matrix(w, h, fov, is_behind_camera=False):
+    focal = w / (2.0 * np.tan(fov * np.pi / 360.0))
+    K = np.identity(3)
+
+    if is_behind_camera:
+        K[0, 0] = K[1, 1] = -focal
+    else:
+        K[0, 0] = K[1, 1] = focal
+
+    K[0, 2] = w / 2.0
+    K[1, 2] = h / 2.0
+    return K
+
+def convert_depth(data):
+    """
+    Computes the normalized depth from a CARLA depth map.
+    """
+    data = data.astype(np.float16)
+
+    normalized = np.dot(data, [65536.0, 256.0, 1.0])
+    normalized /= (256 * 256 * 256 - 1)
+    return normalized * 1000
+
+def get_relative_transform(ego_matrix, vehicle_matrix):
+    """
+    Returns the position of the vehicle matrix in the ego coordinate system.
+    :param ego_matrix: ndarray 4x4 Matrix of the ego vehicle in global
+    coordinates
+    :param vehicle_matrix: ndarray 4x4 Matrix of another actor in global
+    coordinates
+    :return: ndarray position of the other vehicle in the ego coordinate system
+    """
+    relative_pos = vehicle_matrix[:3, 3] - ego_matrix[:3, 3]
+    rot = ego_matrix[:3, :3].T
+    relative_pos = rot @ relative_pos
+
+    return relative_pos
+
+def normalize_angle(x):
+    x = x % (2 * np.pi)  # force in range [0, 2 pi)
+    if x > np.pi:  # move to [-pi, pi)
+        x -= 2 * np.pi
+    return x
+
+def build_skeleton(ped, sk_links):
+    ######## get the pedestrian skeleton #########
+    bones = ped.get_bones()
+
+    # list where we will store the lines we will project
+    # onto the camera output
+    lines_3d = []
+
+    # cycle through the bone pairs in skeleton.txt and retrieve the joint positions
+    for link in sk_links[1:]:
+
+        # get the roots of the two bones to be joined
+        bone_transform_1 = next(filter(lambda b: b.name == link[0], bones.bone_transforms), None)
+        bone_transform_2 = next(filter(lambda b: b.name == link[1], bones.bone_transforms), None)
+
+        # some bone names aren't matched
+        if bone_transform_1 is not None and bone_transform_2 is not None:
+            lines_3d.append([(bone_transform_1.world.location.x, bone_transform_1.world.location.y, bone_transform_1.world.location.z), 
+                             (bone_transform_2.world.location.x, bone_transform_2.world.location.y, bone_transform_2.world.location.z)]
+                            )
+    return lines_3d
+
+def get_matrix(location, rotation):
+    """
+    Creates matrix from carla transform.
+    """
+    pitch, roll, yaw = rotation
+    x, y, z = location
+    c_y = np.cos(np.radians(yaw))
+    s_y = np.sin(np.radians(yaw))
+    c_r = np.cos(np.radians(roll))
+    s_r = np.sin(np.radians(roll))
+    c_p = np.cos(np.radians(pitch))
+    s_p = np.sin(np.radians(pitch))
+    matrix = np.matrix(np.identity(4))
+    matrix[0, 3] = x
+    matrix[1, 3] = y
+    matrix[2, 3] = z
+    matrix[0, 0] = c_p * c_y
+    matrix[0, 1] = c_y * s_p * s_r - s_y * c_r
+    matrix[0, 2] = -c_y * s_p * c_r - s_y * s_r
+    matrix[1, 0] = s_y * c_p
+    matrix[1, 1] = s_y * s_p * s_r + c_y * c_r
+    matrix[1, 2] = -s_y * s_p * c_r + c_y * s_r
+    matrix[2, 0] = s_p
+    matrix[2, 1] = -c_p * s_r
+    matrix[2, 2] = c_p * c_r
+    return matrix
