@@ -12,14 +12,7 @@
 
 ![overview](./assets/overview.jpg)
 
-<!-- <video width="1290" height="auto" controls>
-    <source src="./assets/overview.mp4" type="video/mp4">
-</video -->
-<!-- [![Bench2Drive](https://i.ytimg.com/vi/-osdzJJs2g0/maxresdefault.jpg)](https://www.youtube.com/watch?v=-osdzJJs2g0 "Bench2Drive") -->
-
-<video src="https://www.youtube.com/watch?v=-osdzJJs2g0" controls="controls" width="1060" height="596"></video>
-
-<!-- <iframe align="center" width="1060" height="596" src="https://www.youtube.com/embed/-osdzJJs2g0?si=JMUmh_sXy6O_nE87" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> -->
+[![Bench2Drive](https://i.ytimg.com/vi/-osdzJJs2g0/maxresdefault.jpg)](https://www.youtube.com/watch?v=-osdzJJs2g0 "Bench2Drive")
 
 #####
 ## Table of Contents: <a name="high"></a>
