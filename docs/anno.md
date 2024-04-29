@@ -34,7 +34,7 @@
     - Please refer to CARLAs docs about sensors about obtaining the labels.
     - Their sensors' position is exactly the same as RGB Cameras'.
 - Lane
-    - Generate lane marking by code(https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/lane_marking.py)
+    - Generate lane marking by [code](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/lane_marking.py)
 
 
 ## How to Visualize?
