@@ -1,0 +1,2288 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+	<meta charset="UTF-8" />
+	<style id="formidable-inline-css" type="text/css">
+		.da11y-submenu-show,
+		.menu li.et-hover>ul,
+		.nav li.et-hover>ul {
+			opacity: 1 !important;
+			visibility: visible !important;
+		}
+
+		.keyboard-outline {
+			outline-style: solid !important;
+			outline-width: 2px !important;
+			-webkit-transition: none !important;
+			transition: none !important;
+		}
+
+		a[role="tab"].keyboard-outline,
+		button:active.keyboard-outline,
+		button:focus.keyboard-outline,
+		input:active.keyboard-outline,
+		input:focus.keyboard-outline {
+			outline-offset: -5px;
+		}
+
+		.et-search-form input:focus.keyboard-outline {
+			padding-left: 15px;
+			padding-right: 15px;
+		}
+
+		.et_pb_tab {
+			-webkit-animation: none !important;
+			animation: none !important;
+		}
+
+		.et_pb_scroll_top.et-visible:focus {
+			outline-color: Highlight;
+			outline-style: solid;
+			outline-width: 2px;
+		}
+
+		@media (-webkit-min-device-pixel-ratio: 0) {
+			.et_pb_scroll_top.et-visible:focus {
+				outline-color: -webkit-focus-ring-color;
+				outline-style: auto;
+			}
+		}
+
+		.et_pb_contact_form_label,
+		.et_pb_search .screen-reader-text,
+		.et_pb_social_media_follow_network_name,
+		.widget_search .screen-reader-text {
+			display: block !important;
+		}
+
+		.da11y-screen-reader-text,
+		.et_pb_contact_form_label,
+		.et_pb_search .screen-reader-text,
+		.et_pb_social_media_follow_network_name,
+		.widget_search .screen-reader-text {
+			clip: rect(1px, 1px, 1px, 1px);
+			-webkit-font-smoothing: subpixel-antialiased;
+			font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+				Oxygen-Sans, Ubuntu, Cantarell, Helvetica Neue, sans-serif;
+			font-size: 1em;
+			font-weight: 600;
+			height: 1px;
+			letter-spacing: normal;
+			line-height: normal;
+			overflow: hidden;
+			position: absolute !important;
+			text-shadow: none;
+			text-transform: none;
+			width: 1px;
+		}
+
+		.da11y-screen-reader-text:focus {
+			clip: auto !important;
+			background: #f1f1f1;
+			-webkit-box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+			box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+			color: #00547a;
+			display: block;
+			height: auto;
+			left: 5px;
+			padding: 15px 23px 14px;
+			text-decoration: none;
+			top: 7px;
+			width: auto;
+			z-index: 1000000;
+		}
+	</style>
+	<script>
+		function CopyToClipboard(id) {
+			var r = document.createRange();
+			r.selectNode(document.getElementById(id));
+			window.getSelection().removeAllRanges();
+			window.getSelection().addRange(r);
+			document.execCommand('copy');
+			window.getSelection().removeAllRanges();
+		}
+	</script>
+	<link rel="stylesheet" id="divi-style-css"
+		href="https://mobility-lab.seas.ucla.edu/wp-content/themes/divi/style-static.min.css?ver=4.22.2" type="text/css"
+		media="all" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+	<script type="text/javascript">
+		document.documentElement.className += " js";
+	</script>
+
+	<script type="text/javascript">
+		var jQueryMigrateHelperHasSentDowngrade = false;
+
+		window.onerror = function (msg, url, line, col, error) {
+			// Break out early, do not processing if a downgrade reqeust was already sent.
+			if (jQueryMigrateHelperHasSentDowngrade) {
+				return true;
+			}
+
+			var xhr = new XMLHttpRequest();
+			var nonce = "40e1304f90";
+			var jQueryFunctions = [
+				"andSelf",
+				"browser",
+				"live",
+				"boxModel",
+				"support.boxModel",
+				"size",
+				"swap",
+				"clean",
+				"sub",
+			];
+			var match_pattern = /\)\.(.+?) is not a function/;
+			var erroredFunction = msg.match(match_pattern);
+
+			// If there was no matching functions, do not try to downgrade.
+			if (
+				null === erroredFunction ||
+				typeof erroredFunction !== "object" ||
+				typeof erroredFunction[1] === "undefined" ||
+				-1 === jQueryFunctions.indexOf(erroredFunction[1])
+			) {
+				return true;
+			}
+
+			// Set that we've now attempted a downgrade request.
+			jQueryMigrateHelperHasSentDowngrade = true;
+
+			xhr.open(
+				"POST",
+			);
+			xhr.setRequestHeader(
+				"Content-Type",
+				"application/x-www-form-urlencoded"
+			);
+			xhr.onload = function () {
+				var response,
+					reload = false;
+
+				if (200 === xhr.status) {
+					try {
+						response = JSON.parse(xhr.response);
+
+						reload = response.data.reload;
+					} catch (e) {
+						reload = false;
+					}
+				}
+
+				// Automatically reload the page if a deprecation caused an automatic downgrade, ensure visitors get the best possible experience.
+				if (reload) {
+					location.reload();
+				}
+			};
+
+			xhr.send(
+				encodeURI("action=jquery-migrate-downgrade-version&_wpnonce=" + nonce)
+			);
+
+			// Suppress error alerts in older browsers
+			return true;
+		};
+	</script>
+
+	<style type="text/css">
+		/* <![CDATA[ */
+		img.latex {
+			vertical-align: middle;
+			border: none;
+		}
+
+		/* ]]> */
+	</style>
+	<link rel="icon" href="./sources/rethinklab.png" sizes="32x32" />
+	<link rel="icon" href="./sources/rethinklab.png" sizes="192x192" />
+	<style id="et-divi-customizer-global-cached-inline-styles">
+		body {
+			color: #333333;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			color: #333333;
+		}
+
+		a {
+			color: #005587;
+		}
+
+		#main-header,
+		#main-header .nav li ul,
+		.et-search-form,
+		#main-header .et_mobile_menu {
+			background-color: #2774ae;
+		}
+
+		.nav li ul {
+			border-color: #ffc72c;
+		}
+
+		.et_secondary_nav_enabled #page-container #top-header {
+			background-color: #8bb8e8 !important;
+		}
+
+		#et-secondary-nav li ul {
+			background-color: #8bb8e8;
+		}
+
+		.et_header_style_centered .mobile_nav .select_page,
+		.et_header_style_split .mobile_nav .select_page,
+		.et_nav_text_color_light #top-menu>li>a,
+		.et_nav_text_color_dark #top-menu>li>a,
+		#top-menu a,
+		.et_mobile_menu li a,
+		.et_nav_text_color_light .et_mobile_menu li a,
+		.et_nav_text_color_dark .et_mobile_menu li a,
+		#et_search_icon:before,
+		.et_search_form_container input,
+		span.et_close_search_field:after,
+		#et-top-navigation .et-cart-info {
+			color: #ffffff;
+		}
+
+		.et_search_form_container input::-moz-placeholder {
+			color: #ffffff;
+		}
+
+		.et_search_form_container input::-webkit-input-placeholder {
+			color: #ffffff;
+		}
+
+		.et_search_form_container input:-ms-input-placeholder {
+			color: #ffffff;
+		}
+
+		#top-menu li a,
+		.et_search_form_container input {
+			font-weight: bold;
+			font-style: normal;
+			text-transform: none;
+			text-decoration: none;
+		}
+
+		.et_search_form_container input::-moz-placeholder {
+			font-weight: bold;
+			font-style: normal;
+			text-transform: none;
+			text-decoration: none;
+		}
+
+		.et_search_form_container input::-webkit-input-placeholder {
+			font-weight: bold;
+			font-style: normal;
+			text-transform: none;
+			text-decoration: none;
+		}
+
+		.et_search_form_container input:-ms-input-placeholder {
+			font-weight: bold;
+			font-style: normal;
+			text-transform: none;
+			text-decoration: none;
+		}
+
+		#top-menu li.current-menu-ancestor>a,
+		#top-menu li.current-menu-item>a,
+		#top-menu li.current_page_item>a {
+			color: #ffc72c;
+		}
+
+		#main-footer {
+			background-color: #bbcfe8;
+		}
+
+		#footer-widgets .footer-widget a,
+		#footer-widgets .footer-widget li a,
+		#footer-widgets .footer-widget li a:hover {
+			color: #005587;
+		}
+
+		.footer-widget {
+			color: #000000;
+		}
+
+		#main-footer .footer-widget h4,
+		#main-footer .widget_block h1,
+		#main-footer .widget_block h2,
+		#main-footer .widget_block h3,
+		#main-footer .widget_block h4,
+		#main-footer .widget_block h5,
+		#main-footer .widget_block h6 {
+			color: #000000;
+		}
+
+		.footer-widget li:before {
+			border-color: #ffffff;
+		}
+
+		#et-footer-nav {
+			background-color: #8bb8e8;
+		}
+
+		.bottom-nav,
+		.bottom-nav a,
+		.bottom-nav li.current-menu-item a {
+			color: #ffffff;
+		}
+
+		#et-footer-nav .bottom-nav li.current-menu-item a {
+			color: #ffc72c;
+		}
+
+		#footer-bottom {
+			background-color: #2774ae;
+		}
+
+		#footer-info,
+		#footer-info a {
+			color: #ffffff;
+		}
+
+		#footer-bottom .et-social-icon a {
+			color: #ffffff;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6,
+		.et_quote_content blockquote p,
+		.et_pb_slide_description .et_pb_slide_title {
+			font-weight: bold;
+			font-style: normal;
+			text-transform: none;
+			text-decoration: none;
+		}
+
+		@media only screen and (min-width: 981px) {
+
+			.et_header_style_left #et-top-navigation,
+			.et_header_style_split #et-top-navigation {
+				padding: 35px 0 0 0;
+			}
+
+			.et_header_style_left #et-top-navigation nav>ul>li>a,
+			.et_header_style_split #et-top-navigation nav>ul>li>a {
+				padding-bottom: 35px;
+			}
+
+			.et_header_style_split .centered-inline-logo-wrap {
+				width: 70px;
+				margin: -70px 0;
+			}
+
+			.et_header_style_split .centered-inline-logo-wrap #logo {
+				max-height: 70px;
+			}
+
+			.et_pb_svg_logo.et_header_style_split .centered-inline-logo-wrap #logo {
+				height: 70px;
+			}
+
+			.et_header_style_centered #top-menu>li>a {
+				padding-bottom: 13px;
+			}
+
+			.et_header_style_slide #et-top-navigation,
+			.et_header_style_fullscreen #et-top-navigation {
+				padding: 26px 0 26px 0 !important;
+			}
+
+			.et_header_style_centered #main-header .logo_container {
+				height: 70px;
+			}
+
+			#logo {
+				max-height: 70%;
+			}
+
+			.et_pb_svg_logo #logo {
+				height: 70%;
+			}
+
+			.et_header_style_centered.et_hide_primary_logo #main-header:not(.et-fixed-header) .logo_container,
+			.et_header_style_centered.et_hide_fixed_logo #main-header.et-fixed-header .logo_container {
+				height: 12.6px;
+			}
+
+			.et_header_style_left .et-fixed-header #et-top-navigation,
+			.et_header_style_split .et-fixed-header #et-top-navigation {
+				padding: 35px 0 0 0;
+			}
+
+			.et_header_style_left .et-fixed-header #et-top-navigation nav>ul>li>a,
+			.et_header_style_split .et-fixed-header #et-top-navigation nav>ul>li>a {
+				padding-bottom: 35px;
+			}
+
+			.et_header_style_centered header#main-header.et-fixed-header .logo_container {
+				height: 70px;
+			}
+
+			.et_header_style_split #main-header.et-fixed-header .centered-inline-logo-wrap {
+				width: 70px;
+				margin: -70px 0;
+			}
+
+			.et_header_style_split .et-fixed-header .centered-inline-logo-wrap #logo {
+				max-height: 70px;
+			}
+
+			.et_pb_svg_logo.et_header_style_split .et-fixed-header .centered-inline-logo-wrap #logo {
+				height: 70px;
+			}
+
+			.et_header_style_slide .et-fixed-header #et-top-navigation,
+			.et_header_style_fullscreen .et-fixed-header #et-top-navigation {
+				padding: 26px 0 26px 0 !important;
+			}
+
+			.et_fixed_nav #page-container .et-fixed-header#top-header {
+				background-color: #ffffff !important;
+			}
+
+			.et_fixed_nav #page-container .et-fixed-header#top-header #et-secondary-nav li ul {
+				background-color: #ffffff;
+			}
+
+			.et-fixed-header #top-menu a,
+			.et-fixed-header #et_search_icon:before,
+			.et-fixed-header #et_top_search .et-search-form input,
+			.et-fixed-header .et_search_form_container input,
+			.et-fixed-header .et_close_search_field:after,
+			.et-fixed-header #et-top-navigation .et-cart-info {
+				color: #ffffff !important;
+			}
+
+			.et-fixed-header .et_search_form_container input::-moz-placeholder {
+				color: #ffffff !important;
+			}
+
+			.et-fixed-header .et_search_form_container input::-webkit-input-placeholder {
+				color: #ffffff !important;
+			}
+
+			.et-fixed-header .et_search_form_container input:-ms-input-placeholder {
+				color: #ffffff !important;
+			}
+
+			.et-fixed-header #top-menu li.current-menu-ancestor>a,
+			.et-fixed-header #top-menu li.current-menu-item>a,
+			.et-fixed-header #top-menu li.current_page_item>a {
+				color: #ffc72c !important;
+			}
+
+			.et-fixed-header#top-header a {
+				color: #005587;
+			}
+		}
+
+		@media only screen and (min-width: 1350px) {
+			.et_pb_row {
+				padding: 27px 0;
+			}
+
+			.et_pb_section {
+				padding: 54px 0;
+			}
+
+			.single.et_pb_pagebuilder_layout.et_full_width_page .et_post_meta_wrapper {
+				padding-top: 81px;
+			}
+
+			.et_pb_fullwidth_section {
+				padding: 0;
+			}
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			font-family: "Open Sans", Helvetica, Arial, Lucida, sans-serif;
+		}
+
+		.entry-content ol,
+		.entry-content ul {
+			list-style-position: outside;
+			margin: 0 0 0 15px;
+		}
+
+		.entry-content ol li,
+		.entry-content ul li {
+			padding: 0 0 0 5px;
+		}
+
+		.nav li li {
+			line-height: 1.4em !important;
+		}
+	</style>
+	<style type="text/css">
+		#wp-admin-bar-abm-login {
+			display: block !important;
+		}
+
+		body .wp-video-shortcode video,
+		body video.wp-video-shortcode {
+			margin: 0;
+			padding: 0;
+			background: 0 0;
+			border: none;
+			box-shadow: none;
+			min-width: 0;
+			height: auto;
+			min-height: 0;
+		}
+
+		.screen-reader-text:not(button) {
+			clip: rect(1px, 1px, 1px, 1px);
+			position: absolute !important;
+			height: 1px;
+			width: 1px;
+			overflow: hidden;
+		}
+	</style>
+</head>
+
+<body
+	class="page-template page-template-page-template-blank page-template-page-template-blank-php page page-id-1577 et_pb_button_helper_class et_cover_background et_pb_gutter osx et_pb_gutters3 et_pb_pagebuilder_layout et_smooth_scroll et_no_sidebar et_divi_theme et-db">
+	<div id="page-container">
+		<div id="main-content">
+			<article id="post-1577" class="post-1577 page type-page status-publish hentry">
+				<div class="entry-content">
+					<div class="et-l et-l--post">
+						<div class="et_builder_inner_content et_pb_gutters3">
+							<div
+								class="et_pb_section et_pb_section_0 et_pb_with_background et_pb_fullwidth_section et_section_regular">
+								<section
+									class="et_pb_module et_pb_fullwidth_header et_pb_fullwidth_header_0 et_pb_section_video et_pb_preload et_pb_section_parallax et_pb_text_align_left et_pb_bg_layout_dark">
+									<span class="et_pb_section_video_bg et_pb_video_play_outside_viewport">
+									</span>
+									<div class="et_pb_fullwidth_header_container left">
+										<div class="header-content-container center">
+											<div class="header-content">
+												<div style="display: flex; align-items: center;">
+													<img src="./sources/Bench2Drive.png" alt="Logo" style="width: 200px; height: 115px; margin-left: 110px; margin-bottom: 45px" class="et_pb_module_header">
+													<h1>Bench2Drive</h1>
+												</div>
+												<span class="et_pb_fullwidth_header_subhead">
+													Towards Multi-Ability Benchmarking of Closed-Loop End-To-End Autonomous Driving
+												</span>
+												<div class="et_pb_header_content_wrapper"></div>
+											</div>
+										</div>
+									</div>
+									<div class="et_pb_fullwidth_header_overlay"></div>
+									<div class="et_pb_fullwidth_header_scroll"></div>
+								</section>
+							</div>
+							<div class="et_pb_section et_pb_section_1 et_pb_with_background et_section_regular">
+								<div class="et_pb_with_border et_pb_row et_pb_row_0 et_animated">
+									<div
+										class="et_pb_column et_pb_column_1_5 et_pb_column_0 et_pb_css_mix_blend_mode_passthrough">
+										<div
+											class="et_pb_button_module_wrapper et_pb_button_0_wrapper et_pb_button_alignment_right et_pb_module">
+											<a class="et_pb_button et_pb_button_0 et_pb_bg_layout_dark"
+												href="https://github.com/Thinklab-SJTU/Bench2Drive"
+												target="_blank">Github</a>
+										</div>
+									</div>
+									<div
+										class="et_pb_column et_pb_column_1_5 et_pb_column_1 et_pb_css_mix_blend_mode_passthrough">
+										<div
+											class="et_pb_button_module_wrapper et_pb_button_1_wrapper et_pb_button_alignment_right et_pb_module">
+											<a class="et_pb_button et_pb_button_1 et_pb_bg_layout_dark"
+												href="https://huggingface.co/datasets/rethinlab/Bench2Drive"
+												target="_blank">Dataset</a>
+										</div>
+									</div>
+									<div
+										class="et_pb_column et_pb_column_1_5 et_pb_column_2 et_pb_css_mix_blend_mode_passthrough">
+										<div
+											class="et_pb_button_module_wrapper et_pb_button_2_wrapper et_pb_button_alignment_center et_pb_module">
+											<a class="et_pb_button et_pb_button_2 et_pb_bg_layout_dark"
+												href="./index.html"
+												target="_blank">Models</a>
+										</div>
+									</div>
+									<div
+										class="et_pb_column et_pb_column_1_5 et_pb_column_3 et_pb_css_mix_blend_mode_passthrough">
+										<div
+											class="et_pb_button_module_wrapper et_pb_button_3_wrapper et_pb_button_alignment_left et_pb_module">
+											<a class="et_pb_button et_pb_button_3 et_pb_bg_layout_dark"
+												href="./index.html"
+												target="_blank">Tutorial</a>
+										</div>
+									</div>
+									<div
+										class="et_pb_column et_pb_column_1_5 et_pb_column_4 et_pb_css_mix_blend_mode_passthrough et-last-child">
+										<div
+											class="et_pb_button_module_wrapper et_pb_button_4_wrapper et_pb_button_alignment_left et_pb_module">
+											<a class="et_pb_button et_pb_button_4 et_pb_bg_layout_dark"
+												href="./index.html" target="_blank">Paper</a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="et_pb_section et_pb_section_2 et_pb_with_background et_section_regular">
+								<div class="et_pb_row et_pb_row_1">
+									<div>
+										<div
+											class="et_pb_module et_pb_text et_pb_text_1 et_pb_text_align_justified et_pb_bg_layout_dark">
+											<div class="et_pb_text_inner">
+												<p>
+												Bench2Drive, the first benchmark designed to rigorously evaluate E2E-AD systems under a closed-loop manner. 
+												Bench2Drive consists of 2 million fully annotated frames as official training data, collected from 10000 short 
+												clips uniformly distributed under 40 interactive scenarios (cut-in, overtaking, detour, etc), 
+												26 weathers (sunny, foggy, rainy, etc), and 12 towns (urban, village, university, etc) in CARLA v2. 
+												Its evaluation protocol requires E2E-AD models to pass those 40 interactive scenarios under different 
+												locations which sums up to XX routes and thus provide a comprehensive and disentangled assessment 
+												about their driving capability under different situations. We implement state-of-the-art E2E-AD models 
+												and evaluate them in Bench2Drive to provide more insights regarding current status of E2E-AD.
+												</p>
+												<p style="text-align: left">Key Features:</p>
+												<div>
+													<ul>
+														<li style="text-align: left">
+															Comprehensive Scenario Coverage, 100k clips, 40 scenarios, 26 weathers, 12 towns.
+														</li>
+														<li style="text-align: left">
+															Expert information, including intermediate feature, Reinforcement Learning reward/value and action.
+														</li>
+														<li style="text-align: left">
+															Multi sensors(camera, lidar, radar, etc) and Rich annotation information, including 2D/3D boxes, lane lines, semantic/instance segmentation, point cloud.
+														</li>
+														<li style="text-align: left">
+															Granular skill assessment and Closed-Loop evaluation protocol.
+														</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="et_pb_section et_pb_section_6 et_section_regular">
+								<div class="et_pb_row et_pb_row_10">
+									<div
+										class="et_pb_column et_pb_column_4_4 et_pb_column_22 et_pb_css_mix_blend_mode_passthrough et-last-child">
+										<div
+											class="et_pb_module et_pb_text et_pb_text_8 et_pb_text_align_left et_pb_bg_layout_light">
+											<div class="et_pb_text_inner">
+												<h1>What does Bench2Drive provide ?</h1>
+												<div></div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="et_pb_row et_pb_row_3">
+									<div
+										class="et_pb_column et_pb_column_4_4 et_pb_column_15 et_pb_css_mix_blend_mode_passthrough et-last-child">
+										<div class="et_pb_module et_pb_image et_pb_image_3 et_animated et-waypoint full-width-image">
+											<img decoding="async"
+													src="./sources/overview.jpg"
+													alt="" title="" />
+										</div>
+									</div>
+								</div>
+								<div></div>>
+								<div></div>>
+								<div class="et_pb_row et_pb_row_11">
+									<div
+										class="et_pb_column et_pb_column_4_4 et_pb_column_23 et_pb_css_mix_blend_mode_passthrough et-last-child">
+										<div class="et_pb_module et_pb_video_slider et_pb_video_slider_0">
+											<div
+												class="et_pb_slider et_pb_preload et_pb_slider_dots et_pb_controls_light">
+												<div class="et_pb_slides">
+													<div
+														class="et_pb_video_slider_item_0 et_pb_slide et_pb_bg_layout_dark">
+														<div class="et_pb_video_wrap">
+															<div class="et_pb_video_box">
+																<iframe width="1060" height="596" src="https://www.youtube.com/embed/-osdzJJs2g0?si=JMUmh_sXy6O_nE87" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+															</div>
+															<div style="background-image: url()"
+																class="et_pb_video_overlay et_multi_view_hidden">
+																<div class="et_pb_video_overlay_hover">
+																	<a href="#" class="et_pb_video_play"></a>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							<div class="et_pb_section et_pb_section_3 et_section_regular">
+								<div class="et_pb_row et_pb_row_5">
+									<div
+										class="et_pb_column et_pb_column_4_4 et_pb_column_14 et_pb_css_mix_blend_mode_passthrough et-last-child">
+										<div
+											class="et_pb_module et_pb_text et_pb_text_3 et_pb_text_align_center et_pb_bg_layout_light">
+											<div class="et_pb_text_inner">
+												<h2>Diverse Sensor Anno</h2>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="et_pb_row et_pb_row_3">
+									<div
+										class="et_pb_column et_pb_column_4_4 et_pb_column_15 et_pb_css_mix_blend_mode_passthrough et-last-child">
+										<div class="et_pb_module et_pb_image et_pb_image_3 et_animated et-waypoint full-width-image">
+											<img decoding="async"
+													src="./sources/anno.png"
+													alt="" title="" />
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="et_pb_section et_pb_section_3 et_section_regular">
+								<div class="et_pb_row et_pb_row_5">
+									<div
+										class="et_pb_column et_pb_column_4_4 et_pb_column_14 et_pb_css_mix_blend_mode_passthrough et-last-child">
+										<div
+											class="et_pb_module et_pb_text et_pb_text_3 et_pb_text_align_center et_pb_bg_layout_light">
+											<div class="et_pb_text_inner">
+												<h2>Diverse Scenes</h2>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="et_pb_row et_pb_row_3">
+									<div
+										class="et_pb_with_border et_pb_module et_pb_blurb et_pb_blurb_0 et_pb_text_align_center et_pb_blurb_position_top et_pb_bg_layout_light">
+										<div class="et_pb_main_blurb_image">
+											<span class="et_pb_image_wrap et_pb_only_image_mode_wrap">
+												<video loading="lazy" autoplay loop muted class="et-waypoint et_pb_animation_top et_pb_animation_top_tablet et_pb_animation_top_phone wp-image-1716">
+													<source src="./sources/vehicleopensdoor-top-down.mp4" type="video/mp4">
+												</video>
+											</span>
+										</div>
+											<div class="et_pb_blurb_container">
+												<div class="et_pb_blurb_description">
+													<p1 style="color:rgb(0, 0, 0);font-size:25px;font-family:'Gill Sans'">The vehicle in front suddenly opens its door, and the ego vehicle responds urgently and changes lanes.</p>
+												</div>
+											</div>
+									</div>
+								</div>
+								<div class="et_pb_row et_pb_row_3">
+										<div
+											class="et_pb_with_border et_pb_module et_pb_blurb et_pb_blurb_0 et_pb_text_align_center et_pb_blurb_position_top et_pb_bg_layout_light">
+											<div class="et_pb_main_blurb_image">
+												<span class="et_pb_image_wrap et_pb_only_image_mode_wrap">
+													<video loading="lazy" autoplay loop muted class="et-waypoint et_pb_animation_top et_pb_animation_top_tablet et_pb_animation_top_phone wp-image-1716">
+														<source src="./sources/parkingexit-top-down.mp4" type="video/mp4">
+													</video>
+												</span>
+											</div>
+												<div class="et_pb_blurb_container">
+													<div class="et_pb_blurb_description">
+														<p1 style="color:rgb(0, 0, 0);font-size:25px;font-family:'Gill Sans'">Starting from parking the car. (Parking Exit)</p>
+													</div>
+												</div>
+										</div>
+								</div>
+								<div class="et_pb_row et_pb_row_3">
+									<div
+										class="et_pb_with_border et_pb_module et_pb_blurb et_pb_blurb_0 et_pb_text_align_center et_pb_blurb_position_top et_pb_bg_layout_light">
+										<div class="et_pb_main_blurb_image">
+											<span class="et_pb_image_wrap et_pb_only_image_mode_wrap">
+												<video loading="lazy" autoplay loop muted class="et-waypoint et_pb_animation_top et_pb_animation_top_tablet et_pb_animation_top_phone wp-image-1716">
+													<source src="./sources/enter-actor-flow-top-down.mp4" type="video/mp4">
+												</video>
+											</span>
+										</div>
+											<div class="et_pb_blurb_container">
+												<div class="et_pb_blurb_description">
+													<p1 style="color:rgb(0, 0, 0);font-size:25px;font-family:'Gill Sans'">Ego car is waiting for another car to turn right at the intersection and enter the traffic flow.</p>
+												</div>
+											</div>
+									</div>
+								</div>
+								<div class="et_pb_row et_pb_row_3">
+									<div
+										class="et_pb_with_border et_pb_module et_pb_blurb et_pb_blurb_0 et_pb_text_align_center et_pb_blurb_position_top et_pb_bg_layout_light">
+											<div class="et_pb_main_blurb_image">
+												<span class="et_pb_image_wrap et_pb_only_image_mode_wrap">
+													<video loading="lazy" autoplay loop muted class="et-waypoint et_pb_animation_top et_pb_animation_top_tablet et_pb_animation_top_phone wp-image-1716">
+														<source src="./sources/construction-two-way-top-down.mp4" type="video/mp4">
+													</video>
+												</span>
+											</div>
+											<div class="et_pb_blurb_container">
+												<div class="et_pb_blurb_description">
+													<p1 style="color:rgb(0, 0, 0);font-size:25px;font-family:'Gill Sans'">When ego car encounters a construction on a two-way road, wait for other cars to pass and then quickly change lanes to pass.</p1>
+												</div>
+											</div>
+									</div>
+								</div>
+							</div>
+							<div class="et_pb_section et_pb_section_4 et_section_regular">
+								<div class="et_pb_row et_pb_row_5">
+									<div
+										class="et_pb_column et_pb_column_4_4 et_pb_column_14 et_pb_css_mix_blend_mode_passthrough et-last-child">
+										<div
+											class="et_pb_module et_pb_text et_pb_text_3 et_pb_text_align_center et_pb_bg_layout_light">
+											<div class="et_pb_text_inner">
+												<h2>Sensor Suites</h2>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="et_pb_row et_pb_row_6">
+									<div
+										class="et_pb_column et_pb_column_4_4 et_pb_column_15 et_pb_css_mix_blend_mode_passthrough et-last-child">
+										<div class="et_pb_module et_pb_image et_pb_image_3 et_animated et-waypoint full-width-image">
+											<img decoding="async"
+													src="./sources/sensor.png"
+													alt="" title="" />
+										</div>
+									</div>
+								</div>
+								<div class="et_pb_row et_pb_row_7">
+									<div
+										class="et_pb_column et_pb_column_1 et_pb_column_16 et_pb_css_mix_blend_mode_passthrough">
+										<div
+											class="et_pb_module et_pb_text et_pb_text_4 et_pb_text_align_left et_pb_bg_layout_light">
+											<div class="et_pb_text_inner">
+												<ul>
+													<li style="text-align: left">
+														<b>1x Lidar: </b>64 Channels, 85m range, 600,000
+														points per second, 10HZ
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div
+										class="et_pb_column et_pb_column_1 et_pb_column_16 et_pb_css_mix_blend_mode_passthrough">
+										<div
+											class="et_pb_module et_pb_text et_pb_text_5 et_pb_text_align_left et_pb_bg_layout_light">
+											<div class="et_pb_text_inner">
+												<ul>
+													<li style="text-align: left">
+														<b>6x Camera: </b>70 ◦ & 110 ◦ FOV, 1600&#215;900
+														Resolution
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div
+									class="et_pb_column et_pb_column_1 et_pb_column_16 et_pb_css_mix_blend_mode_passthrough">
+									<div
+										class="et_pb_module et_pb_text et_pb_text_5 et_pb_text_align_left et_pb_bg_layout_light">
+										<div class="et_pb_text_inner">
+											<ul>
+												<li style="text-align: left">
+													<b>5x Radar: </b>100m range, 30◦ horizontal FOV, -30◦ vertical FOV
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div
+									class="et_pb_column et_pb_column_1 et_pb_column_16 et_pb_css_mix_blend_mode_passthrough">
+									<div
+										class="et_pb_module et_pb_text et_pb_text_5 et_pb_text_align_left et_pb_bg_layout_light">
+										<div class="et_pb_text_inner">
+											<ul>
+												<li style="text-align: left">
+													<b>1x IMU&GNSS</b>
+												</li>
+											</ul>
+										</div>
+									</div>
+									</div>
+								</div>
+							</div>
+							</div>
+							<div class="et_pb_section et_pb_section_4 et_section_regular">
+								<div class="et_pb_row et_pb_row_5">
+									<div
+										class="et_pb_column et_pb_column_4_4 et_pb_column_14 et_pb_css_mix_blend_mode_passthrough et-last-child">
+										<div
+											class="et_pb_module et_pb_text et_pb_text_3 et_pb_text_align_center et_pb_bg_layout_light">
+											<div class="et_pb_text_inner">
+												<h2>Benchmark</h2>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="et_pb_row et_pb_row_10">
+									<div
+										class="et_pb_column et_pb_column_4_4 et_pb_column_22 et_pb_css_mix_blend_mode_passthrough et-last-child">
+										<div
+											class="et_pb_module et_pb_text et_pb_text_8 et_pb_text_align_left et_pb_bg_layout_light">
+											Coming soon!
+										</div>
+									</div>
+								</div>
+								</div>
+								</div>
+								</div>
+							</div>
+							<div class="et_pb_section et_pb_section_4 et_section_regular">
+								<div class="et_pb_row et_pb_row_5">
+									<div
+										class="et_pb_column et_pb_column_4_4 et_pb_column_14 et_pb_css_mix_blend_mode_passthrough et-last-child">
+										<div
+											class="et_pb_module et_pb_text et_pb_text_3 et_pb_text_align_center et_pb_bg_layout_light">
+											<div class="et_pb_text_inner">
+												<h2>About</h2>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="et_pb_row et_pb_row_10">
+									<div class="et_pb_column et_pb_column_4_4 et_pb_column_22 et_pb_css_mix_blend_mode_passthrough et-last-child">
+										<div class="column is-four-fifths">
+											<h2 class="title is-3">BibTeX
+												<a href="#" onclick="copyToClipboard('bibtex'); return false;" aria-label="Copy to clipboard">
+													<span class="icon"><i class="fa fa-copy" aria-hidden="true"></i></span>
+												</a>
+											</h2>
+										</div>
+										<div class="columns is-centered">
+<pre id="bibtex"><code>
+@article{jia2024bench,
+  title={Bench2Drive: Towards Multi-Ability Benchmarking of Closed-Loop End-To-End Autonomous Driving},
+  author={Xiaosong Jia and Zhenjie Yang and Qifeng Li and Zhiyuan Zhang and Jiazi Bu and Junchi Yan},
+  journal={\url{https://github.com/Thinklab-SJTU/Bench2Drive}},
+  year={2024}
+}</code></pre>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+							<div class="et_pb_section et_pb_section_7 et_pb_with_background et_section_regular">
+							<div class="et_pb_row et_pb_row_12">
+								<div
+									class="et_pb_column et_pb_column_4_4 et_pb_column_24 et_pb_css_mix_blend_mode_passthrough et-last-child">
+									<div
+										class="et_pb_module et_pb_text et_pb_text_9 et_pb_text_align_left et_pb_bg_layout_light">
+										<div class="et_pb_text_inner">
+											<div class="footer_text__3nbH8" style="text-align: center">
+												Copyright © 2024 SJTU ReThinkLab
+											</div>
+											<div class="footer_text__3nbH8" style="text-align: center">
+												All Rights Reserved
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
+				</div>
+			</article>
+		</div>
+
+		<span class="et_pb_scroll_top et-pb-icon"></span>
+	</div>
+
+	<script type="text/javascript">
+		var et_animation_data = [
+			{
+				class: "et_pb_row_0",
+				style: "foldTop",
+				repeat: "once",
+				duration: "1000ms",
+				delay: "0ms",
+				intensity: "50%",
+				starting_opacity: "0%",
+				speed_curve: "ease-in-out",
+			},
+			{
+				class: "et_pb_image_3",
+				style: "slideRight",
+				repeat: "once",
+				duration: "600ms",
+				delay: "0ms",
+				intensity: "50%",
+				starting_opacity: "0%",
+				speed_curve: "ease-in-out",
+			},
+		];
+	</script>
+	<style id="et-builder-googlefonts-inline">
+		/* Original: https://fonts.googleapis.com/css?family=Open+Sans:300,regular,500,600,700,800,300italic,italic,500italic,600italic,700italic,800italic|ABeeZee:regular,italic|Cabin:regular,500,600,700,italic,500italic,600italic,700italic|Archivo+Black:regular|Share+Tech:regular&#038;subset=latin,latin-ext&#038;display=swap */
+		/* User Agent: Mozilla/5.0 (Unknown; Linux x86_64) AppleWebKit/538.1 (KHTML, like Gecko) Safari/538.1 Daum/4.1 */
+		@font-face {
+			font-family: "ABeeZee";
+			font-style: italic;
+			font-weight: 400;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/abeezee/v22/esDT31xSG-6AGleN2tCUnJ8G.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "ABeeZee";
+			font-style: normal;
+			font-weight: 400;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/abeezee/v22/esDR31xSG-6AGleN2tuklQ.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Archivo Black";
+			font-style: normal;
+			font-weight: 400;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/archivoblack/v21/HTxqL289NzCGg4MzN6KJ7eW6CYKF-w.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: italic;
+			font-weight: 400;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4V0qWljRw-Pd815fNqc8T_wAFcX-c37MPiNYlWniJ2hJXHx_KVy0bq.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: italic;
+			font-weight: 500;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4V0qWljRw-Pd815fNqc8T_wAFcX-c37MPiNYlWniJ2hJXH9fKVy0bq.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: italic;
+			font-weight: 600;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4V0qWljRw-Pd815fNqc8T_wAFcX-c37MPiNYlWniJ2hJXHGfWVy0bq.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: italic;
+			font-weight: 700;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4V0qWljRw-Pd815fNqc8T_wAFcX-c37MPiNYlWniJ2hJXHIPWVy0bq.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: normal;
+			font-weight: 400;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4X0qWljRw-PfU81xCKCpdpbgZJl6XFpfEd7eA9BIxxkV2EH7ilwg.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: normal;
+			font-weight: 500;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4X0qWljRw-PfU81xCKCpdpbgZJl6XFpfEd7eA9BIxxkW-EH7ilwg.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: normal;
+			font-weight: 600;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4X0qWljRw-PfU81xCKCpdpbgZJl6XFpfEd7eA9BIxxkYODH7ilwg.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: normal;
+			font-weight: 700;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4X0qWljRw-PfU81xCKCpdpbgZJl6XFpfEd7eA9BIxxkbqDH7ilwg.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: italic;
+			font-weight: 300;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk5hkWV4exQ.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: italic;
+			font-weight: 400;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk8ZkWV4exQ.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: italic;
+			font-weight: 500;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk_RkWV4exQ.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: italic;
+			font-weight: 600;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkxhjWV4exQ.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: italic;
+			font-weight: 700;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkyFjWV4exQ.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: italic;
+			font-weight: 800;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk0ZjWV4exQ.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: normal;
+			font-weight: 300;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsiH0B4uaVc.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: normal;
+			font-weight: 400;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4uaVc.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: normal;
+			font-weight: 500;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjr0B4uaVc.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: normal;
+			font-weight: 600;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsgH1x4uaVc.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: normal;
+			font-weight: 700;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsg-1x4uaVc.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: normal;
+			font-weight: 800;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgshZ1x4uaVc.ttf) format("truetype");
+		}
+
+		@font-face {
+			font-family: "Share Tech";
+			font-style: normal;
+			font-weight: 400;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/sharetech/v21/7cHtv4Uyi5K0OeZ7bohU8H0JnQ.ttf) format("truetype");
+		}
+
+		/* User Agent: Mozilla/5.0 (Windows NT 6.1; WOW64; rv:27.0) Gecko/20100101 Firefox/27.0 */
+		@font-face {
+			font-family: "ABeeZee";
+			font-style: italic;
+			font-weight: 400;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/abeezee/v22/esDT31xSG-6AGleN2tCUnJ8F.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "ABeeZee";
+			font-style: normal;
+			font-weight: 400;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/abeezee/v22/esDR31xSG-6AGleN2tuklg.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Archivo Black";
+			font-style: normal;
+			font-weight: 400;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/archivoblack/v21/HTxqL289NzCGg4MzN6KJ7eW6CYKF-A.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: italic;
+			font-weight: 400;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4V0qWljRw-Pd815fNqc8T_wAFcX-c37MPiNYlWniJ2hJXHx_KVy0bp.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: italic;
+			font-weight: 500;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4V0qWljRw-Pd815fNqc8T_wAFcX-c37MPiNYlWniJ2hJXH9fKVy0bp.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: italic;
+			font-weight: 600;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4V0qWljRw-Pd815fNqc8T_wAFcX-c37MPiNYlWniJ2hJXHGfWVy0bp.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: italic;
+			font-weight: 700;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4V0qWljRw-Pd815fNqc8T_wAFcX-c37MPiNYlWniJ2hJXHIPWVy0bp.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: normal;
+			font-weight: 400;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4X0qWljRw-PfU81xCKCpdpbgZJl6XFpfEd7eA9BIxxkV2EH7ilwQ.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: normal;
+			font-weight: 500;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4X0qWljRw-PfU81xCKCpdpbgZJl6XFpfEd7eA9BIxxkW-EH7ilwQ.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: normal;
+			font-weight: 600;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4X0qWljRw-PfU81xCKCpdpbgZJl6XFpfEd7eA9BIxxkYODH7ilwQ.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: normal;
+			font-weight: 700;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4X0qWljRw-PfU81xCKCpdpbgZJl6XFpfEd7eA9BIxxkbqDH7ilwQ.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: italic;
+			font-weight: 300;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk5hkWV4exg.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: italic;
+			font-weight: 400;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk8ZkWV4exg.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: italic;
+			font-weight: 500;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk_RkWV4exg.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: italic;
+			font-weight: 600;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkxhjWV4exg.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: italic;
+			font-weight: 700;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkyFjWV4exg.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: italic;
+			font-weight: 800;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk0ZjWV4exg.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: normal;
+			font-weight: 300;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsiH0B4uaVQ.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: normal;
+			font-weight: 400;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4uaVQ.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: normal;
+			font-weight: 500;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjr0B4uaVQ.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: normal;
+			font-weight: 600;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsgH1x4uaVQ.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: normal;
+			font-weight: 700;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsg-1x4uaVQ.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: normal;
+			font-weight: 800;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgshZ1x4uaVQ.woff) format("woff");
+		}
+
+		@font-face {
+			font-family: "Share Tech";
+			font-style: normal;
+			font-weight: 400;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/sharetech/v21/7cHtv4Uyi5K0OeZ7bohU8H0Jng.woff) format("woff");
+		}
+
+		/* User Agent: Mozilla/5.0 (Windows NT 6.3; rv:39.0) Gecko/20100101 Firefox/39.0 */
+		@font-face {
+			font-family: "ABeeZee";
+			font-style: italic;
+			font-weight: 400;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/abeezee/v22/esDT31xSG-6AGleN2tCUnJ8D.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "ABeeZee";
+			font-style: normal;
+			font-weight: 400;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/abeezee/v22/esDR31xSG-6AGleN2tukkA.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Archivo Black";
+			font-style: normal;
+			font-weight: 400;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/archivoblack/v21/HTxqL289NzCGg4MzN6KJ7eW6CYKF_g.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: italic;
+			font-weight: 400;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4V0qWljRw-Pd815fNqc8T_wAFcX-c37MPiNYlWniJ2hJXHx_KVy0bv.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: italic;
+			font-weight: 500;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4V0qWljRw-Pd815fNqc8T_wAFcX-c37MPiNYlWniJ2hJXH9fKVy0bv.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: italic;
+			font-weight: 600;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4V0qWljRw-Pd815fNqc8T_wAFcX-c37MPiNYlWniJ2hJXHGfWVy0bv.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: italic;
+			font-weight: 700;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4V0qWljRw-Pd815fNqc8T_wAFcX-c37MPiNYlWniJ2hJXHIPWVy0bv.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: normal;
+			font-weight: 400;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4X0qWljRw-PfU81xCKCpdpbgZJl6XFpfEd7eA9BIxxkV2EH7ilxw.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: normal;
+			font-weight: 500;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4X0qWljRw-PfU81xCKCpdpbgZJl6XFpfEd7eA9BIxxkW-EH7ilxw.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: normal;
+			font-weight: 600;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4X0qWljRw-PfU81xCKCpdpbgZJl6XFpfEd7eA9BIxxkYODH7ilxw.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Cabin";
+			font-style: normal;
+			font-weight: 700;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/cabin/v27/u-4X0qWljRw-PfU81xCKCpdpbgZJl6XFpfEd7eA9BIxxkbqDH7ilxw.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: italic;
+			font-weight: 300;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk5hkWV4ewA.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: italic;
+			font-weight: 400;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk8ZkWV4ewA.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: italic;
+			font-weight: 500;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk_RkWV4ewA.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: italic;
+			font-weight: 600;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkxhjWV4ewA.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: italic;
+			font-weight: 700;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkyFjWV4ewA.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: italic;
+			font-weight: 800;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk0ZjWV4ewA.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: normal;
+			font-weight: 300;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsiH0B4uaVI.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: normal;
+			font-weight: 400;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4uaVI.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: normal;
+			font-weight: 500;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjr0B4uaVI.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: normal;
+			font-weight: 600;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsgH1x4uaVI.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: normal;
+			font-weight: 700;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsg-1x4uaVI.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Open Sans";
+			font-style: normal;
+			font-weight: 800;
+			font-stretch: normal;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgshZ1x4uaVI.woff2) format("woff2");
+		}
+
+		@font-face {
+			font-family: "Share Tech";
+			font-style: normal;
+			font-weight: 400;
+			font-display: swap;
+			src: url(https://fonts.gstatic.com/s/sharetech/v21/7cHtv4Uyi5K0OeZ7bohU8H0JmA.woff2) format("woff2");
+		}
+	</style>
+	<script type="text/javascript">
+		jQuery(document).ready(function ($) {
+			jQuery(".et-social-icon a").attr("target", "blank");
+			jQuery("ul.et_pb_member_social_links li a.et_pb_font_icon").attr(
+				"target",
+				"blank"
+			);
+		});
+	</script>
+	<script type="text/javascript"
+		src="https://mobility-lab.seas.ucla.edu/wp-includes/js/jquery/jquery.min.js?ver=3.7.1"
+		id="jquery-core-js"></script>
+	<script type="text/javascript" id="jquery-js-after">
+		/* <![CDATA[ */
+		jqueryParams.length &&
+			$.each(jqueryParams, function (e, r) {
+				if ("function" == typeof r) {
+					var n = String(r);
+					n.replace("$", "jQuery");
+					var a = new Function("return " + n)();
+					$(document).ready(a);
+				}
+			});
+      /* ]]> */
+	</script>
+	<script type="text/javascript" id="awsm-ead-plus-public-js-extra">
+		/* <![CDATA[ */
+		var eadPublic = { pdfjs: "" };
+      /* ]]> */
+	</script>
+	<script type="text/javascript" id="blog_templates_front-js-extra">
+		/* <![CDATA[ */
+		var blog_templates_params = { type: "" };
+      /* ]]> */
+	</script>
+	<script type="text/javascript" id="divi-custom-script-js-extra">
+		/* <![CDATA[ */
+		var DIVI = { item_count: "%d Item", items_count: "%d Items" };
+		var et_builder_utils_params = {
+			condition: { diviTheme: true, extraTheme: false },
+			scrollLocations: ["app", "top"],
+			builderScrollLocations: { desktop: "app", tablet: "app", phone: "app" },
+			onloadScrollLocation: "app",
+			builderType: "fe",
+		};
+		var et_frontend_scripts = {
+			builderCssContainerPrefix: "#et-boc",
+			builderCssLayoutPrefix: "#et-boc .et-l",
+		};
+		var et_pb_custom = {
+			et_frontend_nonce: "01ce4a5b00",
+			subscription_failed:
+				"Please, check the fields below to make sure you entered the correct information.",
+			et_ab_log_nonce: "d8e5e4bb95",
+			fill_message: "Please, fill in the following fields:",
+			contact_error_message: "Please, fix the following errors:",
+			invalid: "Invalid email",
+			captcha: "Captcha",
+			prev: "Prev",
+			previous: "Previous",
+			next: "Next",
+			wrong_captcha: "You entered the wrong number in captcha.",
+			wrong_checkbox: "Checkbox",
+			ignore_waypoints: "no",
+			is_divi_theme_used: "1",
+			widget_search_selector: ".widget_search",
+			ab_tests: [],
+			is_ab_testing_active: "",
+			page_id: "1577",
+			unique_test_id: "",
+			ab_bounce_rate: "5",
+			is_cache_plugin_active: "yes",
+			is_shortcode_tracking: "",
+			accent_color: "#7EBEC5",
+			waypoints_options: [],
+		};
+		var et_pb_box_shadow_elements = [];
+      /* ]]> */
+	</script>
+	<script type="text/javascript"
+		src="https://mobility-lab.seas.ucla.edu/wp-content/themes/divi/js/scripts.min.js?ver=4.22.2"
+		id="divi-custom-script-js"></script>
+	<script type="text/javascript" id="divi-accessibility-da11y-js-extra">
+		/* <![CDATA[ */
+		var _da11y = {
+			version: "2.0.5",
+			active_outline_color: "#2ea3f2",
+			skip_navigation_link_text: "Skip to content",
+		};
+      /* ]]> */
+	</script>
+	<script type="text/javascript"
+		src="https://mobility-lab.seas.ucla.edu/wp-includes/js/mediaelement/mediaelement-and-player.min.js?ver=4.2.17"
+		id="mediaelement-core-js"></script>
+	<script type="text/javascript" id="mediaelement-js-extra">
+		/* <![CDATA[ */
+		var _wpmejsSettings = {
+			pluginPath: "https\/wp-includes\/js\/mediaelement\/",
+			classPrefix: "mejs-",
+			stretching: "responsive",
+			audioShortcodeLibrary: "mediaelement",
+			videoShortcodeLibrary: "mediaelement",
+		};
+      /* ]]> */
+	</script>
+	<style id="et-builder-module-design-1577-cached-inline-styles">
+		.et_divi_builder #et_builder_outer_content .et_pb_module.et_pb_text ul,
+		.et_divi_builder #et_builder_outer_content .et_pb_module.et_pb_text ol {
+			padding: 0 0 23px 16px;
+		}
+
+		.et_divi_builder #et_builder_outer_content .et_pb_module.et_pb_text ul li {
+			list-style-type: disc;
+		}
+
+		.et_divi_builder #et_builder_outer_content .et_pb_module.et_pb_text ol li {
+			list-style-type: decimal;
+		}
+
+		.et_pb_section_0.et_pb_section,
+		.et_pb_section_7.et_pb_section {
+			background-color: #000000 !important;
+		}
+
+		.et_pb_fullwidth_header_0.et_pb_fullwidth_header .header-content h1,
+		.et_pb_fullwidth_header_0.et_pb_fullwidth_header .header-content h2.et_pb_module_header,
+		.et_pb_fullwidth_header_0.et_pb_fullwidth_header .header-content h3.et_pb_module_header,
+		.et_pb_fullwidth_header_0.et_pb_fullwidth_header .header-content h4.et_pb_module_header,
+		.et_pb_fullwidth_header_0.et_pb_fullwidth_header .header-content h5.et_pb_module_header,
+		.et_pb_fullwidth_header_0.et_pb_fullwidth_header .header-content h6.et_pb_module_header {
+			font-family: "ABeeZee", Helvetica, Arial, Lucida, sans-serif;
+			font-size: 100px;
+			line-height: 2em;
+			text-align: center;
+			text-shadow: 0em 0.1em 0.1em rgba(0, 0, 0, 0.4);
+		}
+
+		.et_pb_fullwidth_header_0.et_pb_fullwidth_header .et_pb_fullwidth_header_subhead {
+			font-family: "ABeeZee", Helvetica, Arial, Lucida, sans-serif;
+			font-size: 36px;
+			letter-spacing: 1px;
+			line-height: 1.3em;
+			text-align: center;
+		}
+
+		.et_pb_fullwidth_header_0 .header-content {
+			text-shadow: 0.01em 0.01em 0.3em rgba(0, 0, 0, 0.4);
+		}
+
+		.et_pb_fullwidth_header.et_pb_fullwidth_header_0 {
+			background-color: #000000;
+		}
+
+		.et_pb_fullwidth_header_0 {
+			min-height: 416px;
+			padding-top: 80px;
+			padding-bottom: 159px;
+			padding-left: 1px;
+		}
+
+		.et_pb_section_1.et_pb_section {
+			padding-top: 0px;
+			padding-bottom: 1px;
+			background-color: #000000 !important;
+		}
+
+		.et_pb_row_0 {
+			background-color: #000000;
+			border-radius: 0 0 0 0;
+			overflow: hidden;
+			border-top-width: 2px;
+			border-bottom-width: 1px;
+			border-bottom-color: #ffffff;
+			min-height: 78.2px;
+		}
+
+		.et_pb_row_0.et_pb_row {
+			padding-top: 23px !important;
+			padding-bottom: 4px !important;
+			margin-right: auto !important;
+			margin-bottom: 5px !important;
+			margin-left: auto !important;
+			padding-top: 23px;
+			padding-bottom: 4px;
+		}
+
+		.et_pb_button_0_wrapper,
+		.et_pb_button_1_wrapper,
+		.et_pb_button_2_wrapper,
+		.et_pb_button_3_wrapper,
+		.et_pb_button_4_wrapper {
+			margin-top: -11px !important;
+		}
+
+		body #page-container .et_pb_section .et_pb_button_0,
+		body #page-container .et_pb_section .et_pb_button_1,
+		body #page-container .et_pb_section .et_pb_button_2,
+		body #page-container .et_pb_section .et_pb_button_3,
+		body #page-container .et_pb_section .et_pb_button_4 {
+			color: #ffffff !important;
+			border-width: 0px !important;
+			border-radius: 0px;
+			letter-spacing: 2px;
+			font-size: 22px;
+			font-family: "Cabin", Helvetica, Arial, Lucida, sans-serif !important;
+			font-variant: small-caps !important;
+		}
+
+		body #page-container .et_pb_section .et_pb_button_0,
+		body #page-container .et_pb_section .et_pb_button_0:hover,
+		body #page-container .et_pb_section .et_pb_button_1,
+		body #page-container .et_pb_section .et_pb_button_1:hover,
+		body #page-container .et_pb_section .et_pb_button_2,
+		body #page-container .et_pb_section .et_pb_button_2:hover,
+		body #page-container .et_pb_section .et_pb_button_3,
+		body #page-container .et_pb_section .et_pb_button_3:hover,
+		body #page-container .et_pb_section .et_pb_button_4,
+		body #page-container .et_pb_section .et_pb_button_4:hover {
+			padding: 0.3em 1em !important;
+		}
+
+		body #page-container .et_pb_section .et_pb_button_0:before,
+		body #page-container .et_pb_section .et_pb_button_0:after,
+		body #page-container .et_pb_section .et_pb_button_1:before,
+		body #page-container .et_pb_section .et_pb_button_1:after,
+		body #page-container .et_pb_section .et_pb_button_2:before,
+		body #page-container .et_pb_section .et_pb_button_2:after,
+		body #page-container .et_pb_section .et_pb_button_3:before,
+		body #page-container .et_pb_section .et_pb_button_3:after,
+		body #page-container .et_pb_section .et_pb_button_4:before,
+		body #page-container .et_pb_section .et_pb_button_4:after {
+			display: none !important;
+		}
+
+		.et_pb_button_0,
+		.et_pb_button_0:after,
+		.et_pb_button_1,
+		.et_pb_button_1:after,
+		.et_pb_button_2,
+		.et_pb_button_2:after,
+		.et_pb_button_3,
+		.et_pb_button_3:after,
+		.et_pb_button_4,
+		.et_pb_button_4:after {
+			transition: all 300ms ease 0ms;
+		}
+
+		.et_pb_section_2.et_pb_section {
+			padding-top: 19px;
+			padding-bottom: 46px;
+			background-color: rgba(0, 0, 0, 0.97) !important;
+		}
+
+		.et_pb_row_1,
+		.et_pb_video_slider_0 .et_pb_carousel_item .et_pb_video_overlay_hover:hover,
+		.et_pb_video_slider_0.et_pb_video_slider .et_pb_slider:hover .et_pb_video_overlay_hover,
+		.et_pb_video_slider_0 .et_pb_carousel_item.et-pb-active-control .et_pb_video_overlay_hover {
+			background-color: RGBA(0, 0, 0, 0);
+		}
+
+		.et_pb_text_0.et_pb_text,
+		.et_pb_text_0 h3,
+		.et_pb_text_1.et_pb_text,
+		.et_pb_text_7.et_pb_text,
+		.et_pb_text_9.et_pb_text,
+		.et_pb_video_slider_item_0.et_pb_slide .et_pb_video_play,
+		.et_pb_video_slider_0 .et_pb_video_play,
+		.et_pb_video_slider_0 .et_pb_carousel .et_pb_video_play {
+			color: #ffffff !important;
+		}
+
+		.et_pb_text_0 {
+			font-family: "Archivo Black", Helvetica, Arial, Lucida, sans-serif;
+			background-color: RGBA(0, 0, 0, 0);
+			border-color: RGBA(0, 0, 0, 0);
+		}
+
+		.et_pb_text_0 h1 {
+			font-family: "Share Tech", Helvetica, Arial, Lucida, sans-serif;
+			font-size: 48px;
+			line-height: 1.4em;
+			text-align: left;
+		}
+
+		.et_pb_text_1 {
+			line-height: 1.8em;
+			font-family: "Cabin", Helvetica, Arial, Lucida, sans-serif;
+			font-size: 20px;
+			line-height: 1.8em;
+			margin-bottom: 0px !important;
+		}
+
+		.et_pb_text_1 ul li {
+			line-height: 1.8em;
+			font-family: "Cabin", Helvetica, Arial, Lucida, sans-serif;
+			font-size: 20px;
+			line-height: 1.8em;
+			text-align: justify;
+		}
+
+		.et_pb_text_1 ul {
+			list-style-type: square !important;
+			padding-left: 5px !important;
+		}
+
+		.et_pb_image_0 {
+			background-color: RGBA(0, 0, 0, 0);
+			width: 90%;
+			text-align: left;
+			margin-left: 0;
+		}
+
+		.et_pb_image_1 {
+			background-color: RGBA(0, 0, 0, 0);
+			margin-top: -99px !important;
+			width: 90%;
+			text-align: right;
+			margin-right: 0;
+		}
+
+		.et_pb_image_2 {
+			background-color: RGBA(0, 0, 0, 0);
+			margin-top: -134px !important;
+			width: 90%;
+			text-align: center;
+		}
+
+		.et_pb_text_2 {
+			font-family: "Archivo Black", Helvetica, Arial, Lucida, sans-serif;
+		}
+
+		.et_pb_text_2 h1,
+		.et_pb_text_8 h1 {
+			font-family: "Share Tech", Helvetica, Arial, Lucida, sans-serif;
+			font-size: 48px;
+			line-height: 1.4em;
+			text-align: center;
+		}
+
+		.et_pb_text_2 h2 {
+			font-family: "Share Tech", Helvetica, Arial, Lucida, sans-serif;
+			text-transform: uppercase;
+			color: #000000 !important;
+			text-align: center;
+		}
+
+		.et_pb_blurb_0.et_pb_blurb .et_pb_blurb_description {
+			text-align: center;
+		}
+
+		.et_pb_blurb_0.et_pb_blurb,
+		.et_pb_blurb_1.et_pb_blurb,
+		.et_pb_blurb_2.et_pb_blurb,
+		.et_pb_blurb_3.et_pb_blurb,
+		.et_pb_blurb_4.et_pb_blurb,
+		.et_pb_blurb_5.et_pb_blurb {
+			font-family: "Cabin", Helvetica, Arial, Lucida, sans-serif;
+			font-size: 18px;
+		}
+
+		.et_pb_blurb_0 .et_pb_main_blurb_image .et_pb_only_image_mode_wrap,
+		.et_pb_blurb_0 .et_pb_main_blurb_image .et-pb-icon,
+		.et_pb_blurb_2 .et_pb_main_blurb_image .et_pb_only_image_mode_wrap,
+		.et_pb_blurb_2 .et_pb_main_blurb_image .et-pb-icon,
+		.et_pb_blurb_3 .et_pb_main_blurb_image .et_pb_only_image_mode_wrap,
+		.et_pb_blurb_3 .et_pb_main_blurb_image .et-pb-icon {
+			border-radius: 20px 20px 20px 20px;
+			overflow: hidden;
+			border-color: RGBA(0, 0, 0, 0);
+		}
+
+		.et_pb_blurb_0 .et_pb_main_blurb_image .et_pb_image_wrap,
+		.et_pb_blurb_1 .et_pb_main_blurb_image .et_pb_image_wrap,
+		.et_pb_blurb_2 .et_pb_main_blurb_image .et_pb_image_wrap,
+		.et_pb_blurb_3 .et_pb_main_blurb_image .et_pb_image_wrap,
+		.et_pb_blurb_4 .et_pb_main_blurb_image .et_pb_image_wrap,
+		.et_pb_blurb_5 .et_pb_main_blurb_image .et_pb_image_wrap {
+			box-shadow: 0px 2px 18px 0px #8bb8e8;
+		}
+
+		.et_pb_blurb_1 .et_pb_main_blurb_image .et_pb_only_image_mode_wrap,
+		.et_pb_blurb_1 .et_pb_main_blurb_image .et-pb-icon,
+		.et_pb_blurb_4 .et_pb_main_blurb_image .et_pb_only_image_mode_wrap,
+		.et_pb_blurb_4 .et_pb_main_blurb_image .et-pb-icon,
+		.et_pb_blurb_5 .et_pb_main_blurb_image .et_pb_only_image_mode_wrap,
+		.et_pb_blurb_5 .et_pb_main_blurb_image .et-pb-icon,
+		.et_pb_video_slider.et_pb_video_slider_0 .et_pb_slider,
+		.et_pb_video_slider.et_pb_video_slider_0 .et_pb_carousel_item {
+			border-radius: 20px 20px 20px 20px;
+			overflow: hidden;
+		}
+
+		.et_pb_section_4.et_pb_section {
+			padding-top: 0px;
+			padding-right: 0px;
+			padding-bottom: 11px;
+			padding-left: 0px;
+		}
+
+		.et_pb_text_3.et_pb_text {
+			color: rgba(0, 0, 0, 0.02) !important;
+		}
+
+		.et_pb_text_3 {
+			line-height: 0.2em;
+			font-family: "Share Tech", Helvetica, Arial, Lucida, sans-serif;
+			font-size: 100px;
+			line-height: 0.2em;
+			background-image: linear-gradient(273deg, #000000 57%, #ffffff 100%);
+			background-color: #000000;
+			border-radius: 0 50px 50px 0;
+			overflow: hidden;
+			padding-top: 16px !important;
+			margin-bottom: 30px !important;
+			margin-left: -155px !important;
+		}
+
+		.et_pb_text_3 h2 {
+			font-family: "Share Tech", Helvetica, Arial, Lucida, sans-serif;
+			font-size: 48px;
+			color: #ffffff !important;
+			line-height: 1.4em;
+		}
+
+		.et_pb_row_6.et_pb_row {
+			margin-top: -53px !important;
+			margin-right: auto !important;
+			margin-left: auto !important;
+		}
+
+		.et_pb_image_3 {
+			padding-top: 0px;
+			width: 70%;
+			text-align: center;
+		}
+
+		.et_pb_row_7.et_pb_row {
+			margin-right: auto !important;
+			margin-bottom: 17px !important;
+			margin-left: auto !important;
+		}
+
+		.et_pb_text_4 ul li,
+		.et_pb_text_5 ul li,
+		.et_pb_text_6 ul li {
+			font-family: "Cabin", Helvetica, Arial, Lucida, sans-serif;
+			font-size: 16px;
+		}
+
+		.et_pb_text_4 ul,
+		.et_pb_text_5 ul,
+		.et_pb_text_6 ul {
+			list-style-type: square !important;
+		}
+
+		.et_pb_section_5.et_pb_section {
+			padding-top: 1px;
+			padding-bottom: 100px;
+			background-color: #000000 !important;
+		}
+
+		.et_pb_row_8 {
+			min-height: 249.4px;
+		}
+
+		.et_pb_text_7 {
+			line-height: 1.8em;
+			font-family: "Cabin", Helvetica, Arial, Lucida, sans-serif;
+			font-size: 18px;
+			line-height: 1.8em;
+			padding-top: 35px !important;
+			padding-bottom: 27px !important;
+			margin-top: 7px !important;
+		}
+
+		.et_pb_text_7 h1 {
+			font-family: "Share Tech", Helvetica, Arial, Lucida, sans-serif;
+			font-size: 48px;
+			color: #ffffff !important;
+			line-height: 1.7em;
+		}
+
+		.et_pb_row_9 {
+			background-color: #ffffff;
+			border-radius: 25px 25px 25px 25px;
+			overflow: hidden;
+			border-width: 3px;
+			border-style: outset;
+			border-color: #8bb8e8;
+			box-shadow: 0px 2px 18px 0px rgba(0, 0, 0, 0.3);
+		}
+
+		.et_pb_row_9.et_pb_row {
+			padding-top: 40px !important;
+			padding-right: 40px !important;
+			padding-bottom: 40px !important;
+			padding-left: 40px !important;
+			margin-top: 58px !important;
+			margin-right: auto !important;
+			margin-left: auto !important;
+			padding-top: 40px;
+			padding-right: 40px;
+			padding-bottom: 40px;
+			padding-left: 40px;
+		}
+
+		.et_pb_image_4 {
+			padding-left: 1px;
+			margin-right: -6px !important;
+			text-align: right;
+			margin-right: 0;
+		}
+
+		.et_pb_image_5 {
+			margin-top: -18px !important;
+			width: 65%;
+			text-align: center;
+		}
+
+		.et_pb_text_8 {
+			line-height: 1.8em;
+			font-family: "Cabin", Helvetica, Arial, Lucida, sans-serif;
+			font-size: 18px;
+			line-height: 1.8em;
+		}
+
+		.et_pb_row_11.et_pb_row {
+			margin-top: -51px !important;
+			margin-right: auto !important;
+			margin-left: auto !important;
+		}
+
+		.et_pb_video_slider .et_pb_video_slider_item_0.et_pb_slide .et_pb_video_wrap .et_pb_video_overlay .et_pb_video_play {
+			font-size: 120px;
+			line-height: 120px;
+			margin-top: -60px;
+			margin-left: -60px;
+		}
+
+		.et_pb_video_slider.et_pb_video_slider_0 {
+			padding-left: 0px;
+			margin-left: -29px !important;
+		}
+
+		.et_pb_video_slider_0 {
+			width: 99.5%;
+		}
+
+		div.et_pb_section.et_pb_section_7 {
+			background-image: radial-gradient(circle at top,
+					#000000 51%,
+					#ffffff 100%) !important;
+		}
+
+		.et_pb_text_9 {
+			line-height: 1.8em;
+			font-family: "Cabin", Helvetica, Arial, Lucida, sans-serif;
+			font-size: 15px;
+			line-height: 1.8em;
+		}
+
+		.et_pb_image_0.et_pb_module {
+			margin-left: auto !important;
+			margin-right: 0px !important;
+		}
+
+		.et_pb_video_slider_0.et_pb_video_slider.et_pb_module {
+			margin-left: auto !important;
+			margin-right: auto !important;
+		}
+
+		.full-width-image {
+			width: 100%;    /* 设置图片宽度为容器的100% */
+			height: auto;   /* 设置高度为auto，保持图片的原始比例 */
+		}
+
+		@media only screen and (max-width: 980px) {
+			.et_pb_row_0 {
+				border-top-width: 2px;
+				border-bottom-width: 1px;
+				border-bottom-color: #ffffff;
+			}
+
+			.et_pb_image_0 .et_pb_image_wrap img,
+			.et_pb_image_1 .et_pb_image_wrap img,
+			.et_pb_image_2 .et_pb_image_wrap img,
+			.et_pb_image_3 .et_pb_image_wrap img,
+			.et_pb_image_4 .et_pb_image_wrap img,
+			.et_pb_image_5 .et_pb_image_wrap img {
+				width: auto;
+			}
+
+			.et_pb_text_3 {
+				font-size: 80px;
+				margin-bottom: 0px !important;
+			}
+		}
+
+		@media only screen and (max-width: 767px) {
+			.et_pb_row_0 {
+				border-top-width: 2px;
+				border-bottom-width: 1px;
+				border-bottom-color: #ffffff;
+			}
+
+			.et_pb_image_0 .et_pb_image_wrap img,
+			.et_pb_image_1 .et_pb_image_wrap img,
+			.et_pb_image_2 .et_pb_image_wrap img,
+			.et_pb_image_3 .et_pb_image_wrap img,
+			.et_pb_image_4 .et_pb_image_wrap img,
+			.et_pb_image_5 .et_pb_image_wrap img {
+				width: auto;
+			}
+
+			.et_pb_text_3 {
+				font-size: 60px;
+			}
+
+			.et_pb_text_3 h2 {
+				font-size: 36px;
+			}
+		}
+	</style>
+</body>
+
+</html>
