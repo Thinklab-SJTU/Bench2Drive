@@ -740,13 +740,13 @@ class Env_Manager():
     def save(self, near_node, far_node, near_command, far_command, tick_data, should_brake):
         frame = self.count
         # CARLA images are already in opencv's BGR format.
-        cv2.imwrite(str(self.save_path / 'camera' / 'rgb_front' / (f'{frame:05}.jpg')), tick_data['cam_bgr_front'])
-        cv2.imwrite(str(self.save_path / 'camera' / 'rgb_front_left' / (f'{frame:05}.jpg')), tick_data['cam_bgr_front_left'])
-        cv2.imwrite(str(self.save_path / 'camera' / 'rgb_front_right' / (f'{frame:05}.jpg')), tick_data['cam_bgr_front_right'])
-        cv2.imwrite(str(self.save_path / 'camera' / 'rgb_back' / (f'{frame:05}.jpg')), tick_data['cam_bgr_back'])
-        cv2.imwrite(str(self.save_path / 'camera' / 'rgb_back_left' / (f'{frame:05}.jpg')), tick_data['cam_bgr_back_left'])
-        cv2.imwrite(str(self.save_path / 'camera' / 'rgb_back_right' / (f'{frame:05}.jpg')), tick_data['cam_bgr_back_right'])
-        cv2.imwrite(str(self.save_path / 'camera' / 'rgb_top_down' / (f'{frame:05}.jpg')), tick_data['cam_bgr_top_down'])
+        cv2.imwrite(str(self.save_path / 'camera' / 'rgb_front' / (f'{frame:05}.jpg')), tick_data['cam_bgr_front'], [cv2.IMWRITE_JPEG_QUALITY, 20])
+        cv2.imwrite(str(self.save_path / 'camera' / 'rgb_front_left' / (f'{frame:05}.jpg')), tick_data['cam_bgr_front_left'], [cv2.IMWRITE_JPEG_QUALITY, 20])
+        cv2.imwrite(str(self.save_path / 'camera' / 'rgb_front_right' / (f'{frame:05}.jpg')), tick_data['cam_bgr_front_right'], [cv2.IMWRITE_JPEG_QUALITY, 20])
+        cv2.imwrite(str(self.save_path / 'camera' / 'rgb_back' / (f'{frame:05}.jpg')), tick_data['cam_bgr_back'], [cv2.IMWRITE_JPEG_QUALITY, 20])
+        cv2.imwrite(str(self.save_path / 'camera' / 'rgb_back_left' / (f'{frame:05}.jpg')), tick_data['cam_bgr_back_left'], [cv2.IMWRITE_JPEG_QUALITY, 20])
+        cv2.imwrite(str(self.save_path / 'camera' / 'rgb_back_right' / (f'{frame:05}.jpg')), tick_data['cam_bgr_back_right'], [cv2.IMWRITE_JPEG_QUALITY, 20])
+        cv2.imwrite(str(self.save_path / 'camera' / 'rgb_top_down' / (f'{frame:05}.jpg')), tick_data['cam_bgr_top_down'], [cv2.IMWRITE_JPEG_QUALITY, 20])
 
         cv2.imwrite(str(self.save_path / 'camera' / 'semantic_front' / (f'{frame:05}.png')), tick_data['cam_front_sem_seg'])
         cv2.imwrite(str(self.save_path / 'camera' / 'semantic_front_left' / (f'{frame:05}.png')), tick_data['cam_front_left_sem_seg'])

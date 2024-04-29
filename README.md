@@ -4,7 +4,7 @@
 </h2>
 
 <h2 align="center">
-  <a href="https://rethinklab.github.io/bench2drive/">Website</a> |
+  <a href="https://thinklab-sjtu.github.io/Bench2Drive/">Website</a> |
   <a href="https://huggingface.co/datasets/rethinlab/Bench2Drive">Huggingface</a> |
   <a href="https://github.com/Thinklab-SJTU/Bench2Drive">arXiv</a> |
   <a href="https://discord.gg/uZuU3JXVNV">Discord</a>
@@ -32,7 +32,7 @@ What can Bench2Drive provide ?
 
 ## Datasets <a name="datasets"></a>
   - The datasets has 3 subsets, namely Mini(10 clips), Base(1000 clips) and Full(10000 clips), to accommodate different levels of computational resource.
-  - Download datasets from [huggingface]() or [baiduyun]().
+  - Download datasets from [huggingface](https://huggingface.co/datasets/rethinlab/Bench2Drive) or [baiduyun].
   - [Detailed explanation](docs/anno.md) of dataset structure, annotation information, and visualization of data.
 
 ## Benchmark (Coming soon) <a name="benchmark"></a>

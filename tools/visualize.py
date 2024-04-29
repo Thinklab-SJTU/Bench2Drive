@@ -40,7 +40,6 @@ def visualize_data(file_path, map_path, vis_bbox=True,  vis_top_down=True, vis_r
 
     folder_path = os.path.join(file_path, 'anno')
     file_count = len([name for name in os.listdir(folder_path) if os.path.isfile(os.path.join(folder_path, name))])
-    type_id_set = set()
     map_info = dict(np.load(map_path, allow_pickle=True)['arr'])
 
     for step in trange(file_count):
@@ -399,11 +398,6 @@ def visualize_data(file_path, map_path, vis_bbox=True,  vis_top_down=True, vis_r
             cv2.imwrite(os.path.join(save_path, f'lidar/front_left/{step:05}_front_left.png'), visulize_img)
         # ===========================================================
 
-    type_id_set = list(type_id_set)
-    type_id_set.sort()
-    with open(os.path.join(save_path, './type_id_map.json'), 'w') as json_file:
-        json.dump(type_id_set, json_file)
-
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='argparse')
@@ -411,5 +405,5 @@ if __name__ == '__main__':
     parser.add_argument('--map_path','-m', type=str)
 
     args = parser.parse_args()
-    map_path = f'/home/cowa/jiaxiaosong/Model-based-RL-for-Carla-Leaderboard-v2/dreamerv3-torch/leaderboard/scenario_runner/srunner/scenariomanager/carla_gym/core/obs_manager/birdview/maps/Town{args.map_path}_lanemarkings.npz'
+    map_path = f'./maps/Town{args.map_path}_lanemarkings.npz'
     visualize_data(args.file_path, map_path, vis_bbox=True, vis_top_down=True, vis_road=True, vis_lidar_bev=True, vis_lidar_to_back_image=True, vis_lidar_to_front_image=True, vis_lidar_to_front_left_image=True)
