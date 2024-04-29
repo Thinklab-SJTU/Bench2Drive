@@ -2,7 +2,7 @@
 # Detailed explanation of annotation information and visualization of datasets.
 
 ## Get Started
-- Most of the recorded data is **directly from CARLA API** to avoid information loss. The data collection code is in [sensor_env_manager](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/sensor_env_manager.py). We suggest reading it aided by [CARLA official Python API docs](https://carla.readthedocs.io/en/latest/python_api/).
+- Most of the recorded data is **directly from CARLA API** to avoid information loss. The data collection code is in [data_collect](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/data_collect.py). We suggest reading it aided by [CARLA official Python API docs](https://carla.readthedocs.io/en/latest/python_api/).
 - Keep in mind that the recorded data might be **in different coordinate systems** (World, Ego, LiDAR, Compass). We provide a [visualization code](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/visualize.py) (In the [Data structure](#data-structure), we explain the coordinate system where each variable is located.)  for you to get familiar with these coordinate systems. You might refer to [this explanations](https://github.com/autonomousvision/carla_garage/blob/main/docs/coordinate_systems.md) (awsome codebase!).
 - For fair/legal comparision, make sure your model only use the information from [**allowed sensors**](https://leaderboard.carla.org/#sensors-track) + high level command as input. Other information is only allowed to use during training.
 - Note that sometimes **CARLA API could be buggy**, we record some known issues below:
@@ -10,37 +10,31 @@
   - The returned value of the sensor Speedometer might be None. You might want to deal with it.
   - Some stop signs in CARLA are on the ground and thus there is no bounding box. However, we denote all stop signs in the map pickle file of each town with rectangles to denote their [trigger volume](https://carla.readthedocs.io/en/latest/python_api/#carla.TrafficSign.trigger_volume)
   - The extent in CARLA means **half** of the Height, Width, Length!
-  - TODO More explanations about the map pickle file!
-  - TODO: (-y, x)
+  - Lane marking extract by map file, please read [file structure](#lanemarking-files-structure)
   - There is a problem with the attributes rotation and extent of static vehicles. We use Carla's [higher-level API](https://carla.readthedocs.io/en/latest/python_api/#carla.World.get_level_bbs) to obtain the 3D Box and match them one by one through the nearest distance.
-
-## Data Download
-```
-
-```
 
 ## Data
 [CARLAs docs about sensors](https://carla.readthedocs.io/en/latest/ref_sensors/)
 - RGB image * 6:
     - JPG compressed.
-    - [Related code](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/sensor_env_manager.py#L743-L749)
+    - [Related code](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/data_collect.py#L743-L749)
     - The position and FoV is similar to [nuScenes](https://www.nuscenes.org/).
     - Since JPG is lossy compression, you might need to compress the image from sensors during inference to avoid train-val gap!
 - anno:
     - Use GZIP to compress json file.
-    - [Related code](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/sensor_env_manager.py#L820-L821)
+    - [Related code](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/data_collect.py#L820-L821)
 - LiDAR*1
     - Use a specialized algorithm called laszip to compress LiDAR point clouds.
-    - [Related code](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/sensor_env_manager.py#L779-L790)
+    - [Related code](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/data_collect.py#L779-L790)
 - Radar*5
     - Use h5py format and use GZIP to compress.
     - The position is similar to [nuScenes](https://www.nuscenes.org/).
-    - [Related code](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/sensor_env_manager.py#L772-L777)
+    - [Related code](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/data_collect.py#L772-L777)
 - Depth, Semantic, Instance
     - Please refer to CARLAs docs about sensors about obtaining the labels.
     - Their sensors' position is exactly the same as RGB Cameras'.
 - Lane
-    - [TODO]
+    - Generate lane marking by code(https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/lane_marking.py)
 
 
 ## How to Visualize?
