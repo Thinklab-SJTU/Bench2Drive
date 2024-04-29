@@ -275,6 +275,15 @@ python visualize.py -f FILE_PATH -m LANEMARK_PATH
             - section_id # Section of the road where the pedestrian is located
             - world2ped # Transformation from world coordinates to pedestrian coordinates
 ```
-
+## Lanemarking files structure
+``` shell
+  # Each lanemarking file contains all lanemarking info of a certain town
+  - road_id  # CARLA road id
+      # Each road_id corresponds to a list, where each element is a dict formed as:
+        - Points  # CARLA location array formed as (location_x, location_y, location_z)
+        - Type # String of landmarking type, can be 'Broken', 'Solid', 'SolidSolid', 'Other', 'NONE', 'Center'
+        - Color # String of landmarking color, can be 'Blue', 'White', 'Yellow'. (color of 'Center' is 'White') 
+        - Topology # String array contains the 'road_id' of the current landmarking adjacent to (based on current lane)
+```
 
 
