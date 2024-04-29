@@ -22,16 +22,16 @@ What can Bench2Drive provide ?
 #####
 ## Table of Contents: <a name="high"></a>
 1. [News](#News)
-2. [Datasets](#Datasets)
+2. [Dataset](#Dataset)
 3. [Benchmark](#Benchmark)
 4. [License](#license)
 5. [Citation](#citation)
 
 ## News <a name="news"></a>
-  - [2024/04/27] Bench2Drive releases the Mini(10 clips) and Base (1000 clips) split of the official training set.
+  - [2024/04/27] Bench2Drive releases the Mini (10 clips) and Base (1000 clips) split of the official training data.
 
-## Datasets <a name="datasets"></a>
-  - The datasets has 3 subsets, namely Mini(10 clips), Base(1000 clips) and Full(10000 clips), to accommodate different levels of computational resource.
+## Dataset <a name="dataset"></a>
+  - The datasets has 3 subsets, namely Mini (10 clips), Base (1000 clips) and Full (10000 clips), to accommodate different levels of computational resource.
   - Download datasets from [huggingface](https://huggingface.co/datasets/rethinlab/Bench2Drive) or [baiduyun]().
   - [Detailed explanation](docs/anno.md) of dataset structure, annotation information, and visualization of data.
 
