@@ -8,7 +8,7 @@
 - Note that sometimes **CARLA API could be buggy**, we record some known issues below:
   - The speed value of all pedestrians are 0. You might want to calculate by youself.
   - The returned value of the sensor Speedometer might be None. You might want to deal with it.
-  - Some stop signs in CARLA are on the ground and thus there is no bounding box. However, we denote all stop signs in the map pickle file of each town with rectangles to denote their [trigger volume](https://carla.readthedocs.io/en/latest/python_api/#carla.TrafficSign.trigger_volume)
+  - Some stop signs in CARLA are on the ground and thus there is no bounding box. However, we record all stop signs in the *anno* file with rectangles to denote their [trigger volume](https://carla.readthedocs.io/en/latest/python_api/#carla.TrafficSign.trigger_volume).
   - The extent in CARLA means **half** of the Height, Width, Length!
   - Lane marking extract by map file, please read [file structure](#lanemarking-files-structure)
   - There is a problem with the attributes rotation and extent of static vehicles. We use Carla's [higher-level API](https://carla.readthedocs.io/en/latest/python_api/#carla.World.get_level_bbs) to obtain the 3D Box and match them one by one through the nearest distance.
