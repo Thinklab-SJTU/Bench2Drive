@@ -43,13 +43,20 @@ All assets and code are under the [Apache 2.0 license](./LICENSE) unless specifi
 
 ## Citation <a name="citation"></a>
 
-Please consider citing our paper if the project helps your research with the following BibTex:
+Please consider citing our papers if the project helps your research with the following BibTex:
 
 ```bibtex
 @article{jia2024bench,
   title={Bench2Drive: Towards Multi-Ability Benchmarking of Closed-Loop End-To-End Autonomous Driving},
   author={Xiaosong Jia and Zhenjie Yang and Qifeng Li and Zhiyuan Zhang and Jiazi Bu and Junchi Yan},
   journal={\url{https://github.com/Thinklab-SJTU/Bench2Drive}},
+  year={2024}
+}
+
+@article{li2024think,
+  title={Think2Drive: Efficient Reinforcement Learning by Thinking in Latent World Model for Quasi-Realistic Autonomous Driving (in CARLA-v2)},
+  author={Qifeng Li and Xiaosong Jia and Shaobo Wang and Junchi Yan},
+  journal={arXiv preprint arXiv:2402.167200},
   year={2024}
 }
 ```
