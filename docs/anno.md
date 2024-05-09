@@ -7,8 +7,9 @@
 - For fair/legal comparision, make sure your model only use the information from [**allowed sensors**](https://leaderboard.carla.org/#sensors-track) + high level command as input. Other information is only allowed to use during training.
 - Note that sometimes **CARLA API could be buggy**, we record some known issues below:
   - The speed value of all pedestrians are 0. You might want to calculate by youself.
-  - The returned value of the sensor Speedometer might be None. You might want to deal with it.
+  - The returned value of the sensor Speedometer might be None. The yaw value could be None as well. You might want to deal with it by setting all None to 0.
   - Some stop signs in CARLA are on the ground and thus there is no bounding box. However, we record all stop signs in the *anno* file with rectangles to denote their [trigger volume](https://carla.readthedocs.io/en/latest/python_api/#carla.TrafficSign.trigger_volume).
+  - All trigger volumes' *rotation* attribute is relative to the parent actor (traffic lights or stop signs). Thus, **you need to add the parent actors' rotation to it** to obtain the global *rotation*.  
   - Static vehicles' (state=="static") rotation and location is wrong due to CARLA API bugs. Thus, we suggest only use attribute **center** and **extent** to obtain the local 3D bounding boxes. Use the inverse of **world2vehicle** to obtain the vehicle's bounding box in the world coordinate system. 
   - The extent in CARLA means **half** of the Height, Width, Length!
   - The HD-Map of each town is in https://hf-mirror.com/datasets/rethinlab/Bench2Drive-Map. The data structure is in the following section.
