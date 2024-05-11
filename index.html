@@ -643,12 +643,12 @@
 											class="et_pb_module et_pb_text et_pb_text_1 et_pb_text_align_justified et_pb_bg_layout_dark">
 											<div class="et_pb_text_inner">
 												<p>
-												Bench2Drive, the first benchmark designed to rigorously evaluate E2E-AD systems under a closed-loop manner. 
+												Bench2Drive is the first benchmark designed to rigorously evaluate E2E-AD systems under a closed-loop manner. 
 												Bench2Drive consists of 2 million fully annotated frames as official training data, collected from 10000 short 
-												clips uniformly distributed under 40 interactive scenarios (cut-in, overtaking, detour, etc), 
-												26 weathers (sunny, foggy, rainy, etc), and 12 towns (urban, village, university, etc) in CARLA v2. 
-												Its evaluation protocol requires E2E-AD models to pass those 40 interactive scenarios under different 
-												locations which sums up to XX routes and thus provide a comprehensive and disentangled assessment 
+												clips uniformly distributed under 43 interactive scenarios (cut-in, overtaking, detour, etc), 
+												27 weathers (sunny, foggy, rainy, etc), and 12 towns (urban, village, university, etc) in CARLA v2. 
+												Its evaluation protocol requires E2E-AD models to pass those 43 interactive scenarios under different 
+												locations which sums up to 215 routes and thus provide a comprehensive and disentangled assessment 
 												about their driving capability under different situations. We implement state-of-the-art E2E-AD models 
 												and evaluate them in Bench2Drive to provide more insights regarding current status of E2E-AD.
 												</p>
@@ -656,16 +656,15 @@
 												<div>
 													<ul>
 														<li style="text-align: left">
-															Comprehensive Scenario Coverage, 100k clips, 40 scenarios, 26 weathers, 12 towns.
+															Comprehensive scenario coverage: 100k clips, 43 scenarios, 27 weathers, 12 towns.
 														</li>
 														<li style="text-align: left">
-															Expert information, including intermediate feature, Reinforcement Learning reward/value and action.
+															Expert information: intermediate features, reinforcement learning reward, value and action.
 														</li>
 														<li style="text-align: left">
-															Multi sensors(camera, lidar, radar, etc) and Rich annotation information, including 2D/3D boxes, lane lines, semantic/instance segmentation, point cloud.
-														</li>
+															Multi sensors (camera, LiDAR, Radar, etc) and rich annotation information: 2D/3D boxes, depth, semantic/instance segmentation, HD-Map
 														<li style="text-align: left">
-															Granular skill assessment and Closed-Loop evaluation protocol.
+															Granular skill assessment and closed-Loop evaluation protocol
 														</li>
 													</ul>
 												</div>
@@ -756,7 +755,7 @@
 										<div
 											class="et_pb_module et_pb_text et_pb_text_3 et_pb_text_align_center et_pb_bg_layout_light">
 											<div class="et_pb_text_inner">
-												<h2>Diverse Scenes</h2>
+												<h2>Challenging Scenes</h2>
 											</div>
 										</div>
 									</div>
@@ -860,8 +859,8 @@
 											<div class="et_pb_text_inner">
 												<ul>
 													<li style="text-align: left">
-														<b>1x Lidar: </b>64 Channels, 85m range, 600,000
-														points per second, 10HZ
+														<b>1x LiDAR: </b>64 Channels, 85m range, 600,000
+														points per second
 													</li>
 												</ul>
 											</div>
@@ -874,7 +873,7 @@
 											<div class="et_pb_text_inner">
 												<ul>
 													<li style="text-align: left">
-														<b>6x Camera: </b>70 ◦ & 110 ◦ FOV, 1600&#215;900
+														<b>6x Camera: </b> 70° & 110° FoV, 900&#215;1600
 														Resolution
 													</li>
 												</ul>
@@ -888,7 +887,7 @@
 										<div class="et_pb_text_inner">
 											<ul>
 												<li style="text-align: left">
-													<b>5x Radar: </b>100m range, 30◦ horizontal FOV, -30◦ vertical FOV
+													<b>5x Radar: </b>100m range, 30° horizontal and vertical FoV
 												</li>
 											</ul>
 										</div>
@@ -959,7 +958,7 @@
 <pre id="bibtex"><code>
 @article{jia2024bench,
   title={Bench2Drive: Towards Multi-Ability Benchmarking of Closed-Loop End-To-End Autonomous Driving},
-  author={Xiaosong Jia and Zhenjie Yang and Qifeng Li and Zhiyuan Zhang and Jiazi Bu and Junchi Yan},
+  author={Xiaosong Jia and Zhenjie Yang and Qifeng Li and Zhiyuan Zhang and Junchi Yan},
   journal={\url{https://github.com/Thinklab-SJTU/Bench2Drive}},
   year={2024}
 }</code></pre>
