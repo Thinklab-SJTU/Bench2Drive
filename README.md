@@ -48,7 +48,7 @@ Please consider citing our papers if the project helps your research with the fo
 ```bibtex
 @article{jia2024bench,
   title={Bench2Drive: Towards Multi-Ability Benchmarking of Closed-Loop End-To-End Autonomous Driving},
-  author={Xiaosong Jia and Zhenjie Yang and Qifeng Li and Zhiyuan Zhang and Jiazi Bu and Junchi Yan},
+  author={Xiaosong Jia and Zhenjie Yang and Qifeng Li and Zhiyuan Zhang and Junchi Yan},
   journal={\url{https://github.com/Thinklab-SJTU/Bench2Drive}},
   year={2024}
 }
