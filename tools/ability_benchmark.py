@@ -176,7 +176,7 @@ def main(args):
 
 if __name__=='__main__':
     argparser = argparse.ArgumentParser(description=__doc__)
-    argparser.add_argument('-f', '--file', nargs=None, default="/data/jay/TCP-Bench2Drive/leaderboard/data/pick_routes_v1.xml", help='route file')
+    argparser.add_argument('-f', '--file', nargs=None, default="bench2drive220.xml", help='route file')
     argparser.add_argument('-r', '--result_file', nargs=None, default="", help='result json file')
     argparser.add_argument('--host', default='localhost', help='IP of the host server (default: localhost)')
     argparser.add_argument('-port', nargs=1, default=2000, help='carla rpc port')

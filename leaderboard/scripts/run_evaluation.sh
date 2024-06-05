@@ -1,5 +1,5 @@
 #!/bin/bash
-export CARLA_ROOT=/home/cowa/jiaxiaosong/carla15
+export CARLA_ROOT=
 export CARLA_SERVER=${CARLA_ROOT}/CarlaUE4.sh
 export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI
 export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla

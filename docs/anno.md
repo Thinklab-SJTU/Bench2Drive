@@ -273,11 +273,23 @@ python visualize.py -f FILE_PATH -m LANEMARK_PATH
 ``` shell
   # Each HD-Map file contains road information of a certain town
   - road_id  # CARLA road id
-      # Each road_id corresponds to a list, where each element is a dict formed as:
-        - Points  # Location array formed as (location_x, location_y, location_z)
+    # Each road_id corresponds to a dict, where each element formed as:
+    -lane_id
+        # Each lane_id corresponds to a list, where each element is a dict formed as:
+        - Points  # Location-rotation array formed as ((location_x, location_y, location_z), (roll, pitch, yaw))
         - Type # String, can be 'Broken', 'Solid', 'SolidSolid', 'Other', 'NONE', 'Center'
         - Color # Color, can be 'Blue', 'White', 'Yellow'. (color of Type-'Center' is 'White') 
-        - Topology # String array contains the 'road_id' of the current road adjacent to
+        - Topology # String array contains the 'road_id' and 'lane_id' of the current road adjacent to, formed as ((road_id, lane_id), ..)
+        # If the Type == 'Center', there will be other three keys named 'TopologyType', 'Left' and 'Right'
+        - TopologyType # The current lane's topology status, can be 'Junction', 'Normal', 'EnterNormal', 'EnterJunction', 'PassNormal', 'PassJunction', 'StartJunctionMultiChange', or 'StartNormalMultiChange'
+        - Left # The road_id and lane_id of the left lane of the current lane，formed as (road_id, lane_id), None if the left lane does not exist
+        - Right # The road_id and lane_id of the right lane of the current lane，formed as (road_id, lane_id), None if the right lane does not exist
+    # If current 'road_id' contains trigger volumes, there will be a special dict with 'TriggerVolumes' as key:
+    - 'TriggerVolumes'
+        # Each 'TriggerVolumes' corresponds to a list, where each element is a dict formed as:
+        - 'Points' # Vertexs location array of current trigger volume
+        - 'Type' # The parent actor type of current trigger volume, can be 'StopSign' or 'TrafficLight'
+        - 'ParentActor_Location' # The parent actor's location of current trigger volume, formed as (location.x, location.y, location.z)
 ```
 
 
