@@ -5,7 +5,7 @@
 
 <h2 align="center">
   <a href="https://thinklab-sjtu.github.io/Bench2Drive/">Website</a> |
-  <a href="https://huggingface.co/datasets/rethinlab/Bench2Drive">Huggingface</a> |
+  <a href="https://huggingface.co/datasets/rethinklab/Bench2Drive">Huggingface</a> |
   <a href="https://github.com/Thinklab-SJTU/Bench2Drive">arXiv</a> |
   <a href="https://discord.gg/uZuU3JXVNV">Discord</a>
 </h2>
@@ -38,8 +38,8 @@ What can Bench2Drive provide ?
 | Subset  | Hugging Face<img src="./assets/hf-logo.png" alt="Hugging Face" width="18"/> | Baidu Cloud<img src="https://nd-static.bdstatic.com/m-static/v20-main/favicon-main.ico" alt="Baidu Yun" width="18"/> | Approx. Size |
 | :---: |  :---: | :---: | :---: |
 | Mini |   [Download script](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/download_mini.sh) | [Download script](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/download_mini.sh) |  4G |
-| Base |  [Hugging Face Link](https://huggingface.co/datasets/rethinlab/Bench2Drive) |  [Baidu Cloud Link](https://pan.baidu.com/s/1ZIL-MPhLbgdBYmHkHncn8Q?pwd=1234) |  407G |
-| Full |  [Hugging Face Link](https://huggingface.co/datasets/rethinlab/Bench2Drive-Full)   |  Uploading | 4T |
+| Base |  [Hugging Face Link](https://huggingface.co/datasets/rethinklab/Bench2Drive) |  [Baidu Cloud Link](https://pan.baidu.com/s/1ZIL-MPhLbgdBYmHkHncn8Q?pwd=1234) |  407G |
+| Full |  [Hugging Face Link](https://huggingface.co/datasets/rethinklab/Bench2Drive-Full)   |  Uploading | 4T |
 
 ## Baseline Code
   - [Uniad/VAD in Bench2Drive]()
