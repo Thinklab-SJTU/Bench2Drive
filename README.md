@@ -45,23 +45,46 @@ What can Bench2Drive provide ?
   - [Uniad/VAD in Bench2Drive]()
   - [TCP/ADMLP in Bench2Drive]()
 
+## Setup
+    - Download and setup CARLA 0.9.15
+      ```
+      mkdir carla
+      cd carla
+      wget https://carla-releases.s3.us-east-005.backblazeb2.com/Linux/CARLA_0.9.15.tar.gz
+      tar -xvf CARLA_0.9.15.tar.gz
+      cd Import && wget https://carla-releases.s3.us-east-005.backblazeb2.com/Linux/AdditionalMaps_0.9.15.tar.gz
+      cd .. && bash ImportAssets.sh
+      export CARLA_ROOT=YOUR_CARLA_PATH
+      echo "$CARLA_ROOT/PythonAPI/carla/dist/carla-0.9.10-py3.7-linux-x86_64.egg" >> YOUR_CONDA_PATH/envs/YOUR_CONDA_ENV_NAME/lib/python3.7/site-packages/carla.pth # python 3.8 also works well, please set YOUR_CONDA_PATH and YOUR_CONDA_ENV_NAME
+      ```
+
 ## Eval Tools
   - Add your agent to leaderboard/team_code/your_agent.py
+    ``` shell
+        Bench2Drive\ 
+          assets\
+          docs\
+          leaderboard\
+            team_code\
+              -> Please add your agent HEAR
+          scenario_runner\
+          tools\
+    ```
   - Debug Mode
     ```
     # Verify the correctness of the team agent， need to set GPU_RANK, TEAM_AGENT, TEAM_CONFIG
-    bash /leaderboard/scripts/run_evaluation_debug.sh
+    bash leaderboard/scripts/run_evaluation_debug.sh
     ```
   - Eval Mode
     ```
     # Please set TASK_NUM, GPU_RANK_LIST, TASK_LIST, TEAM_AGENT, TEAM_CONFIG, recommend GPU:Task(1:2).
-    bash /leaderboard/scripts/run_evaluation_multi.sh 
+    bash leaderboard/scripts/run_evaluation_multi.sh 
     ```
   - Visualization 
     ```
     python tools/generate_video.py -f your_rgb_folder/
     ```
-  - Metric
+  - Metric(Driving score and Success rate)
     ```
     # Merge eval json and get driving score and success rate
     python tools/merge_reoute_json.py -f your_json_folder/
