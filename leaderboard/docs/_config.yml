@@ -1,0 +1,32 @@
+title:              CARLA Leaderboard
+email:              carla.simulator@gmail.com
+description:        CARLA Autonomous Driving competition
+author:             CARLA Team
+baseurl:            ""
+url:                https://leaderboard.carla.org/
+
+# Social Profiles
+github_username:   carla-simulator
+twitter_username:  carlasimulator
+discord_invite:    8kqACuC
+youtube_channel:   UC1llP9ekCwt8nEJzMJBQekg
+
+twitter:
+  username: carlasimulator
+
+social:
+  name: CARLA Simulator
+  links:
+    - https://github.com/carla-simulator/carla
+    - https://twitter.com/carlasimulator
+    - https://discord.gg/8kqACuC
+    - https://www.youtube.com/channel/UC1llP9ekCwt8nEJzMJBQekg
+
+# Build settings
+markdown:           kramdown
+paginate:           5
+paginate_path:      "/posts/page:num/"
+plugins:
+  - jekyll-feed
+  - jekyll-paginate
+  - jekyll-sitemap ## Uncomment this line to silently generate a sitemaps.org compliant sitemap for your Jekyll site

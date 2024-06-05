@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<scenarios>
+    <scenario name="EnterActorFlow_1" type="EnterActorFlow" town="Town04">
+        <ego_vehicle x="86.9" y="144.0" z="1.9" yaw="170" model="vehicle.lincoln.mkz_2017" />
+        <start_actor_flow x="16.2" y="220.6" z="0.2"/>
+        <end_actor_flow x="15.50" y="35.0" z="0.2"/>
+        <flow_speed value="30"/>
+        <source_dist_interval from="35" to="50"/>
+    </scenario>
+</scenarios>

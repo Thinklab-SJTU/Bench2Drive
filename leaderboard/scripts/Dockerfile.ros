@@ -1,0 +1,142 @@
+ARG ROS_DISTRO
+
+FROM ros:$ROS_DISTRO-ros-base
+
+WORKDIR /workspace
+
+ENV DEBIAN_FRONTEND "noninteractive"
+
+RUN apt-get update; \
+  if [ "$ROS_DISTRO" = "melodic" ]; then \
+    apt-get install -y --no-install-recommends \
+      ros-${ROS_DISTRO}-rosbridge-suite \
+      python-setuptools \
+      python3-setuptools \
+      python-wheel \
+      python3-wheel \
+      python-pip \
+      python3-pip \
+      && python2 -m pip install --upgrade pip \
+      && python3 -m pip install --upgrade pip; \
+  elif [ "$ROS_DISTRO" = "noetic" ]; then \
+    apt-get install -y --no-install-recommends \
+      ros-${ROS_DISTRO}-rosbridge-suite \
+      python-is-python3 \
+      python3-setuptools \
+      python3-wheel \
+      python3-pip \
+      && python3 -m pip install --upgrade pip; \
+  elif [ "$ROS_DISTRO" = "foxy" ]; then \
+    apt-get install -y --no-install-recommends \
+      # TODO: This should be installed by rosdep
+      python3-opencv \
+      python3-setuptools \
+      python3-wheel \
+      python3-pip \
+      && python3 -m pip install --upgrade pip; \
+  fi; \
+  rm -rf /var/lib/apt/lists/*
+
+ENV CARLA_ROOT "/workspace/CARLA"
+ENV SCENARIO_RUNNER_ROOT "/workspace/scenario_runner"
+ENV LEADERBOARD_ROOT "/workspace/leaderboard"
+ENV CARLA_ROS_BRIDGE_ROOT "/workspace/carla_ros_bridge"
+ENV TEAM_CODE_ROOT "/workspace/team_code"
+
+COPY PythonAPI ${CARLA_ROOT}/PythonAPI
+COPY scenario_runner ${SCENARIO_RUNNER_ROOT}
+COPY leaderboard ${LEADERBOARD_ROOT}
+
+COPY carla_ros_bridge/carla_ros_bridge ${CARLA_ROS_BRIDGE_ROOT}/src/carla_ros_bridge
+COPY carla_ros_bridge/carla_common ${CARLA_ROS_BRIDGE_ROOT}/src/carla_common
+COPY carla_ros_bridge/carla_msgs ${CARLA_ROS_BRIDGE_ROOT}/src/carla_msgs
+COPY carla_ros_bridge/ros_compatibility ${CARLA_ROS_BRIDGE_ROOT}/src/ros_compatibility
+
+COPY team_code ${TEAM_CODE_ROOT}
+
+# Install carla ros bridge
+RUN /bin/bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash; \
+  apt-get update && rosdep update; \
+  cd /workspace/carla_ros_bridge; \
+  rm -rf build devel install log; \
+  rosdep install --from-paths src --ignore-src -r -y; \
+  if [ "$ROS_VERSION" = "1" ]; then \
+    catkin_make install -DCMAKE_INSTALL_PREFIX=/opt/ros/$ROS_DISTRO; \
+  else \
+    colcon build; \
+  fi; \
+  rm -rf build devel log; \
+  rm -rf /var/lib/apt/lists/*'
+  #colcon build --merge-install --install-base /opt/ros/$ROS_DISTRO; \
+  #catkin_make install --only-pkg-with-deps carla_ros_bridge -DCMAKE_INSTALL_PREFIX=/opt/ros/melodic'
+
+# Install agent
+RUN /bin/bash -c 'source /opt/ros/$ROS_DISTRO/setup.bash; \
+  apt-get update && rosdep update; \
+  cd /workspace/team_code; \
+  rm -rf build devel install log; \
+  rosdep install --from-paths src --ignore-src -r -y; \
+  if [ "$ROS_VERSION" = "1" ]; then \
+    catkin_make install; \
+  else \
+    colcon build; \
+  fi; \
+  rm -rf build devel log; \
+  rm -rf /var/lib/apt/lists/*'
+
+RUN mkdir -p /workspace/results
+RUN chmod +x /workspace/leaderboard/run_leaderboard.sh
+
+ENV PYTHONPATH "${CARLA_ROOT}/PythonAPI/carla":"${SCENARIO_RUNNER_ROOT}":"${LEADERBOARD_ROOT}":${PYTHONPATH}
+
+RUN if [ "$ROS_DISTRO" = "melodic" ]; then \
+    echo "${CARLA_ROOT}/PythonAPI/carla/dist/carla-leaderboard-py2.7.egg" > /usr/local/lib/python2.7/dist-packages/carla.pth; \
+    echo "${CARLA_ROOT}/PythonAPI/carla/dist/carla-leaderboard-py3x.egg" > /usr/local/lib/python3.6/dist-packages/carla.pth; \
+  else \
+    echo "${CARLA_ROOT}/PythonAPI/carla/dist/carla-leaderboard-py3x.egg" > /usr/local/lib/python3.8/dist-packages/carla.pth; \
+  fi
+
+RUN pip3 install \
+     transforms3d \
+     roslibpy \
+     pexpect \
+     networkx \
+     numpy \
+     py_trees==0.8.3 \
+     psutil \
+     shapely \
+     six \
+     dictor \
+     requests \
+     ephem \
+     tabulate \
+     simple-watchdog-timer
+
+############################################################################################
+####                     BEGINNING OF AGENT SPECIFIC COMMANDS                           ####
+############################################################################################
+
+ENV TEAM_AGENT ${TEAM_CODE_ROOT}/my_ros_agent.py
+ENV CHALLENGE_TRACK_CODENAME MAP
+
+############################################################################################
+####                        END OF AGENT SPECIFIC COMMANDS                              ####
+############################################################################################
+
+ENV ROUTES ${LEADERBOARD_ROOT}/data/routes_training.xml
+ENV REPETITIONS 1
+ENV CHECKPOINT_ENDPOINT /workspace/results/results.json
+ENV DEBUG_CHALLENGE 0
+
+# Agent sources
+RUN /bin/echo \
+  'source /opt/ros/$ROS_DISTRO/setup.bash; \
+  if [ "$ROS_VERSION" = "2" ]; then \
+    source $CARLA_ROS_BRIDGE_ROOT/install/setup.bash; \
+  fi; \
+  source $TEAM_CODE_ROOT/install/setup.bash;' >> ${HOME}/agent_sources.sh
+
+COPY agent_entrypoint.sh /
+ENTRYPOINT ["/agent_entrypoint.sh"]
+
+CMD ["/bin/bash"]

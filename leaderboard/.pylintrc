@@ -1,0 +1,7 @@
+[MESSAGES CONTROL]
+max-line-length=120
+disable=no-self-use,anomalous-backslash-in-string,too-many-arguments,too-few-public-methods,too-many-instance-attributes,redefined-variable-type,unused-argument,wildcard-import,unused-wildcard-import,bare-except,broad-except,bad-continuation,too-many-lines,too-many-branches,locally-disabled,too-many-locals,too-many-statements,duplicate-code,too-many-nested-blocks,fixme
+ignored-modules=carla,carla.command
+variable-rgx=[a-z0-9_]{1,40}$
+function-rgx=[a-z0-9_]{1,40}$
+extension-pkg-whitelist=cv2,pygame,numpy

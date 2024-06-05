@@ -1,0 +1,50 @@
+---
+layout: home
+title: CARLA Leaderboard
+description: CARLA Autonomous Driving competition.
+background: '/img/carla_header.png'
+image: 'img/carla_header.png'
+---
+
+
+<h3>Introduction</h3>
+<p style="margin-top:0px;font-size:18px;">
+  The CARLA leaderboard is a way to...
+</p>
+
+<h3>Participation tracks</h3>
+<p style="margin-top:0px;font-size:18px;">
+  The challenge will have four parallel tracks, which differ in the type of input data provided to the agents.
+  In all tracks, the agents will have access to additional measurements, such as a high-level plan of how to reach destinations, and the current speed.
+</p>
+
+<h3>Competition metrics</h3>
+<p style="margin-top:0px;font-size:18px;">
+The performance of an agent will depend on the number of routes successfully completed. A route is considered successfully completed if no critical infractions were triggered. If the agent triggers a critical infraction, the episode will be automatically terminated and the agent will only get a score proportional to the percentage of the route it completed until the critical infraction. The list of critical infractions is as follows:
+
+Hitting the static scenery (poles, traffic signs, etc.).
+
+If an agent runs out of time to complete a given route the final score will be the percentage of route completed before the timeout.
+
+The final score will consist of two components:
+
+Points obtained for route completion.
+Points lost due to other infractions (e.g., running a red light).
+Minor infractions will have a negative effect on the final score. Each infraction discounts points from the final score, which could get down to 0 in the worst case. These are the points discounted for each infraction:
+</p>
+
+<h3>Participation mechanics</h3>
+<p style="margin-top:0px;font-size:18px;">
+  Participants must create a new team in the EvalAI CARLA AD Challenge contest.
+  Teams will create a docker image using the provided Dockerfile templates.
+  Docker containers will be then pushed to CARLA AD Challenge internal repositories using EvalAI cli scripts. Teams must select the right challenge phase to submit their containers.
+  Docker images will be automatically evaluated in AWS by our evaluation infrastructure and results will be reported to users through the EvalAI CARLA AD Challenge site.
+  For detailed instructions, please visit the Submit section.
+
+  Important considerations
+  Agents will run on a private AWS instance endowed with a multi-processor and a GPU (NVIDIA Tesla K80).
+  Teams will receive a budget of 300 hours for the entire challenge. If a team exceeds its hours, new docker containers won’t be evaluated.
+  The CARLA AD Challenge organization reserves the right to assign further hours to teams due to extraordinary circumstances.
+  Some Autonomous Driving baselines are provided as a reference. Please, read the Get started section for more information.
+  We recommend participants to join our Discord chat to keep up-to-date with challenge news.
+</p>

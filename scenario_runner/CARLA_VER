@@ -1,0 +1,2 @@
+HOST = https://carla-releases.s3.eu-west-3.amazonaws.com/Linux
+RELEASE=CARLA_0.9.13

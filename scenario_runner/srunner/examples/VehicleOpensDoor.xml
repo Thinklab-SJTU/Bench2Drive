@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<scenarios>
+    <scenario name="VehicleOpensDoorTwoWays_1" type="VehicleOpensDoorTwoWays" town="Town10HD_Opt">
+        <ego_vehicle x="-19.4" y="69.5" z="0.3" yaw="0" model="vehicle.lincoln.mkz_2017" />
+        <direction value="right"/>
+    </scenario>
+</scenarios>

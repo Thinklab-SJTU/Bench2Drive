@@ -1,0 +1,29 @@
+site_name: CARLA ScenarioRunner
+repo_url: https://github.com/carla-simulator/scenario_runner
+docs_dir: Docs
+edit_uri: 'edit/master/Docs/'
+theme: readthedocs
+extra_css: [extra.css]
+
+nav:
+- Home: index.md
+- Quick start:
+  - Get ScenarioRunner: getting_scenariorunner.md
+  - First steps: getting_started.md
+  - Create a new scenario: creating_new_scenario.md
+  - Metrics module: metrics_module.md
+  - FAQ: FAQ.md
+  - Release Notes: CHANGELOG.md
+- References:
+  - List of scenarios: list_of_scenarios.md
+  - OpenSCENARIO support: openscenario_support.md
+- Contributing:
+  - Code of conduct: CODE_OF_CONDUCT.md
+  - Coding standard: coding_standard.md
+  - Contribution guidelines: CONTRIBUTING.md
+
+markdown_extensions:
+  - admonition
+  - markdown_include.include:
+      base_path: '.'
+

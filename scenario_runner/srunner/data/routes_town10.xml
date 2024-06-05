@@ -1,0 +1,57 @@
+<routes>
+   <route id="0" town="Town10HD_Opt">
+      <!-- <weathers>
+         <weather route_percentage="0"
+            cloudiness="5.0" precipitation="0.0" precipitation_deposits="0.0" wetness="0.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="90.0" fog_density="2.0"/>
+         <weather route_percentage="100"
+            cloudiness="5.0" precipitation="0.0" precipitation_deposits="0.0" wetness="0.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="15.0" fog_density="2.0"/>
+      </weathers> -->
+      <waypoints>
+         <position x="85.7" y="66.4" z="0.0"/>
+         <position x="-2.8" y="66.2" z="0.0"/>
+         <position x="-41.7" y="47.7" z="0.0"/>
+         <position x="-41.7" y="-32.0" z="0.0"/>
+         <position x="12.7" y="-57.4" z="0.0"/>
+         <position x="-0.8" y="13.2" z="0.0"/>
+      </waypoints>
+      <scenarios>
+         <scenario name="ControlLoss_1" type="ControlLoss">
+            <trigger_point x="71.0" y="66.3" z="0.0" yaw="-179.9"/>
+         </scenario>
+         <scenario name="ControlLoss_2" type="ControlLoss">
+            <trigger_point x="19.4" y="66.3" z="0.0" yaw="-179.9"/>
+         </scenario>
+         <scenario name="DynamicObjectCrossing_1" type="DynamicObjectCrossing">
+            <trigger_point x="19.4" y="66.3" z="0.0" yaw="-179.9"/>
+            <distance value="35"/>
+            <direction value="right"/>
+            <blocker_model value="static.prop.advertisement"/>
+            <crossing_angle value="7"/>
+         </scenario>
+         <scenario name="ControlLoss_3" type="ControlLoss">
+            <trigger_point x="-41.7" y="49.4" z="0.0" yaw="-90.2"/>
+         </scenario>
+         <scenario name="DynamicObjectCrossing_2" type="DynamicObjectCrossing">
+            <trigger_point x="-41.8" y="-3.3" z="0.0" yaw="-90.2"/>
+            <distance value="35"/>
+            <direction value="right"/>
+            <blocker_model value="static.prop.advertisement"/>
+            <crossing_angle value="8"/>
+         </scenario>
+         <scenario name="HardBreakRoute_1" type="HardBreakRoute">
+            <trigger_point x="33.3" y="-57.4" z="0.0" yaw="360.0"/>
+         </scenario>
+         <scenario name="HardBreakRoute_2" type="HardBreakRoute">
+            <trigger_point x="88.3" y="-48.5" z="0.0" yaw="42.3"/>
+         </scenario>
+         <scenario name="BlockedIntersection_1" type="BlockedIntersection">
+            <trigger_point x="99.4" y="-15.6" z="0.0" yaw="89.8"/>
+         </scenario>
+         <scenario name="ControlLoss_4" type="ControlLoss">
+            <trigger_point x="15.2" y="13.2" z="0.0" yaw="180.2"/>
+         </scenario>
+      </scenarios>
+   </route>
+</routes>

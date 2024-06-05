@@ -1,0 +1,187 @@
+<weathers>
+    <case weather_id="0">
+         <weather route_percentage="0"
+            cloudiness="5.0" precipitation="0.0" precipitation_deposits="0.0" wetness="0.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="90.0" fog_density="2.0"/>
+         <weather route_percentage="100"
+            cloudiness="5.0" precipitation="0.0" precipitation_deposits="0.0" wetness="0.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="90.0" fog_density="2.0"/>
+    </case>
+    <case weather_id="1">
+         <weather route_percentage="0"
+            cloudiness="5.0" precipitation="0.0" precipitation_deposits="0.0" wetness="0.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="15.0" fog_density="2.0"/>
+         <weather route_percentage="100"
+            cloudiness="5.0" precipitation="0.0" precipitation_deposits="0.0" wetness="0.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="15.0" fog_density="2.0"/>
+    </case>
+    <case weather_id="2">
+         <weather route_percentage="0"
+            cloudiness="20.0" precipitation="30.0" precipitation_deposits="50.0" wetness="0.0"
+            wind_intensity="30.0" sun_azimuth_angle="-1.0" sun_altitude_angle="45.0" fog_density="3.0"/>
+         <weather route_percentage="100"
+            cloudiness="20.0" precipitation="30.0" precipitation_deposits="50.0" wetness="0.0"
+            wind_intensity="30.0" sun_azimuth_angle="-1.0" sun_altitude_angle="45.0" fog_density="3.0"/>
+    </case>
+   <case weather_id="3">
+         <weather route_percentage="0"
+            cloudiness="60.0" precipitation="60.0" precipitation_deposits="60.0" wetness="0.0"
+            wind_intensity="60.0" sun_azimuth_angle="-1.0" sun_altitude_angle="45.0" fog_density="3.0"/>
+         <weather route_percentage="100"
+            cloudiness="60.0" precipitation="60.0" precipitation_deposits="60.0" wetness="0.0"
+            wind_intensity="60.0" sun_azimuth_angle="-1.0" sun_altitude_angle="45.0" fog_density="3.0"/>
+    </case>
+   <case weather_id="5">
+         <weather route_percentage="0"
+            cloudiness="80.0" precipitation="0.0" precipitation_deposits="50.0" wetness="20.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="45.0" fog_density="3.0"/>
+         <weather route_percentage="100"
+            cloudiness="80.0" precipitation="0.0" precipitation_deposits="50.0" wetness="20.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="45.0" fog_density="3.0"/>
+    </case>
+    <case weather_id="6">
+         <weather route_percentage="0"
+            cloudiness="5.0" precipitation="0.0" precipitation_deposits="50.0" wetness="0.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="15.0" fog_density="10.0"/>
+         <weather route_percentage="100"
+            cloudiness="5.0" precipitation="0.0" precipitation_deposits="50.0" wetness="0.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="15.0" fog_density="10.0"/>
+    </case>
+   <case weather_id="7">
+         <weather route_percentage="0"
+            cloudiness="5.0" precipitation="0.0" precipitation_deposits="0.0" wetness="0.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="45.0" fog_density="2.0"/>
+         <weather route_percentage="100"
+            cloudiness="5.0" precipitation="0.0" precipitation_deposits="0.0" wetness="0.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="45.0" fog_density="2.0"/>
+    </case>
+    <case weather_id="8">
+         <weather route_percentage="0"
+            cloudiness="100.0" precipitation="100.0" precipitation_deposits="90.0" wetness="0.0"
+            wind_intensity="100.0" sun_azimuth_angle="-1.0" sun_altitude_angle="45.0" fog_density="7.0"/>
+         <weather route_percentage="100"
+            cloudiness="100.0" precipitation="100.0" precipitation_deposits="90.0" wetness="0.0"
+            wind_intensity="100.0" sun_azimuth_angle="-1.0" sun_altitude_angle="45.0" fog_density="7.0"/>
+    </case>
+    <case weather_id="9">
+         <weather route_percentage="0"
+            cloudiness="70.0" precipitation="60.0" precipitation_deposits="60.0" wetness="0.0"
+            wind_intensity="60.0" sun_azimuth_angle="-1.0" sun_altitude_angle="45.0" fog_density="50.0"/>
+         <weather route_percentage="100"
+            cloudiness="70.0" precipitation="60.0" precipitation_deposits="60.0" wetness="0.0"
+            wind_intensity="60.0" sun_azimuth_angle="-1.0" sun_altitude_angle="45.0" fog_density="50.0"/>
+    </case>
+    <case weather_id="10">
+         <weather route_percentage="0"
+            cloudiness="40.0" precipitation="100.0" precipitation_deposits="90.0" wetness="0.0"
+            wind_intensity="100.0" sun_azimuth_angle="-1.0" sun_altitude_angle="0.0" fog_density="7.0"/>
+         <weather route_percentage="100"
+            cloudiness="40.0" precipitation="100.0" precipitation_deposits="90.0" wetness="0.0"
+            wind_intensity="100.0" sun_azimuth_angle="-1.0" sun_altitude_angle="0.0" fog_density="7.0"/>
+    </case>
+    <case weather_id="11">
+         <weather route_percentage="0"
+            cloudiness="100.0" precipitation="60.0" precipitation_deposits="60.0" wetness="0.0"
+            wind_intensity="60.0" sun_azimuth_angle="-1.0" sun_altitude_angle="45.0" fog_density="50.0"/>
+         <weather route_percentage="100"
+            cloudiness="100.0" precipitation="60.0" precipitation_deposits="60.0" wetness="0.0"
+            wind_intensity="60.0" sun_azimuth_angle="-1.0" sun_altitude_angle="45.0" fog_density="50.0"/>
+    </case>
+    <case weather_id="12">
+         <weather route_percentage="0"
+            cloudiness="5.0" precipitation="0.0" precipitation_deposits="0.0" wetness="0.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="45.0" fog_density="50.0"/>
+         <weather route_percentage="100"
+            cloudiness="5.0" precipitation="0.0" precipitation_deposits="0.0" wetness="0.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="45.0" fog_density="50.0"/>
+    </case>
+    <case weather_id="13">
+         <weather route_percentage="0"
+            cloudiness="5.0" precipitation="0.0" precipitation_deposits="0.0" wetness="0.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="15.0" fog_density="50.0"/>
+         <weather route_percentage="100"
+            cloudiness="5.0" precipitation="0.0" precipitation_deposits="0.0" wetness="0.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="15.0" fog_density="50.0"/>
+    </case>
+    <case weather_id="14">
+         <weather route_percentage="0"
+            cloudiness="100.0" precipitation="100.0" precipitation_deposits="50.0" wetness="50.0"
+            wind_intensity="100.0" sun_azimuth_angle="-1.0" sun_altitude_angle="45.0" fog_density="10.0"/>
+         <weather route_percentage="100"
+            cloudiness="100.0" precipitation="100.0" precipitation_deposits="50.0" wetness="50.0"
+            wind_intensity="100.0" sun_azimuth_angle="-1.0" sun_altitude_angle="45.0" fog_density="10.0"/>
+    </case>
+   <case weather_id="15">
+         <weather route_percentage="0"
+            cloudiness="100.0" precipitation="50.0" precipitation_deposits="100.0" wetness="80.0"
+            wind_intensity="80.0" sun_azimuth_angle="-1.0" sun_altitude_angle="45.0" fog_density="10.0"/>
+         <weather route_percentage="100"
+            cloudiness="100.0" precipitation="50.0" precipitation_deposits="100.0" wetness="80.0"
+            wind_intensity="80.0" sun_azimuth_angle="-1.0" sun_altitude_angle="45.0" fog_density="10.0"/>
+    </case>
+    <case weather_id="18">
+         <weather route_percentage="0"
+            cloudiness="40.0" precipitation="0.0" precipitation_deposits="50.0" wetness="0.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="15.0" fog_density="2.0"/>
+         <weather route_percentage="100"
+            cloudiness="40.0" precipitation="0.0" precipitation_deposits="50.0" wetness="0.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="15.0" fog_density="2.0"/>
+    </case>
+    <case weather_id="19">
+         <weather route_percentage="0"
+            cloudiness="40.0" precipitation="0.0" precipitation_deposits="50.0" wetness="0.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="-90.0" fog_density="2.0"/>
+         <weather route_percentage="100"
+            cloudiness="40.0" precipitation="0.0" precipitation_deposits="50.0" wetness="0.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="-90.0" fog_density="2.0"/>
+    </case>
+    <case weather_id="20">
+         <weather route_percentage="0"
+            cloudiness="60.0" precipitation="30.0" precipitation_deposits="50.0" wetness="60.0"
+            wind_intensity="30.0" sun_azimuth_angle="-1.0" sun_altitude_angle="-90.0" fog_density="3.0"/>
+         <weather route_percentage="100"
+            cloudiness="60.0" precipitation="30.0" precipitation_deposits="50.0" wetness="60.0"
+            wind_intensity="30.0" sun_azimuth_angle="-1.0" sun_altitude_angle="-90.0" fog_density="3.0"/>
+    </case>
+    <case weather_id="21">
+         <weather route_percentage="0"
+            cloudiness="100.0" precipitation="100.0" precipitation_deposits="90.0" wetness="100.0"
+            wind_intensity="100.0" sun_azimuth_angle="-1.0" sun_altitude_angle="-90.0" fog_density="3.0"/>
+         <weather route_percentage="100"
+            cloudiness="100.0" precipitation="100.0" precipitation_deposits="90.0" wetness="100.0"
+            wind_intensity="100.0" sun_azimuth_angle="-1.0" sun_altitude_angle="-90.0" fog_density="3.0"/>
+    </case>
+    <case weather_id="22">
+         <weather route_percentage="0"
+            cloudiness="5.0" precipitation="0.0" precipitation_deposits="0.0" wetness="0.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="-90.0" fog_density="60.0"/>
+         <weather route_percentage="100"
+            cloudiness="5.0" precipitation="0.0" precipitation_deposits="0.0" wetness="0.0"
+            wind_intensity="10.0" sun_azimuth_angle="-1.0" sun_altitude_angle="-90.0" fog_density="60.0"/>
+    </case>
+    <case weather_id="23">
+         <weather route_percentage="0"
+            cloudiness="80.0" precipitation="60.0" precipitation_deposits="60.0" wetness="80.0"
+            wind_intensity="60.0" sun_azimuth_angle="-1.0" sun_altitude_angle="-90.0" fog_density="60.0"/>
+         <weather route_percentage="100"
+            cloudiness="80.0" precipitation="60.0" precipitation_deposits="60.0" wetness="80.0"
+            wind_intensity="60.0" sun_azimuth_angle="-1.0" sun_altitude_angle="-90.0" fog_density="60.0"/>
+    </case>
+    <case weather_id="25">
+         <weather route_percentage="0"
+            cloudiness="100.0" precipitation="100.0" precipitation_deposits="90.0" wetness="100.0"
+            wind_intensity="100.0" sun_azimuth_angle="-1.0" sun_altitude_angle="-90.0" fog_density="100.0"/>
+         <weather route_percentage="100"
+            cloudiness="100.0" precipitation="100.0" precipitation_deposits="90.0" wetness="100.0"
+            wind_intensity="100.0" sun_azimuth_angle="-1.0" sun_altitude_angle="-90.0" fog_density="100.0"/>
+    </case>
+    <case weather_id="26">
+         <weather route_percentage="0"
+            cloudiness="50.0" precipitation="0.0" precipitation_deposits="0.0" wetness="0.0"
+            wind_intensity="0.0" sun_azimuth_angle="0.0" sun_altitude_angle="70.0" fog_density="0.0"/>
+         <weather route_percentage="100"
+            cloudiness="50.0" precipitation="0.0" precipitation_deposits="0.0" wetness="0.0"
+            wind_intensity="0.0" sun_azimuth_angle="0.0" sun_altitude_angle="70.0" fog_density="0.0"/>
+    </case>
+</weathers>
+         

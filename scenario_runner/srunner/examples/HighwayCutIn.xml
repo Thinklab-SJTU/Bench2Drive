@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<scenarios>
+    <scenario name="HighwayCutIn_1" type="HighwayCutIn" town="Highway">
+        <ego_vehicle x="-619.20" y="1055.3" z="0" yaw="-120" model="vehicle.lincoln.mkz_2017" />
+        <other_actor x="-515.70" y="1048.5" z="0" yaw="150" model="vehicle.tesla.model3" />
+    </scenario>
+</scenarios>

@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<scenarios>
+    <scenario name="Accident_1" type="Accident" town="Town04">
+        <ego_vehicle x="30.39" y="-285.92" z="2.8" yaw="-70" model="vehicle.lincoln.mkz_2017" />
+    </scenario>
+    <scenario name="Construction_1" type="ConstructionObstacle" town="Town04">
+        <ego_vehicle x="30.39" y="-285.92" z="2.8" yaw="-70" model="vehicle.lincoln.mkz_2017" />
+    </scenario>
+</scenarios>

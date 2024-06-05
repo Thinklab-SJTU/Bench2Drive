@@ -28,14 +28,51 @@ What can Bench2Drive provide ?
 5. [Citation](#citation)
 
 ## News <a name="news"></a>
+  - [2024/06/05] Bench2Drive realases the Full (10000 clips), evaluation tools, baseline code and benchmark results.
   - [2024/04/27] Bench2Drive releases the Mini (10 clips) and Base (1000 clips) split of the official training data.
 
 ## Dataset <a name="dataset"></a>
   - The datasets has 3 subsets, namely Mini (10 clips), Base (1000 clips) and Full (10000 clips), to accommodate different levels of computational resource.
-  - Download datasets from [huggingface](https://huggingface.co/datasets/rethinlab/Bench2Drive) or [baiduyun](https://pan.baidu.com/s/1ZIL-MPhLbgdBYmHkHncn8Q?pwd=1234).
   - [Detailed explanation](docs/anno.md) of dataset structure, annotation information, and visualization of data.
 
-## Benchmark (Coming soon) <a name="benchmark"></a>
+| Subset  | Hugging Face<img src="./assets/hf-logo.png" alt="Hugging Face" width="18"/> | Baidu Cloud<img src="https://nd-static.bdstatic.com/m-static/v20-main/favicon-main.ico" alt="Baidu Yun" width="18"/> | Approx. Size |
+| :---: |  :---: | :---: | :---: |
+| Mini |   [Download script](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/download_mini.sh) | [Download script](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/download_mini.sh) |  4G |
+| Base |  [Hugging Face Link](https://huggingface.co/datasets/rethinlab/Bench2Drive) |  [Baidu Cloud Link](https://pan.baidu.com/s/1ZIL-MPhLbgdBYmHkHncn8Q?pwd=1234) |  407G |
+| Full |  [Hugging Face Link](https://huggingface.co/datasets/rethinlab/Bench2Drive-Full)   |  Uploading | 4T |
+
+## Baseline Code
+  - [Uniad/VAD in Bench2Drive]()
+  - [TCP/ADMLP in Bench2Drive]()
+
+## Eval Tools
+  - Add your agent to leaderboard/team_code/your_agent.py
+  - Debug Mode
+    ```
+    # Verify the correctness of the team agent， need to set GPU_RANK, TEAM_AGENT, TEAM_CONFIG
+    bash /leaderboard/scripts/run_evaluation_debug.sh
+    ```
+  - Eval Mode
+    ```
+    # Please set TASK_NUM, GPU_RANK_LIST, TASK_LIST, TEAM_AGENT, TEAM_CONFIG, recommend GPU:Task(1:2).
+    bash /leaderboard/scripts/run_evaluation_multi.sh 
+    ```
+  - Visualization 
+    ```
+    python tools/generate_video.py -f your_rgb_folder/
+    ```
+  - Metric
+    ```
+    # Merge eval json and get driving score and success rate
+    python tools/merge_reoute_json.py -f your_json_folder/
+
+    # Get multi-ability results
+    python tools/ability_benchmark.py -r merge.json
+    ```
+
+## Benchmark <a name="benchmark"></a>
+
+![benchmark](./assets/benchmark.jpg)
 
 ## License <a name="license"></a>
 
