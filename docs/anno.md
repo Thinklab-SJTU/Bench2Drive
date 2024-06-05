@@ -12,7 +12,7 @@
   - All trigger volumes' *rotation* attribute is relative to the parent actor (traffic lights or stop signs). Thus, **you need to add the parent actors' rotation to it** to obtain the global *rotation*.  
   - Static vehicles' (state=="static") rotation and location is wrong due to CARLA API bugs. Thus, we suggest only use attribute **center** and **extent** to obtain the local 3D bounding boxes. Use the inverse of **world2vehicle** to obtain the vehicle's bounding box in the world coordinate system. 
   - The extent in CARLA means **half** of the Height, Width, Length!
-  - The HD-Map of each town is in https://hf-mirror.com/datasets/rethinlab/Bench2Drive-Map. The data structure is in the following section.
+  - The HD-Map of each town is in https://hf-mirror.com/datasets/rethinklab/Bench2Drive-Map. The data structure is in the following section.
 
 ## Data
 [CARLAs docs about sensors](https://carla.readthedocs.io/en/latest/ref_sensors/)
