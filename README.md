@@ -30,7 +30,7 @@ What can Bench2Drive provide ? <b>Please click to view the video.</b>
 5. [Citation](#citation)
 
 ## News <a name="news"></a>
-  - [2024/06/05] Bench2Drive realases the Full (10000 clips), evaluation tools, baseline code and benchmark results.
+  - [2024/06/05] Bench2Drive realases the Full dataset (10000 clips), evaluation tools, baseline code, and benchmark results.
   - [2024/04/27] Bench2Drive releases the Mini (10 clips) and Base (1000 clips) split of the official training data.
 
 ## Dataset <a name="dataset"></a>
@@ -44,9 +44,8 @@ What can Bench2Drive provide ? <b>Please click to view the video.</b>
 | Full |  [Hugging Face Link](https://huggingface.co/datasets/rethinklab/Bench2Drive-Full)   |  Uploading | 4T |
 
 ## Baseline Code
-  - [Uniad/VAD in Bench2Drive](https://github.com/Thinklab-SJTU/Bench2DriveZoo/tree/uniad/vad)
-  - [TCP/ADMLP in Bench2Drive](https://github.com/Thinklab-SJTU/Bench2DriveZoo/tree/tcp/admlp)
-
+  - [Uniad/VAD](https://github.com/Thinklab-SJTU/Bench2DriveZoo/tree/uniad/vad) in Bench2Drive
+  - [TCP/ADMLP](https://github.com/Thinklab-SJTU/Bench2DriveZoo/tree/tcp/admlp) in Bench2Drive
 ## Setup
   - Download and setup CARLA 0.9.15
     ```bash
@@ -61,7 +60,7 @@ What can Bench2Drive provide ? <b>Please click to view the video.</b>
     ```
 
 ## Eval Tools
-  - Add your agent to leaderboard/team_code/your_agent.py
+  - Add your agent to leaderboard/team_code/your_agent.py & Link your model folder under the Bench2Drive directory.
     ```bash
         Bench2Drive\ 
           assets\
@@ -71,22 +70,23 @@ What can Bench2Drive provide ? <b>Please click to view the video.</b>
               --> Please add your agent HEAR
           scenario_runner\
           tools\
+          --> Please link your model folder HEAR
     ```
   - Debug Mode
     ```bash
         # Verify the correctness of the team agent， need to set GPU_RANK, TEAM_AGENT, TEAM_CONFIG
         bash leaderboard/scripts/run_evaluation_debug.sh
     ```
-  - Eval Mode
+  - Multi-Process Multi-GPU Parallel Eval. If your teeam_agent save any image for debugging, it might takes a lot of disk space.
     ```bash
         # Please set TASK_NUM, GPU_RANK_LIST, TASK_LIST, TEAM_AGENT, TEAM_CONFIG, recommend GPU:Task(1:2).
         bash leaderboard/scripts/run_evaluation_multi.sh 
     ```
-  - Visualization 
+  - Visualization - make a video for debugging with canbus info printed on the sequential images.
     ```bash
         python tools/generate_video.py -f your_rgb_folder/
     ```
-  - Metric (Driving score and Success rate)
+  - Metric
     ```bash
         # Merge eval json and get driving score and success rate
         python tools/merge_reoute_json.py -f your_json_folder/
