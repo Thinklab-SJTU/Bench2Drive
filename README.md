@@ -6,7 +6,8 @@
 <h2 align="center">
   <a href="https://thinklab-sjtu.github.io/Bench2Drive/">Website</a> |
   <a href="https://huggingface.co/datasets/rethinklab/Bench2Drive">Huggingface</a> |
-  <a href="https://github.com/Thinklab-SJTU/Bench2Drive">arXiv</a> |
+  <a href="https://arxiv.org/abs/2406.03877">arXiv</a> |
+  <a href="https://github.com/Thinklab-SJTU/Bench2DriveZoo">Model</a> |
   <a href="https://discord.gg/uZuU3JXVNV">Discord</a>
 </h2>
 
