@@ -77,7 +77,7 @@ What can Bench2Drive provide ? <b>Please click to view the video.</b>
         # Verify the correctness of the team agent， need to set GPU_RANK, TEAM_AGENT, TEAM_CONFIG
         bash leaderboard/scripts/run_evaluation_debug.sh
     ```
-  - Multi-Process Multi-GPU Parallel Eval. If your teeam_agent save any image for debugging, it might takes a lot of disk space.
+  - Multi-Process Multi-GPU Parallel Eval. If your team_agent saves any image for debugging, it might take lots of disk space.
     ```bash
         # Please set TASK_NUM, GPU_RANK_LIST, TASK_LIST, TEAM_AGENT, TEAM_CONFIG, recommend GPU:Task(1:2).
         bash leaderboard/scripts/run_evaluation_multi.sh 
