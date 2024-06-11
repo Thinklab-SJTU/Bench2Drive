@@ -6,7 +6,8 @@
 <h2 align="center">
   <a href="https://thinklab-sjtu.github.io/Bench2Drive/">Website</a> |
   <a href="https://huggingface.co/datasets/rethinklab/Bench2Drive">Huggingface</a> |
-  <a href="https://github.com/Thinklab-SJTU/Bench2Drive">arXiv</a> |
+  <a href="https://arxiv.org/abs/2406.03877">arXiv</a> |
+  <a href="https://github.com/Thinklab-SJTU/Bench2DriveZoo">Model</a> |
   <a href="https://discord.gg/uZuU3JXVNV">Discord</a>
 </h2>
 
@@ -77,7 +78,7 @@ What can Bench2Drive provide ? <b>Please click to view the video.</b>
         # Verify the correctness of the team agent， need to set GPU_RANK, TEAM_AGENT, TEAM_CONFIG
         bash leaderboard/scripts/run_evaluation_debug.sh
     ```
-  - Multi-Process Multi-GPU Parallel Eval. If your teeam_agent save any image for debugging, it might takes a lot of disk space.
+  - Multi-Process Multi-GPU Parallel Eval. If your team_agent saves any image for debugging, it might take lots of disk space.
     ```bash
         # Please set TASK_NUM, GPU_RANK_LIST, TASK_LIST, TEAM_AGENT, TEAM_CONFIG, recommend GPU:Task(1:2).
         bash leaderboard/scripts/run_evaluation_multi.sh 
@@ -111,7 +112,7 @@ Please consider citing our papers if the project helps your research with the fo
 @article{jia2024bench,
   title={Bench2Drive: Towards Multi-Ability Benchmarking of Closed-Loop End-To-End Autonomous Driving},
   author={Xiaosong Jia and Zhenjie Yang and Qifeng Li and Zhiyuan Zhang and Junchi Yan},
-  journal={\url{https://github.com/Thinklab-SJTU/Bench2Drive}},
+  journal={arXiv preprint arXiv:2406.03877},
   year={2024}
 }
 
