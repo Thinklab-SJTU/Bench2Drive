@@ -80,7 +80,7 @@ What can Bench2Drive provide ? <b>Please click to view the video.</b>
     ```
   - Multi-Process Multi-GPU Parallel Eval. If your team_agent saves any image for debugging, it might take lots of disk space.
     ```bash
-        # Please set TASK_NUM, GPU_RANK_LIST, TASK_LIST, TEAM_AGENT, TEAM_CONFIG, recommend GPU:Task(1:2).
+        # Please set TASK_NUM, GPU_RANK_LIST, TASK_LIST, TEAM_AGENT, TEAM_CONFIG, recommend GPU: Task(1:2).
         bash leaderboard/scripts/run_evaluation_multi.sh 
     ```
   - Visualization - make a video for debugging with canbus info printed on the sequential images.

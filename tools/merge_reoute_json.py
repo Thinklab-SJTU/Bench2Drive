@@ -34,8 +34,8 @@ def merge_route_json(folder_path):
 
     merged_data = {
         "_checkpoint": _checkpoint,
-        "driving score": sum(driving_score) / 210,
-        "success rate": success_num / 210,
+        "driving score": sum(driving_score) / 220,
+        "success rate": success_num / 220,
         "eval num": len(driving_score),
     }
 
