@@ -81,6 +81,7 @@ What can Bench2Drive provide ? <b>Please click to view the video.</b>
   - Multi-Process Multi-GPU Parallel Eval. If your team_agent saves any image for debugging, it might take lots of disk space.
     ```bash
         # Please set TASK_NUM, GPU_RANK_LIST, TASK_LIST, TEAM_AGENT, TEAM_CONFIG, recommend GPU: Task(1:2).
+        # It is normal that certain model can not finsih certain routes, no matter how many times we restart the evaluation. It should be treated as failing as it usually happens in the routes where agents behave badly.
         bash leaderboard/scripts/run_evaluation_multi.sh 
     ```
   - Visualization - make a video for debugging with canbus info printed on the sequential images.
@@ -90,6 +91,7 @@ What can Bench2Drive provide ? <b>Please click to view the video.</b>
   - Metric
     ```bash
         # Merge eval json and get driving score and success rate
+        # This script will assume the total number of routes with results is 220. If there is not enough, the missed ones will be treated as 0 score.
         python tools/merge_reoute_json.py -f your_json_folder/
 
         # Get multi-ability results
