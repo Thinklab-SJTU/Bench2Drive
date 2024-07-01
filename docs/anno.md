@@ -276,7 +276,7 @@ python visualize.py -f FILE_PATH -m LANEMARK_PATH
     # Each road_id corresponds to a dict, where each element formed as:
     -lane_id
         # Each lane_id corresponds to a list, where each element is a dict formed as:
-        - Points  # Location-rotation array formed as ((location_x, location_y, location_z), (roll, pitch, yaw))
+        - Points  # Location-rotation array formed as ((location_x, location_y, location_z), (roll, pitch, yaw), Flag_variable(If the 'Type==Center', a flag variable will exist to indicate whether the current waypoint is in a junction; otherwise, it will not exist.))
         - Type # String, can be 'Broken', 'Solid', 'SolidSolid', 'Other', 'NONE', 'Center'
         - Color # Color, can be 'Blue', 'White', 'Yellow'. (color of Type-'Center' is 'White') 
         - Topology # String array contains the 'road_id' and 'lane_id' of the current road adjacent to, formed as ((road_id, lane_id), ..)
