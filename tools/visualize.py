@@ -108,13 +108,13 @@ def visualize_data(file_path, map_path, vis_bbox=True,  vis_top_down=True, vis_r
                 visulize_img = cv2.imread(os.path.join(file_path, f'camera/{cam_map[key]}/{step:05}.jpg'))
                 road_points = map_info[anno['bounding_boxes'][0]['road_id']]
                 # draw lane
-                for r_p in road_points:
+                for r_p in road_points[anno['bounding_boxes'][0]['lane_id']]:
                     road_point = r_p['Points']
                     road_type = r_p['Type']
                     road_color = r_p['Color']
                     road_topology = r_p['Topology']
                     for point in road_point:
-                        point = np.array([point[0], point[1], point[2], 1])
+                        point = np.array([point[0][0], point[0][1], point[0][2], 1])
                         point_camera = np.dot(world2cam, point)
                         point_camera = [point_camera[1], -point_camera[2], point_camera[0]]
                         depth = point_camera[2]
@@ -129,7 +129,7 @@ def visualize_data(file_path, map_path, vis_bbox=True,  vis_top_down=True, vis_r
                                     if road_type == 'Center':
                                         cv2.circle(visulize_img, (int(point_img[0]), int(point_img[1])), radius=1, color=(0, 255, 0), thickness=-1)
                                 else:
-                                    cv2.circle(visulize_img, (int(point_img[0]), int(point_img[1])), radius=1, color=(0, 255, 255), thickness=-1)
+                                    cv2.circle(visulize_img, (int(point_img[0]), int(point_img[1])), radius=1, color=(0, 255, 255), thickness=-1)                      
                 # draw vehicle
                 for npc in bounding_boxes:
                     if 'vehicle' in npc['class']:
@@ -196,7 +196,7 @@ def visualize_data(file_path, map_path, vis_bbox=True,  vis_top_down=True, vis_r
             road_seg = np.zeros((900, 1600, 3), dtype=np.uint8)
             all_road_topology = set()
             # draw current road
-            for r_p in road_points:
+            for r_p in road_points[anno['bounding_boxes'][0]['lane_id']]:
                 road_point = r_p['Points']
                 road_type = r_p['Type']
                 road_color = r_p['Color']
@@ -204,7 +204,7 @@ def visualize_data(file_path, map_path, vis_bbox=True,  vis_top_down=True, vis_r
                 for r_t in road_topology:
                     all_road_topology.add(r_t)
                 for point in road_point:
-                    point = np.array([point[0], point[1], point[2], 1])
+                    point = np.array([point[0][0], point[0][1], point[0][2], 1])
                     point_camera = np.dot(world2cam, point)
                     point_camera = [point_camera[1], -point_camera[2], point_camera[0]]
                     depth = point_camera[2]
@@ -222,14 +222,14 @@ def visualize_data(file_path, map_path, vis_bbox=True,  vis_top_down=True, vis_r
                                 cv2.circle(road_seg, (int(point_img[0]), int(point_img[1])), radius=1, color=(0, 255, 255), thickness=-1)
             # draw road topology
             for r_t in all_road_topology:
-                road_points = map_info[r_t] 
+                road_points = map_info[r_t[0]][r_t[1]]
                 for r_p in road_points:
                     road_point = r_p['Points']
                     road_type = r_p['Type']
                     road_color = r_p['Color']
                     road_topology = r_p['Topology']
                     for point in road_point:
-                        point = np.array([point[0], point[1], point[2], 1])
+                        point = np.array([point[0][0], point[0][1], point[0][2], 1])
                         point_camera = np.dot(world2cam, point)
                         point_camera = [point_camera[1], -point_camera[2], point_camera[0]]
                         depth = point_camera[2]
@@ -405,5 +405,5 @@ if __name__ == '__main__':
     parser.add_argument('--map_path','-m', type=str)
 
     args = parser.parse_args()
-    map_path = f'./maps/Town{args.map_path}_lanemarkings.npz'
+    map_path = f'./maps/Town{args.map_path}_HD_map.npz'
     visualize_data(args.file_path, map_path, vis_bbox=True, vis_top_down=True, vis_road=True, vis_lidar_bev=True, vis_lidar_to_back_image=True, vis_lidar_to_front_image=True, vis_lidar_to_front_left_image=True)
