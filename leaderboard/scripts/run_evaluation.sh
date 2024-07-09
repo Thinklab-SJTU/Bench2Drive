@@ -38,4 +38,5 @@ CUDA_VISIBLE_DEVICES=${GPU_RANK} python ${LEADERBOARD_ROOT}/leaderboard/leaderbo
 --record=${RECORD_PATH} \
 --resume=${RESUME} \
 --port=${PORT} \
+--traffic-manager-port=${TM_PORT} \
 --gpu-rank=${GPU_RANK} \
