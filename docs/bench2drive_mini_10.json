@@ -1,0 +1,42 @@
+{
+    "AccidentTwoWays_Town12_Route1444_Weather0.tar.gz": {
+        "sha256": "2690cb0053a2e9208f50f9d48c4a1c5befae4179c07e6fb8f06dc4434fb82178",
+        "size": 341845960
+    },
+    "Accident_Town03_Route156_Weather0.tar.gz": {
+        "sha256": "09780cfaae07b13f65f11addfffbda8dea7723a6dfbbe0b49f493303805d24fa",
+        "size": 264497958
+    },
+    "ConstructionObstacle_Town05_Route68_Weather8.tar.gz": {
+        "sha256": "7a1e93168780f5dc4d38b6b5b357e74a62736c935adc3fa74b1ed35028c61e76",
+        "size": 287017092
+    },
+    "ControlLoss_Town11_Route401_Weather11.tar.gz": {
+        "sha256": "9e3abe0c9b25f0e50e597ac0f62a5cf681acd9631e439b23cabac77b85355043",
+        "size": 99078817
+    },
+    "DynamicObjectCrossing_Town02_Route13_Weather6.tar.gz": {
+        "sha256": "b040f5993726dfb3a1dc1aaf5e2e4f93404a0124272d6f47f2469fca53ca25f2",
+        "size": 280176944
+    },
+    "HardBreakRoute_Town01_Route30_Weather3.tar.gz": {
+        "sha256": "2f6593d05e288a88cf37d8043d1e448842a4b1ceaed5544fe13100c174a4cb04",
+        "size": 426576889
+    },
+    "OppositeVehicleTakingPriority_Town13_Route600_Weather2.tar.gz": {
+        "sha256": "757a8e7415081447c2d172592723de194b05ad3fb9416e9fc215844e1dac58dc",
+        "size": 177697783
+    },
+    "ParkedObstacle_Town10HD_Route371_Weather7.tar.gz": {
+        "sha256": "78464d659875f8b2bc5901c763bc9ba154c3eaf021196f4d6077d9ef17c705e4",
+        "size": 264725091
+    },
+    "VehicleTurningRoute_Town15_Route443_Weather1.tar.gz": {
+        "sha256": "97a066963571c10fd91ec0ee45bd5fc598e79ea2f1cf153e8617887ad83b2b5a",
+        "size": 487312838
+    },
+    "YieldToEmergencyVehicle_Town04_Route165_Weather7.tar.gz": {
+        "sha256": "feb52345f09a5358728dd2ed32db93cf64a5d2b0d04d4719a38d408c60c212df",
+        "size": 183804370
+    }
+}

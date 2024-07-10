@@ -38,11 +38,11 @@ What can Bench2Drive provide ? <b>Please click to view the video.</b>
   - The datasets has 3 subsets, namely Mini (10 clips), Base (1000 clips) and Full (10000 clips), to accommodate different levels of computational resource.
   - [Detailed explanation](docs/anno.md) of dataset structure, annotation information, and visualization of data.
 
-| Subset  | Hugging Face<img src="./assets/hf-logo.png" alt="Hugging Face" width="18"/> | Baidu Cloud<img src="https://nd-static.bdstatic.com/m-static/v20-main/favicon-main.ico" alt="Baidu Yun" width="18"/> | Approx. Size |
-| :---: |  :---: | :---: | :---: |
-| Mini |   [Download script](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/download_mini.sh) |  - |  4G |
-| Base |  [Hugging Face Link](https://huggingface.co/datasets/rethinklab/Bench2Drive) |  [Baidu Cloud Link](https://pan.baidu.com/s/1ZIL-MPhLbgdBYmHkHncn8Q?pwd=1234) |  400G |
-| Full |  [Hugging Face Link](https://huggingface.co/datasets/rethinklab/Bench2Drive-Full)   |  Uploading | 4T |
+| Subset  | Hugging Face<img src="./assets/hf-logo.png" alt="Hugging Face" width="18"/> | Baidu Cloud<img src="https://nd-static.bdstatic.com/m-static/v20-main/favicon-main.ico" alt="Baidu Yun" width="18"/> | Approx. Size | File List|
+| :---: |  :---: | :---: | :---: | :---: |
+| Mini |   [Download script](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/download_mini.sh) |  - |  4G | [Mini Json File](./docs/bench2drive_mini_10.json) |
+| Base |  [Hugging Face Link](https://huggingface.co/datasets/rethinklab/Bench2Drive) |  [Baidu Cloud Link](https://pan.baidu.com/s/1ZIL-MPhLbgdBYmHkHncn8Q?pwd=1234) |  400G |  [Base Json File](./docs/bench2drive_base_1000.json)|
+| Full |  [Full HF Link](https://huggingface.co/datasets/rethinklab/Bench2Drive-Full)/[Sup HF Link](https://huggingface.co/datasets/rethinklab/Bench2Drive-Full-Sup)   |  Uploading | 4T | [Full/Sup Json File](./docs/bench2drive_full+sup_13638.json)|
 
 Note that the Mini Set is 10 representative scenes. You may download them by manually select file names from the Base set. 
 
