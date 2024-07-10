@@ -31,6 +31,8 @@ What can Bench2Drive provide ? <b>Please click to view the video.</b>
 5. [Citation](#citation)
 
 ## News <a name="news"></a>
+  - [2024/07/10] We further clean and add more clips in the Full set (13638 clips). Since HuggingFace only allows up to 10000 files per repo, we use two repos to store the Full set. As suggested in this issue [issue](https://github.com/Thinklab-SJTU/Bench2Drive/issues/17), we add a filelist and sha256 of clips for each set.
+  - [2024/06/19] Due to a typo in the upload script for HuggingFace, all clips of scenario VehicleTurningRoutePedestrian are empty in the HuggingFace version. We have fixed that. Please check your data to make sure they are not empty. 
   - [2024/06/05] Bench2Drive realases the Full dataset (10000 clips), evaluation tools, baseline code, and benchmark results.
   - [2024/04/27] Bench2Drive releases the Mini (10 clips) and Base (1000 clips) split of the official training data.
 
