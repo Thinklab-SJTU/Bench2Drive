@@ -44,9 +44,9 @@ What can Bench2Drive provide ? <b>Please click to view the video.</b>
 | :---: |  :---: | :---: | :---: | :---: |
 | Mini |   [Download script](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/download_mini.sh) |  - |  4G | [Mini Json File](./docs/bench2drive_mini_10.json) |
 | Base |  [Hugging Face Link](https://huggingface.co/datasets/rethinklab/Bench2Drive) |  [Baidu Cloud Link](https://pan.baidu.com/s/1ZIL-MPhLbgdBYmHkHncn8Q?pwd=1234) |  400G |  [Base Json File](./docs/bench2drive_base_1000.json)|
-| Full |  [Full HF Link](https://huggingface.co/datasets/rethinklab/Bench2Drive-Full)/[Sup HF Link](https://huggingface.co/datasets/rethinklab/Bench2Drive-Full-Sup)   |  [Baidu Cloud Link](https://pan.baidu.com/s/13F2BXedxU0gtforU2SshGw?pwd=1234) | 4T | [Full/Sup Json File](./docs/bench2drive_full+sup_13638.json)|
+| Full |  [Full HF Link - 9888 files](https://huggingface.co/datasets/rethinklab/Bench2Drive-Full)/[Sup HF Link - 3814 file](https://huggingface.co/datasets/rethinklab/Bench2Drive-Full-Sup)   | - | 4T | [Full/Sup Json File](./docs/bench2drive_full+sup_13638.json)|
 
-Note that the Mini Set is 10 representative scenes. You may download them by manually select file names from the Base set. 
+Note that the Mini Set is 10 representative scenes. You may download them by manually select file names from the Base set.
 
 ## Baseline Code
   - [Uniad/VAD](https://github.com/Thinklab-SJTU/Bench2DriveZoo/tree/uniad/vad) in Bench2Drive
