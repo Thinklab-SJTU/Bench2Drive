@@ -124,10 +124,10 @@ Please consider citing our papers if the project helps your research with the fo
   year={2024}
 }
 
-@article{li2024think,
+@inproceedings{li2024think,
   title={Think2Drive: Efficient Reinforcement Learning by Thinking in Latent World Model for Quasi-Realistic Autonomous Driving (in CARLA-v2)},
   author={Qifeng Li and Xiaosong Jia and Shaobo Wang and Junchi Yan},
-  journal={arXiv preprint arXiv:2402.167200},
+  booktitle={ECCV},
   year={2024}
 }
 ```
