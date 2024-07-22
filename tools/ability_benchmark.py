@@ -49,12 +49,6 @@ def get_position(xml_route):
     waypoints_elem = xml_route.find('waypoints')
     keypoints = waypoints_elem.findall('position')
     return [carla.Location(float(pos.get('x')), float(pos.get('y')), float(pos.get('z'))) for pos in keypoints]
-    # res = []
-    # waypoints_elem = xml_route.find('waypoints')
-    # for pos in waypoints_elem:
-    #     res.append((float(pos.get('x')), float(pos.get('y')), float(pos.get('z'))))
-    # return res
-    # pass 
 
 def get_route_result(records, route_id):
     for record in records:
@@ -62,7 +56,6 @@ def get_route_result(records, route_id):
         if route_id == record_route_id:
             return record
     return None
-    raise KeyError("Can't find the route:", route_id, "in the result file!")
 
 def get_waypoint_route(locs, grp):
     route = []
@@ -78,6 +71,7 @@ def main(args):
     routes_file = args.file 
     result_file = args.result_file
     Ability_Statistic = {}
+    crash_route_list = []
     for key in Ability:
         Ability_Statistic[key] = [0, 0.]
     Success_Statistic = {}
@@ -109,6 +103,7 @@ def main(args):
         route_id = route.get('id')
         route_record = get_route_result(records, route_id)
         if route_record is None:
+            crash_route_list.append((scenario_name, route_id))
             print('No result record of route', route_id, "in the result file")
             continue
         if route_record["status"] == 'Completed' or route_record["status"] == "Perfect":
@@ -129,8 +124,8 @@ def main(args):
                 print("Loading the town:", current_town)
                 world = client.load_world(current_town)
                 print("successfully load the town:", current_town)
-                carla_map = world.get_map()
-                grp = GlobalRoutePlanner(carla_map, 1.0)
+            carla_map = world.get_map()
+            grp = GlobalRoutePlanner(carla_map, 1.0)
             location_list = get_position(route)
             waypoint_route = get_waypoint_route(location_list, grp)
             count = 0
@@ -161,6 +156,7 @@ def main(args):
         print(key, ": ", value)
     
     Ability_Res['mean'] = sum(list(Ability_Res.values())) / 5
+    Ability_Res['crashed'] = crash_route_list
     with open(f"{result_file.split('.')[0]}_ability.json", 'w') as file:
         json.dump(Ability_Res, file, indent=4)
         
@@ -171,17 +167,16 @@ def main(args):
         Success_Res[scenario] = float(statis[0])/float(statis[1])
         Succ_Route_num += statis[0]
         Route_num += statis[1]
-    Aver_Succ_Rate = float(Succ_Route_num) / float(Route_num)
-    print('finished!')
+    assert len(crash_route_list) == 220 - float(Route_num)
+    print(f'Crashed Route num: {len(crash_route_list)}, Crashed Route ID: {crash_route_list}')
+    print('Finished!')
 
 if __name__=='__main__':
     argparser = argparse.ArgumentParser(description=__doc__)
-    argparser.add_argument('-f', '--file', nargs=None, default="bench2drive220.xml", help='route file')
+    argparser.add_argument('-f', '--file', nargs=None, default="leaderboard/data/bench2drive220.xml", help='route file')
     argparser.add_argument('-r', '--result_file', nargs=None, default="", help='result json file')
-    argparser.add_argument('--host', default='localhost', help='IP of the host server (default: localhost)')
-    argparser.add_argument('-port', nargs=1, default=2000, help='carla rpc port')
-    argparser.add_argument('-traffic_manger_port', nargs="+", default="8000", help='carla traffic manager port')
-    argparser.add_argument('-gpu_rank', default=0)
+    argparser.add_argument('-t', '--host', default='localhost', help='IP of the host server (default: localhost)')
+    argparser.add_argument('-p', '--port', nargs=1, default=2000, help='carla rpc port')
     args = argparser.parse_args()
     main(args)
     

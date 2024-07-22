@@ -17,7 +17,7 @@ def merge_route_json(folder_path):
                 rd.pop('index')
                 merged_records.append(rd)
                 driving_score.append(rd['scores']['score_composed'])
-                if rd['status']=='Completed':
+                if rd['status']=='Completed' or rd['status']=='Perfect':
                     success_flag = True
                     for k,v in rd['infractions'].items():
                         if len(v)>0 and k != 'min_speed_infractions':
