@@ -496,6 +496,11 @@ class LeaderboardEvaluator(object):
             print("\033[1m> Registering the global statistics\033[0m", flush=True)
             self.statistics_manager.compute_global_statistics()
             self.statistics_manager.validate_and_write_statistics(self.sensors_initialized, crashed)
+        
+        if crashed:
+            cmd2 = "ps -ef | grep '-graphicsadapter="+ str(args.gpu_rank) + "' | grep -v grep | awk '{print $2}' | xargs -r kill -9"
+            server = subprocess.Popen(cmd2, shell=True, preexec_fn=os.setsid)
+            atexit.register(os.killpg, server.pid, signal.SIGKILL)
 
         return crashed
 
