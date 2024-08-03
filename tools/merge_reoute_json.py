@@ -26,7 +26,8 @@ def merge_route_json(folder_path):
                     if success_flag:
                         success_num += 1
                         print(rd['route_id'])
-
+    if len(merged_records) != 220:
+        print(f"-----------------------Warning: there are {len(merged_records)} routes in your json, which does not equal to 220. All metrics (Driving Score, Success Rate, Ability) are inaccurate!!!")
     merged_records = sorted(merged_records, key=lambda d: d['route_id'], reverse=True)
     _checkpoint = {
         "records": merged_records
