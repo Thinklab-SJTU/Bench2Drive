@@ -33,7 +33,8 @@ PENALTY_PERC_DICT = {
     # 'increases' means that the higher the value, the higher the penalty.
     # 'decreases' means that the ideal value is 100 and the lower the value, the higher the penalty.
     TrafficEventType.OUTSIDE_ROUTE_LANES_INFRACTION: [0, 'increases'],  # All route traversed through outside lanes is ignored
-    TrafficEventType.MIN_SPEED_INFRACTION: [0.7, 'decreases'],
+    # TrafficEventType.MIN_SPEED_INFRACTION: [0.7, 'decreases'],
+    TrafficEventType.MIN_SPEED_INFRACTION: [0.7, 'unused'],
 }
 
 PENALTY_NAME_DICT = {
@@ -355,6 +356,8 @@ class StatisticsManager(object):
                 score_penalty *= (1 - (1 - penalty_value) * (1 - event_value / 100))
             elif penalty_type == "increases":
                 score_penalty *= (1 - (1 - penalty_value) * event_value / 100)
+            elif penalty_type == "unused":
+                pass
             else:
                 raise ValueError("Found a criteria with an unknown penalty type")
             return score_penalty

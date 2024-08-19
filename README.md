@@ -31,7 +31,8 @@ What can Bench2Drive provide ? <b>Please click to view the video.</b>
 5. [Citation](#citation)
 
 ## News <a name="news"></a>
-  - [2024/08/10] We update the team_code agent of UniAD and VAD to fix the camera projection bug mentioned in 2024/07/29. Their corresponding scores will be uploaded soon with new metrics introduced. Please stay tuned.
+  - [2024/08/19] **[Major Updates]** To better assess driving performance, we add two additional metrics: Driving Efficiency and Driving Smoothness. Consequently, we remove the penalty for minimum speed in calculating the Drive Score and extend the TickRunTime from 2000 to 4000 to allow for a more lenient driving evaluation. We are currently reassessing all baselines. Please stay tuned.
+  - [2024/08/10] We update the team_code agent of UniAD and VAD to fix the camera projection bug mentioned in 2024/07/29. Their corresponding scores will be uploaded soon with new metrics introduced.
   - [2024/07/29] As kindly suggested in an [issue](https://github.com/Thinklab-SJTU/Bench2Drive/issues/36), there is a bug in the team code agent of UniAD and VAD during evaluation, i.e, **the BACK CAMERA's extrinsic is wrong**. The training process is correct. To be consistent with the reported results, we do not modify the code right now. Users' are strongly encouraged to use the correct extrinsics.
   - [2024/07/22] We add more reminders in the evaluation code to avoid the miss of logs. According to [Haochen](https://github.com/georgeliu233)'s kind suggestion, we add automatic cleaning code in the evaluation toolkit. Users' may set in their bash script to restart the evaluation infinitely until finishing the evaluation since CARLA is easy to crash.
   - [2024/07/10] We further clean and add more clips in the Full set (13638 clips). Since HuggingFace only allows up to 10000 files per repo, we use two repos to store the Full set. As suggested in this issue [issue](https://github.com/Thinklab-SJTU/Bench2Drive/issues/17), we add a filelist and sha256 of clips for each set.
@@ -91,7 +92,7 @@ Use the command line: *huggingface-cli download --repo-type dataset --resume-dow
     ```bash
         # Please set TASK_NUM, GPU_RANK_LIST, TASK_LIST, TEAM_AGENT, TEAM_CONFIG, recommend GPU: Task(1:2).
         # It is normal that certain model can not finsih certain routes, no matter how many times we restart the evaluation. It should be treated as failing as it usually happens in the routes where agents behave badly.
-        bash leaderboard/scripts/run_evaluation_multi.sh 
+        bash leaderboard/scripts/run_evaluation_multi_uniad.sh
     ```
   - Visualization - make a video for debugging with canbus info printed on the sequential images.
     ```bash
@@ -105,6 +106,9 @@ Use the command line: *huggingface-cli download --repo-type dataset --resume-dow
 
         # Get multi-ability results
         python tools/ability_benchmark.py -r merge.json
+
+        # Get driving efficiency and driving smoothness results
+        python tools/efficiency_smoothness_benchmark.py -f merge.json -m your_metric_folder/
     ```
 
 ## Benchmark <a name="benchmark"></a>

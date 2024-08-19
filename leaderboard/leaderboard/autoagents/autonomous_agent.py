@@ -46,6 +46,8 @@ class AutonomousAgent(object):
 
         self.wallclock_t0 = None
 
+        self.get_hero()
+
     def setup(self, path_to_conf_file):
         """
         Initialize everything needed by your agent and set the track attribute to the right type:
@@ -131,3 +133,29 @@ class AutonomousAgent(object):
         self._global_plan_world_coord = [(global_plan_world_coord[x][0], global_plan_world_coord[x][1]) for x in ds_ids]
         self._global_plan = [global_plan_gps[x] for x in ds_ids]
         self._plan_gps_HACK = global_plan_gps
+    
+    def get_hero(self):
+        hero_actor = None
+        from srunner.scenariomanager.carla_data_provider import CarlaDataProvider
+        for actor in CarlaDataProvider.get_world().get_actors():
+            if 'role_name' in actor.attributes and actor.attributes['role_name'] == 'hero':
+                hero_actor = actor
+                break
+        self.hero_actor = hero_actor
+    
+    def get_metric_info(self):
+        
+        def vector2list(vector, rotation=False):
+            if rotation:
+                return [vector.roll, vector.pitch, vector.yaw]
+            else:
+                return [vector.x, vector.y, vector.z]
+
+        output = {}
+        output['acceleration'] = vector2list(self.hero_actor.get_acceleration())
+        output['angular_velocity'] = vector2list(self.hero_actor.get_angular_velocity())
+        output['forward_vector'] = vector2list(self.hero_actor.get_transform().get_forward_vector())
+        output['right_vector'] = vector2list(self.hero_actor.get_transform().get_right_vector())
+        output['location'] = vector2list(self.hero_actor.get_transform().location)
+        output['rotation'] = vector2list(self.hero_actor.get_transform().rotation, rotation=True)
+        return output

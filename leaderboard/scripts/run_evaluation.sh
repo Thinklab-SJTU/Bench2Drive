@@ -1,5 +1,6 @@
 #!/bin/bash
-export CARLA_ROOT=
+# Must set CARLA_ROOT
+export CARLA_ROOT=YOUR_CARLA_PATH
 export CARLA_SERVER=${CARLA_ROOT}/CarlaUE4.sh
 export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI
 export PYTHONPATH=$PYTHONPATH:${CARLA_ROOT}/PythonAPI/carla

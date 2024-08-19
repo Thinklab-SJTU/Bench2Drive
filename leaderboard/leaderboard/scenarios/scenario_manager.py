@@ -179,8 +179,8 @@ class ScenarioManager(object):
             self.tick_count += 1
             self._watchdog.pause()
 
-            if self.tick_count > 2000:
-                raise TickRuntimeError("RuntimeError, tick_count > 2000")
+            if self.tick_count > 4000:
+                raise TickRuntimeError("RuntimeError, tick_count > 4000")
 
             try:
                 self._agent_watchdog.resume()
