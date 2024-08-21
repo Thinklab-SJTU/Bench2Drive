@@ -110,6 +110,16 @@ Use the command line: *huggingface-cli download --repo-type dataset --resume-dow
         # Get driving efficiency and driving smoothness results
         python tools/efficiency_smoothness_benchmark.py -f merge.json -m your_metric_folder/
     ```
+## Deal with CARLA
+
+- CARLA has complex dependencies and is not stable. Please check the issue section of CARLA **very carefully**.
+- Use tools/clean_carla.sh frequently and multiple times. Some CARLA processes are difficult to kill. Be sure to clean_carla could avoid lots of bugs.
+- In our evaluation tools, the launch of CARLA is automatic: https://github.com/Thinklab-SJTU/Bench2Drive/tree/main/leaderboard/leaderboard/leaderboard_evaluator.py#L203. But you could always start CARLA by the one single command line to debug.
+- CARLA is not controlled CUDA_VISIBLE_DEVICES! It is controlled by -graphicsadapter in the command line. **Interestingly, in some machines, for some unknown reasons, -graphicsadapter=1 is not available.** For example, with 4 GPUS, it might be: GPU0 -graphicsadapter=0, GPU1  -graphicsadapter=2, GPU2 -graphicsadapter=3, GPU3  -graphicsadapter=4.
+- The conflict of PORT is frequently happened. Use lsof-i:YOUR_PORT frequently to avoid conflict. Avoid use small port numbers (<10000 could be unsafe).
+- *4.26.2-0+++UE4+Release-4.26 522 0 Disabling core dumps*. Only showing these two lines without termination is good. *WARNING: lavapipe is not a conformant vulkan implementation, testing use only.* is bad.
+- Re-install vulkan might be helpful *sudo apt install vulkan-tools; sudo apt install vulkan-utils*
+- We find that nvidia driver version 470 is good all the time. 515 has some problems but okay. 550 has lots of bugs.
 
 ## Benchmark <a name="benchmark"></a>
 
