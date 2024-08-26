@@ -120,6 +120,7 @@ Use the command line: *huggingface-cli download --repo-type dataset --resume-dow
 - *4.26.2-0+++UE4+Release-4.26 522 0 Disabling core dumps*. Only showing these two lines without termination is good. *WARNING: lavapipe is not a conformant vulkan implementation, testing use only.* is bad.
 - Re-install vulkan might be helpful *sudo apt install vulkan-tools; sudo apt install vulkan-utils*
 - We find that nvidia driver version 470 is good all the time. 515 has some problems but okay. 550 has lots of bugs.
+- *sleep* is important to avoid crash of CARLA. For example, https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/leaderboard/leaderboard/leaderboard_evaluator.py#L207, the sleep time should be extended for slower machines. When it comes to multi-gpu evaluation, https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/leaderboard/scripts/run_evaluation_multi_uniad.sh#L58, the sleep time should also be extended for slower machines.
 
 ## Benchmark <a name="benchmark"></a>
 
