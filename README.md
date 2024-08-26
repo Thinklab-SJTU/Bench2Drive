@@ -31,6 +31,7 @@ What can Bench2Drive provide ? <b>Please click to view the video.</b>
 5. [Citation](#citation)
 
 ## News <a name="news"></a>
+  - [2024/08/27] We update the latest results under the new protocols with **two new metrics and fixed bugs**. The older ones are **deprecated** with Bench2Drive version before commit 311c35d294c1d4e5350e4b8adcc682c28b9556a8 and Bench2DriveZoo version before commit 31432e868c3ca1bef5c7fa39ba4bd4e7a3e7538a.
   - [2024/08/19] **[Major Updates]** To better assess driving performance, we add two additional metrics: Driving Efficiency and Driving Smoothness. Consequently, we remove the penalty for minimum speed in calculating the Drive Score and extend the TickRunTime from 2000 to 4000 to allow for a more lenient driving evaluation. We are currently reassessing all baselines. Please stay tuned.
   - [2024/08/10] We update the team_code agent of UniAD and VAD to fix the camera projection bug mentioned in 2024/07/29. Their corresponding scores will be uploaded soon with new metrics introduced.
   - [2024/07/29] As kindly suggested in an [issue](https://github.com/Thinklab-SJTU/Bench2Drive/issues/36), there is a bug in the team code agent of UniAD and VAD during evaluation, i.e, **the BACK CAMERA's extrinsic is wrong**. The training process is correct. To be consistent with the reported results, we do not modify the code right now. Users' are strongly encouraged to use the correct extrinsics.
@@ -124,7 +125,12 @@ Use the command line: *huggingface-cli download --repo-type dataset --resume-dow
 
 ## Benchmark <a name="benchmark"></a>
 
-![benchmark](./assets/benchmark.jpg)
+![benchmark](./assets/benchmark_v2.PNG)
+
+
+**----------------------The results below are deprecated due to change of protocols and bugs----------------------**
+
+![depracated benchmark](./assets/benchmark.jpg)
 
 ## License <a name="license"></a>
 
