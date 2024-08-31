@@ -99,11 +99,11 @@ Use the command line: *huggingface-cli download --repo-type dataset --resume-dow
     ```bash
         python tools/generate_video.py -f your_rgb_folder/
     ```
-  - Metric: **Make sure there are exactly 220 routes in your jason. Failed/Crashed status is also acceptable. Otherwise, the metric is inaccurate.**
+  - Metric: **Make sure there are exactly 220 routes in your json. Failed/Crashed status is also acceptable. Otherwise, the metric is inaccurate.**
     ```bash
         # Merge eval json and get driving score and success rate
         # This script will assume the total number of routes with results is 220. If there is not enough, the missed ones will be treated as 0 score.
-        python tools/merge_reoute_json.py -f your_json_folder/
+        python tools/merge_route_json.py -f your_json_folder/
 
         # Get multi-ability results
         python tools/ability_benchmark.py -r merge.json
