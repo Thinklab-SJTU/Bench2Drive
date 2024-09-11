@@ -204,7 +204,7 @@ class LeaderboardEvaluator(object):
         self.server = subprocess.Popen(cmd1, shell=True, preexec_fn=os.setsid)
         print(cmd1, self.server.returncode, flush=True)
         atexit.register(os.killpg, self.server.pid, signal.SIGKILL)
-        time.sleep(10)
+        time.sleep(30)
             
         attempts = 0
         num_max_restarts = 20
