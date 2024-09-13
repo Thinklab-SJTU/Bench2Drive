@@ -15,7 +15,7 @@
 
 
 <h2 align="center">
-What can Bench2Drive provide ? <b>Please click to view the video.</b>
+What can Think2Drive + Bench2Drive provide ? <b>Please click to view the video.</b>
 <br>
 <b>&#x2193;&#x2193;&#x2193;</b>
 </h2>
@@ -42,7 +42,7 @@ What can Bench2Drive provide ? <b>Please click to view the video.</b>
   - [2024/04/27] Bench2Drive releases the Mini (10 clips) and Base (1000 clips) split of the official training data.
 
 ## Dataset <a name="dataset"></a>
-  - The datasets has 3 subsets, namely Mini (10 clips), Base (1000 clips) and Full (10000 clips), to accommodate different levels of computational resource.
+  - The datasets has 3 subsets, collected by **our strong world model based RL expert [Think2Drive](https://arxiv.org/abs/2402.16720)**, namely Mini (10 clips), Base (1000 clips) and Full (10000 clips), to accommodate different levels of computational resource.
   - [Detailed explanation](docs/anno.md) of dataset structure, annotation information, and visualization of data.
 
 | Subset  | Hugging Face<img src="./assets/hf-logo.png" alt="Hugging Face" width="18"/> | Baidu Cloud<img src="https://nd-static.bdstatic.com/m-static/v20-main/favicon-main.ico" alt="Baidu Yun" width="18"/> | Approx. Size | File List|
@@ -55,7 +55,7 @@ Note that the Mini Set is 10 representative scenes. You may download them by man
 
 Use the command line: *huggingface-cli download --repo-type dataset --resume-download rethinklab/Bench2Drive --local-dir Bench2Drive-Base* to download from hugginface. User may consider [mirror site](https://hf-mirror.com/) if Huggingface is blocked. Use [BaiduPCS-Go](https://github.com/qjfoidnh/BaiduPCS-Go) to download from Baidu Cloud. Both command lines are resumable.
 
-## Baseline Code
+## Student Model Code (with Think2Drive as Teacher Model)
   - [Uniad/VAD](https://github.com/Thinklab-SJTU/Bench2DriveZoo/tree/uniad/vad) in Bench2Drive
   - [TCP/ADMLP](https://github.com/Thinklab-SJTU/Bench2DriveZoo/tree/tcp/admlp) in Bench2Drive
 ## Setup
