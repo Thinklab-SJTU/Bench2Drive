@@ -4,6 +4,11 @@
 </h2>
 
 <h2 align="center">
+NeurIPS 2024 Datasets and Benchmarks Track
+</h2>
+
+
+<h2 align="center">
   <a href="https://thinklab-sjtu.github.io/Bench2Drive/">Website</a> |
   <a href="https://huggingface.co/datasets/rethinklab/Bench2Drive">Huggingface</a> |
   <a href="https://arxiv.org/abs/2406.03877">arXiv</a> |
@@ -31,6 +36,7 @@ What can Think2Drive + Bench2Drive provide ? <b>Please click to view the video.<
 5. [Citation](#citation)
 
 ## News <a name="news"></a>
+  - [2024/09/26] Bench2Drive is accepted at NeurIPS 2024 Datasets and Benchmarks Track.
   - [2024/08/27] We update the latest results under the new protocols with **two new metrics and fixed bugs**. The older ones are **deprecated** with Bench2Drive version before commit 311c35d294c1d4e5350e4b8adcc682c28b9556a8 and Bench2DriveZoo version before commit 31432e868c3ca1bef5c7fa39ba4bd4e7a3e7538a.
   - [2024/08/19] **[Major Updates]** To better assess driving performance, we add two additional metrics: Driving Efficiency and Driving Smoothness. Consequently, we remove the penalty for minimum speed in calculating the Drive Score and extend the TickRunTime from 2000 to 4000 to allow for a more lenient driving evaluation. We are currently reassessing all baselines. Please stay tuned.
   - [2024/08/10] We update the team_code agent of UniAD and VAD to fix the camera projection bug mentioned in 2024/07/29. Their corresponding scores will be uploaded soon with new metrics introduced.
@@ -141,10 +147,10 @@ All assets and code are under the [Apache 2.0 license](./LICENSE) unless specifi
 Please consider citing our papers if the project helps your research with the following BibTex:
 
 ```bibtex
-@article{jia2024bench,
+@inproceedings{jia2024bench,
   title={Bench2Drive: Towards Multi-Ability Benchmarking of Closed-Loop End-To-End Autonomous Driving},
   author={Xiaosong Jia and Zhenjie Yang and Qifeng Li and Zhiyuan Zhang and Junchi Yan},
-  journal={arXiv preprint arXiv:2406.03877},
+  booktitle={NeurIPS 2024 Datasets and Benchmarks Track},
   year={2024}
 }
 
