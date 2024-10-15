@@ -37,7 +37,7 @@ What can Think2Drive + Bench2Drive provide ? <b>Please click to view the video.<
 
 ## News <a name="news"></a>
   - [2024/10/14] As kindly pointed out in an [issue](https://github.com/Thinklab-SJTU/Bench2Drive/issues/112), typos were discovered in the ability calculation. We have corrected the typos and updated the multi-ability results. This update will **not affect driving score and success rate**. 
-  - [2024/10/14] As kindly pointed out in an [issue](https://github.com/Thinklab-SJTU/Bench2DriveZoo/issues/46), a bug was discovered in the B2D_vad_dataset. Note that **if you want to re-train**, please fix it by yourself.
+  - [2024/10/14] As kindly pointed out in an [issue](https://github.com/Thinklab-SJTU/Bench2DriveZoo/issues/46), a bug was discovered in the B2D_vad_dataset. We leave it here to be consistent with existing results. We do not anticipate any major influence caused by this bug. Users may fix the bug according to their needs.
   - [2024/09/26] Bench2Drive is accepted at NeurIPS 2024 Datasets and Benchmarks Track.
   - [2024/08/27] We update the latest results under the new protocols with **two new metrics and fixed bugs**. 
   - [2024/08/19] **[Major Updates]** To better assess driving performance, we add two additional metrics: Driving Efficiency and Driving Smoothness. Consequently, we remove the penalty for minimum speed in calculating the Drive Score and extend the TickRunTime from 2000 to 4000 to allow for a more lenient driving evaluation. We are currently reassessing all baselines.
