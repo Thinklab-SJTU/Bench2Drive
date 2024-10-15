@@ -36,9 +36,11 @@ What can Think2Drive + Bench2Drive provide ? <b>Please click to view the video.<
 5. [Citation](#citation)
 
 ## News <a name="news"></a>
+  - [2024/10/14] As kindly pointed out in an [issue](https://github.com/Thinklab-SJTU/Bench2Drive/issues/112), typos were discovered in the ability calculation. We have corrected the typos and updated the multi-ability results. This update will **not affect driving score and success rate**. 
+  - [2024/10/14] As kindly pointed out in an [issue](https://github.com/Thinklab-SJTU/Bench2DriveZoo/issues/46), a bug was discovered in the B2D_vad_dataset. Note that **if you want to re-train**, please fix it by yourself.
   - [2024/09/26] Bench2Drive is accepted at NeurIPS 2024 Datasets and Benchmarks Track.
-  - [2024/08/27] We update the latest results under the new protocols with **two new metrics and fixed bugs**. The older ones are **deprecated** with Bench2Drive version before commit 311c35d294c1d4e5350e4b8adcc682c28b9556a8 and Bench2DriveZoo version before commit 31432e868c3ca1bef5c7fa39ba4bd4e7a3e7538a.
-  - [2024/08/19] **[Major Updates]** To better assess driving performance, we add two additional metrics: Driving Efficiency and Driving Smoothness. Consequently, we remove the penalty for minimum speed in calculating the Drive Score and extend the TickRunTime from 2000 to 4000 to allow for a more lenient driving evaluation. We are currently reassessing all baselines. Please stay tuned.
+  - [2024/08/27] We update the latest results under the new protocols with **two new metrics and fixed bugs**. 
+  - [2024/08/19] **[Major Updates]** To better assess driving performance, we add two additional metrics: Driving Efficiency and Driving Smoothness. Consequently, we remove the penalty for minimum speed in calculating the Drive Score and extend the TickRunTime from 2000 to 4000 to allow for a more lenient driving evaluation. We are currently reassessing all baselines.
   - [2024/08/10] We update the team_code agent of UniAD and VAD to fix the camera projection bug mentioned in 2024/07/29. Their corresponding scores will be uploaded soon with new metrics introduced.
   - [2024/07/29] As kindly suggested in an [issue](https://github.com/Thinklab-SJTU/Bench2Drive/issues/36), there is a bug in the team code agent of UniAD and VAD during evaluation, i.e, **the BACK CAMERA's extrinsic is wrong**. The training process is correct. To be consistent with the reported results, we do not modify the code right now. Users' are strongly encouraged to use the correct extrinsics.
   - [2024/07/22] We add more reminders in the evaluation code to avoid the miss of logs. According to [Haochen](https://github.com/georgeliu233)'s kind suggestion, we add automatic cleaning code in the evaluation toolkit. Users' may set in their bash script to restart the evaluation infinitely until finishing the evaluation since CARLA is easy to crash.
@@ -132,12 +134,25 @@ Use the command line: *huggingface-cli download --repo-type dataset --resume-dow
 
 ## Benchmark <a name="benchmark"></a>
 
-![benchmark](./assets/benchmark_v2.PNG)
+- V0.0.3(Currently in use)
+  - Fix typos in the ability calculation. ([Issue #112](https://github.com/Thinklab-SJTU/Bench2Drive/issues/112))
+  ![benchmark](./assets/benchmark_v3.jpg)
 
+- V0.0.2(Depracated)
+  - Fix the BACK CAMERA's extrinsic bug. ([Issue #36](https://github.com/Thinklab-SJTU/Bench2Drive/issues/36))
+  - Turn up tickruntime (2000 -> 4000).
+  - Drive Score removes min speed penalty.
+  - Code Version
+    - [Bench2Drive](https://github.com/Thinklab-SJTU/Bench2Drive/tree/cd1883c937470ea4d144bf6c7d8922e76d792f07)
+    - [Bench2DriveZoo](https://github.com/Thinklab-SJTU/Bench2DriveZoo/tree/914b328f26b5534fd13b04d5fc644c8d82196d7b)
+  ![depracated benchmark](./assets/benchmark_v2.PNG)
 
-**----------------------The results below are deprecated due to change of protocols and bugs----------------------**
-
-![depracated benchmark](./assets/benchmark.jpg)
+- V0.0.1(Depracated)
+  - Initial Version
+  - Code Version
+    - [Bench2Drive](https://github.com/Thinklab-SJTU/Bench2Drive/tree/ee62902eeb8a9f7ab50fa62009c2de12bf645220)
+    - [Bench2DriveZoo](https://github.com/Thinklab-SJTU/Bench2DriveZoo/tree/31432e868c3ca1bef5c7fa39ba4bd4e7a3e7538a)
+  ![depracated benchmark](./assets/benchmark.jpg)
 
 ## License <a name="license"></a>
 
