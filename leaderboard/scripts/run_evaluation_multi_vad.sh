@@ -22,7 +22,7 @@ fi
 if [ ! -f "${BASE_ROUTES}_${ALGO}_${PLANNER_TYPE}_split_done.flag" ]; then
     echo -e "****************************\033[33m Attention \033[0m ****************************"
     echo -e "\033[33m Running split_xml.py \033[0m"
-    TASK_NUM=12
+    TASK_NUM=8 # 8*H100, 1 task per gpu
     python tools/split_xml.py $BASE_ROUTES $TASK_NUM $ALGO $PLANNER_TYPE
     touch "${BASE_ROUTES}_${ALGO}_${PLANNER_TYPE}_split_done.flag"
     echo -e "\033[32m Splitting complete. Flag file created. \033[0m"
