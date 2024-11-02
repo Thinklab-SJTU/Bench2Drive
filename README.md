@@ -156,7 +156,7 @@ Use the command line: *huggingface-cli download --repo-type dataset --resume-dow
 
 ## License <a name="license"></a>
 
-All assets and code are under the [Apache 2.0 license](./LICENSE) unless specified otherwise.
+All assets and code are under the [CC-BY-NC-ND](./LICENSE) unless specified otherwise.
 
 ## Citation <a name="citation"></a>
 
