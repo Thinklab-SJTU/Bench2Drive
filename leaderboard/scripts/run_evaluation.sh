@@ -17,7 +17,7 @@ export TM_PORT=$2
 export DEBUG_CHALLENGE=0
 export REPETITIONS=1 # multiple evaluation runs
 export RESUME=True
-export IS_BENCH2DRIVE==$3
+export IS_BENCH2DRIVE=$3
 export PLANNER_TYPE=$9
 export GPU_RANK=${10}
 
