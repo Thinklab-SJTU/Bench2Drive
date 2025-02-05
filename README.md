@@ -36,6 +36,7 @@ What can Think2Drive + Bench2Drive provide ? <b>Please click to view the video.<
 5. [Citation](#citation)
 
 ## News <a name="news"></a>
+  - [2025/02/05] As meticulously described in [CARLA_GARGE](https://github.com/autonomousvision/carla_garage/blob/leaderboard_2/docs/common_mistakes_in_benchmarking_ad.md), L2 error is not a meaningful indictor at all. We agree that **authors' should stop reporting results on nuScenes open-loop planning and reviewers should not ask for nuScenes open-loop planning results**. The number on nuScenes open-loop planning is not persuasive at all and could only lead to unjustified and wrong conclusions, which may impede the development of the field.  As a member of the community, we call for **nuScenes open-loop planning** as well.
   - [2024/10/14] As kindly pointed out in an [issue](https://github.com/Thinklab-SJTU/Bench2Drive/issues/112), typos were discovered in the ability calculation. We have corrected the typos and updated the multi-ability results. This update will **not affect driving score and success rate**. 
   - [2024/10/14] As kindly pointed out in an [issue](https://github.com/Thinklab-SJTU/Bench2DriveZoo/issues/46), a bug was discovered in the B2D_vad_dataset. We leave it here to be consistent with existing results. We do not anticipate any major influence caused by this bug. Users may fix the bug according to their needs.
   - [2024/09/26] Bench2Drive is accepted at NeurIPS 2024 Datasets and Benchmarks Track.
