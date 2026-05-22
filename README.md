@@ -36,7 +36,7 @@ What can Think2Drive + Bench2Drive provide ? <b>Please click to view the video.<
 5. [Citation](#citation)
 
 ## News <a name="news"></a>
-  - [2026/05/21] Check [Bench2Drive-Robust](https://github.com/Thinklab-SJTU/Bench2Drive-Robust)),  which analyze models' performance under real deployment issues: **camera-stream failures, ego-state estimation errors, and compute-control latency**.
+  - [2026/05/21] Check [Bench2Drive-Robust](https://github.com/Thinklab-SJTU/Bench2Drive-Robust),  which analyze models' performance under real deployment issues: **camera-stream failures, ego-state estimation errors, and compute-control latency**.
   - [2026/03/27] Check [Bench2Drive-Speed](https://github.com/Thinklab-SJTU/Bench2Drive-Speed), which estimates a new & useful functionality of AD systems - **speed customization**!
   - [2025/10/13] Check [Bench2Drive-VL](https://github.com/Thinklab-SJTU/Bench2Drive-VL), which enables closed-loop QA of VLM4AD. It also provides a efficient communication interface between VLM environment (python 3.9 or higher) and CARLA (only available for python 3.7 and 3.8). **Users encount Python Version error should consider the protocol as well**.
   - [2025/02/18] In our latest work [DriveTransformer (ICLR25)](https://openreview.net/forum?id=M42KR4W9P5), **a tiny validation set [Dev10](./leaderboard/data/drivetransformer_bench2drive_dev10.xml) is proposed for quick development of models.** The 10 clips are carefully selected from the official 220 routes, to be both difficult and representative with low variance.  It is suggested to be used for ablation study to avoid overfitting the whole bench2drive220 routes.
