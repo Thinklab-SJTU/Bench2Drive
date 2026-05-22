@@ -144,6 +144,7 @@ class RouteScenario(BasicScenario):
     def _spawn_ego_vehicle(self):
         """Spawn the ego vehicle at the first waypoint of the route"""
         elevate_transform = self.route[0][0]
+        elevate_transform = carla.Transform(elevate_transform.location, elevate_transform.rotation) # Copy
         elevate_transform.location.z += 0.5
 
         ego_vehicle = CarlaDataProvider.request_new_actor('vehicle.lincoln.mkz_2020',
