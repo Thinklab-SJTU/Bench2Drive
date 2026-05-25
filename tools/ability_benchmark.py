@@ -177,7 +177,7 @@ if __name__=='__main__':
     argparser.add_argument('-f', '--file', nargs=None, default="leaderboard/data/bench2drive220.xml", help='route file')
     argparser.add_argument('-r', '--result_file', nargs=None, default="", help='result json file')
     argparser.add_argument('-t', '--host', default='localhost', help='IP of the host server (default: localhost)')
-    argparser.add_argument('-p', '--port', nargs=1, default=2000, help='carla rpc port')
+    argparser.add_argument('-p', '--port', type=int, default=2000, help='carla rpc port')
     args = argparser.parse_args()
     main(args)
     
