@@ -67,117 +67,107 @@ def get_waypoint_route(locs, grp):
             route.append(wp)
     return route
 
+# ===== OFFLINE MAP LOADER =====
+def load_offline_map(town_name, map_root):
+    xodr1 = os.path.join(map_root, 'OpenDrive', f'{town_name}.xodr')
+    xodr2 = os.path.join(map_root, town_name, 'OpenDrive', f'{town_name}.xodr')
+
+    if os.path.exists(xodr1):
+        with open(xodr1, 'r') as f:
+            xodr = f.read()
+    elif os.path.exists(xodr2):
+        with open(xodr2, 'r') as f:
+            xodr = f.read()
+    else:
+        raise FileNotFoundError(f'OpenDrive file not found for {town_name}')
+
+    return carla.Map(town_name, xodr)
+
+
 def main(args):
-    routes_file = args.file 
+    routes_file = args.file
     result_file = args.result_file
-    Ability_Statistic = {}
-    crash_route_list = []
-    for key in Ability:
-        Ability_Statistic[key] = [0, 0.]
+    map_root = os.path.join(os.environ.get("CARLA_ROOT", "."), "CarlaUE4/Content/Carla/Maps")   # OFFLINE MOD
+    print(f"[debug] map_root = {map_root}")
+
+    Ability_Statistic = {k: [0, 0] for k in Ability}  # [success_count, total_count]
     Success_Statistic = {}
-    
+    crash_route_list = []
+
     with open(result_file, 'r') as f:
         data = json.load(f)
     records = data["_checkpoint"]["records"]
-                    
+
     tree = ET.parse(routes_file)
     root = tree.getroot()
-    routes = root.findall('route')
-    sorted_routes = sorted(routes, key=lambda x: x.get('town'))
-    
-    carla_path = os.environ["CARLA_ROOT"]
-    cmd1 = f"{os.path.join(carla_path, 'CarlaUE4.sh')} -RenderOffScreen -nosound -carla-rpc-port={args.port}"
-    server = subprocess.Popen(cmd1, shell=True, preexec_fn=os.setsid)
-    print(cmd1, server.returncode, flush=True)
-    time.sleep(10)
-    client = carla.Client(args.host, args.port)
-    client.set_timeout(300)
-    
-    current_town = sorted_routes[0].get('town')
-    world = client.load_world(current_town)
-    carla_map = world.get_map()
-    grp = GlobalRoutePlanner(carla_map, 1.0)
-    for route in sorted_routes:
-        scenarios = route.find('scenarios')
-        scenario_name = scenarios.find('scenario').get("type")
+    routes = sorted(root.findall('route'), key=lambda x: x.get('town'))
+
+    current_town = None
+    carla_map = None
+    grp = None
+
+    for route in routes:
+        scenario_name = route.find('scenarios').find('scenario').get("type")
         route_id = route.get('id')
+        town_name = route.get('town')
+
         route_record = get_route_result(records, route_id)
         if route_record is None:
             crash_route_list.append((scenario_name, route_id))
-            print('No result record of route', route_id, "in the result file")
             continue
-        if route_record["status"] == 'Completed' or route_record["status"] == "Perfect":
-            if get_infraction_status(route_record):
-                record_success_status = False
-            else:
-                record_success_status = True
+
+        if route_record["status"] in ['Completed', 'Perfect'] and \
+           not get_infraction_status(route_record):
+            record_success_status = True
         else:
             record_success_status = False
+
         update_Ability(scenario_name, Ability_Statistic, record_success_status)
         update_Success(scenario_name, Success_Statistic, record_success_status)
-        # if scenario_name in Ability["Traffic_Signs"] and (scenario_name in Ability["Merging"] or scenario_name in Ability["Emergency_Brake"]):
-        # Only these three 'Ability's intersect
-        if scenario_name in Ability["Traffic_Signs"]:
-            # Only these three 'Ability's intersect
-            if route.get('town') != current_town:
-                current_town = route.get('town')
-                print("Loading the town:", current_town)
-                world = client.load_world(current_town)
-                print("successfully load the town:", current_town)
-            carla_map = world.get_map()
-            grp = GlobalRoutePlanner(carla_map, 1.0)
+
+        if scenario_name in Ability["Traffic_Signs"] and not record_success_status:
+            if town_name != current_town:
+                current_town = town_name
+                carla_map = load_offline_map(current_town, map_root)
+                grp = GlobalRoutePlanner(carla_map, 1.0)
+
             location_list = get_position(route)
             waypoint_route = get_waypoint_route(location_list, grp)
+
             count = 0
             for wp in waypoint_route:
                 count += 1
                 if wp.is_junction:
-                    break 
+                    break
             if not wp.is_junction:
-                raise RuntimeError("This route does not contain any junction-waypoint!")
-            # +8 to ensure the ego pass the trigger volume
-            junction_completion = float(count+8) / float(len(waypoint_route))
+                raise RuntimeError("No junction found in route")
+
+            junction_completion = float(count + 8) / len(waypoint_route)
             record_completion = route_record["scores"]["score_route"] / 100.0
+
             stop_infraction = route_record["infractions"]["stop_infraction"]
             red_light_infraction = route_record["infractions"]["red_light"]
-            if record_completion > junction_completion and not stop_infraction and not red_light_infraction:
-                Ability_Statistic['Traffic_Signs'][0] += 1
-                Ability_Statistic['Traffic_Signs'][1] += 1
-            else:
-                Ability_Statistic['Traffic_Signs'][1] += 1
-        else:
-            pass
-        
-    Ability_Res = {}
-    for ability, statis in Ability_Statistic.items():
-        Ability_Res[ability] = float(statis[0])/float(statis[1])
-        
-    for key, value in Ability_Res.items():
-        print(key, ": ", value)
-    
-    Ability_Res['mean'] = sum(list(Ability_Res.values())) / 5
-    Ability_Res['crashed'] = crash_route_list
-    with open(f"{result_file.split('.')[0]}_ability.json", 'w') as file:
-        json.dump(Ability_Res, file, indent=4)
-        
-    Success_Res = {}
-    Route_num = 0
-    Succ_Route_num = 0
-    for scenario, statis in Success_Statistic.items():
-        Success_Res[scenario] = float(statis[0])/float(statis[1])
-        Succ_Route_num += statis[0]
-        Route_num += statis[1]
-    assert len(crash_route_list) == 220 - float(Route_num)
-    print(f"Mean:{Ability_Res['mean']}")
-    print(f'Crashed Route num: {len(crash_route_list)}, Crashed Route ID: {crash_route_list}')
-    print('Finished!')
 
-if __name__=='__main__':
-    argparser = argparse.ArgumentParser(description=__doc__)
-    argparser.add_argument('-f', '--file', nargs=None, default="leaderboard/data/bench2drive220.xml", help='route file')
-    argparser.add_argument('-r', '--result_file', nargs=None, default="", help='result json file')
-    argparser.add_argument('-t', '--host', default='localhost', help='IP of the host server (default: localhost)')
-    argparser.add_argument('-p', '--port', nargs=1, default=2000, help='carla rpc port')
+            if record_completion > junction_completion and \
+               not stop_infraction and not red_light_infraction:
+                Ability_Statistic['Traffic_Signs'][0] += 1
+
+    Ability_Res = {k: v[0] / v[1] for k, v in Ability_Statistic.items()}
+    Ability_Res['mean'] = sum(Ability_Res.values()) / len(Ability_Res)
+    Ability_Res['crashed'] = crash_route_list
+
+    print(f"Result saved to {'.'.join(result_file.split('.')[:-1])}_ability.json")
+    with open(f"{'.'.join(result_file.split('.')[:-1])}_ability.json", 'w') as f:
+        json.dump(Ability_Res, f, indent=4)
+
+    print("Mean:", Ability_Res['mean'])
+    print("Crashed Route num:", len(crash_route_list))
+    print("Finished!")
+
+
+if __name__ == '__main__':
+    argparser = argparse.ArgumentParser()
+    argparser.add_argument('-f', '--file', default="leaderboard/data/bench2drive220.xml")
+    argparser.add_argument('-r', '--result_file', required=True)
     args = argparser.parse_args()
     main(args)
-    

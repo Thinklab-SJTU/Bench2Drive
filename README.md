@@ -1,4 +1,3 @@
-
 <h2 align="center">
   <img src='./assets/bench2drive.jpg'>
 </h2>
@@ -6,7 +5,6 @@
 <h2 align="center">
 NeurIPS 2024 Datasets and Benchmarks Track
 </h2>
-
 
 <h2 align="center">
   <a href="https://thinklab-sjtu.github.io/Bench2Drive/">Website</a> |
@@ -18,17 +16,16 @@ NeurIPS 2024 Datasets and Benchmarks Track
 
 ![overview](./assets/overview.jpg)
 
-
 <h2 align="center">
 What can Think2Drive + Bench2Drive provide ? <b>Please click to view the video.</b>
 <br>
-<b>&#x2193;&#x2193;&#x2193;</b>
+<b>↓↓↓</b>
 </h2>
 
 [![Bench2Drive](https://i.ytimg.com/vi/-osdzJJs2g0/maxresdefault.jpg)](https://www.youtube.com/watch?v=-osdzJJs2g0 "Bench2Drive")
 
-#####
 ## Table of Contents: <a name="high"></a>
+
 1. [News](#News)
 2. [Dataset](#Dataset)
 3. [Benchmark](#Benchmark)
@@ -36,94 +33,112 @@ What can Think2Drive + Bench2Drive provide ? <b>Please click to view the video.<
 5. [Citation](#citation)
 
 ## News <a name="news"></a>
-  - [2026/05/21] Check [Bench2Drive-Robust](https://github.com/Thinklab-SJTU/Bench2Drive-Robust),  which analyze models' performance under real deployment issues: **camera-stream failures, ego-state estimation errors, and compute-control latency**.
-  - [2026/03/27] Check [Bench2Drive-Speed](https://github.com/Thinklab-SJTU/Bench2Drive-Speed), which estimates a new & useful functionality of AD systems - **speed customization**!
-  - [2025/10/13] Check [Bench2Drive-VL](https://github.com/Thinklab-SJTU/Bench2Drive-VL), which enables closed-loop QA of VLM4AD. It also provides a efficient communication interface between VLM environment (python 3.9 or higher) and CARLA (only available for python 3.7 and 3.8). **Users encount Python Version error should consider the protocol as well**.
-  - [2025/02/18] In our latest work [DriveTransformer (ICLR25)](https://openreview.net/forum?id=M42KR4W9P5), **a tiny validation set [Dev10](./leaderboard/data/drivetransformer_bench2drive_dev10.xml) is proposed for quick development of models.** The 10 clips are carefully selected from the official 220 routes, to be both difficult and representative with low variance.  It is suggested to be used for ablation study to avoid overfitting the whole bench2drive220 routes.
-  - [2025/02/05] As meticulously described in [CARLA_GARGE](https://github.com/autonomousvision/carla_garage/blob/leaderboard_2/docs/common_mistakes_in_benchmarking_ad.md), L2 error is not a meaningful indictor at all. We agree that **authors' should stop reporting results on nuScenes open-loop planning and reviewers should not ask for nuScenes open-loop planning results**. The number on nuScenes open-loop planning is not persuasive at all and could only lead to unjustified and wrong conclusions, which may impede the development of the field.  As a member of the community, we call for stopping using nuScenes open-loop planning as well.
-  - [2024/10/14] As kindly pointed out in an [issue](https://github.com/Thinklab-SJTU/Bench2Drive/issues/112), typos were discovered in the ability calculation. We have corrected the typos and updated the multi-ability results. This update will **not affect driving score and success rate**. 
-  - [2024/10/14] As kindly pointed out in an [issue](https://github.com/Thinklab-SJTU/Bench2DriveZoo/issues/46), a bug was discovered in the B2D_vad_dataset. We leave it here to be consistent with existing results. We do not anticipate any major influence caused by this bug. Users may fix the bug according to their needs.
-  - [2024/09/26] Bench2Drive is accepted at NeurIPS 2024 Datasets and Benchmarks Track.
-  - [2024/08/27] We update the latest results under the new protocols with **two new metrics and fixed bugs**. 
-  - [2024/08/19] **[Major Updates]** To better assess driving performance, we add two additional metrics: Driving Efficiency and Driving Smoothness. Consequently, we remove the penalty for minimum speed in calculating the Drive Score and extend the TickRunTime from 2000 to 4000 to allow for a more lenient driving evaluation. We are currently reassessing all baselines.
-  - [2024/08/10] We update the team_code agent of UniAD and VAD to fix the camera projection bug mentioned in 2024/07/29. Their corresponding scores will be uploaded soon with new metrics introduced.
-  - [2024/07/29] As kindly suggested in an [issue](https://github.com/Thinklab-SJTU/Bench2Drive/issues/36), there is a bug in the team code agent of UniAD and VAD during evaluation, i.e, **the BACK CAMERA's extrinsic is wrong**. The training process is correct. To be consistent with the reported results, we do not modify the code right now. Users' are strongly encouraged to use the correct extrinsics.
-  - [2024/07/22] We add more reminders in the evaluation code to avoid the miss of logs. According to [Haochen](https://github.com/georgeliu233)'s kind suggestion, we add automatic cleaning code in the evaluation toolkit. Users' may set in their bash script to restart the evaluation infinitely until finishing the evaluation since CARLA is easy to crash.
-  - [2024/07/10] We further clean and add more clips in the Full set (13638 clips). Since HuggingFace only allows up to 10000 files per repo, we use two repos to store the Full set. As suggested in this issue [issue](https://github.com/Thinklab-SJTU/Bench2Drive/issues/17), we add a filelist and sha256 of clips for each set.
-  - [2024/06/19] Due to a typo in the upload script for HuggingFace, all clips of scenario VehicleTurningRoutePedestrian are empty in the HuggingFace version. We have fixed that. Please check your data to make sure they are not empty. 
-  - [2024/06/05] Bench2Drive realases the Full dataset (10000 clips), evaluation tools, baseline code, and benchmark results.
-  - [2024/04/27] Bench2Drive releases the Mini (10 clips) and Base (1000 clips) split of the official training data.
+
+- [2026/08/06] **[Major Updates]** **Bench2Drive 0.0.4 is released**. The key motivation of this update is **data distribution**:
+  
+  - **Strictly uniform training data.** The new Think2Drive-collected training set (44 scenarios × 25 routes = 1,100 routes) is strictly uniform over scenarios, unlike the previous Base set whose scenario distribution is uneven.
+  - **New modality: 3D occupancy (3D occ).**
+  - **Separate validation set** of 220 routes (44 scenarios × 5) for more reliable evaluation.
+  - Various bug fixes across the dataset and [Bench2DriveZoo](https://github.com/Thinklab-SJTU/Bench2DriveZoo).
+  
+  See details [here](./docs/v004_update.md). 
+  
+  <p align="center"><img src="./assets/v004_update_banner.png" alt="Bench2Drive v0.0.4 update" style="width:50%;"></p>
+- [2026/05/21] Check [Bench2Drive-Robust](https://github.com/Thinklab-SJTU/Bench2Drive-Robust),  which analyze models' performance under real deployment issues: **camera-stream failures, ego-state estimation errors, and compute-control latency**.
+- [2026/03/27] Check [Bench2Drive-Speed](https://github.com/Thinklab-SJTU/Bench2Drive-Speed), which estimates a new & useful functionality of AD systems - **speed customization**!
+- [2025/10/13] Check [Bench2Drive-VL](https://github.com/Thinklab-SJTU/Bench2Drive-VL), which enables closed-loop QA of VLM4AD. It also provides a efficient communication interface between VLM environment (python 3.9 or higher) and CARLA (only available for python 3.7 and 3.8). **Users encount Python Version error should consider the protocol as well**.
+- [2025/02/18] In our latest work [DriveTransformer (ICLR25)](https://openreview.net/forum?id=M42KR4W9P5), **a tiny validation set [Dev10](./leaderboard/data/drivetransformer_bench2drive_dev10.xml) is proposed for quick development of models.** The 10 clips are carefully selected from the official 220 routes, to be both difficult and representative with low variance.  It is suggested to be used for ablation study to avoid overfitting the whole bench2drive220 routes.
+- [2025/02/05] As meticulously described in [CARLA_GARGE](https://github.com/autonomousvision/carla_garage/blob/leaderboard_2/docs/common_mistakes_in_benchmarking_ad.md), L2 error is not a meaningful indictor at all. We agree that **authors' should stop reporting results on nuScenes open-loop planning and reviewers should not ask for nuScenes open-loop planning results**. The number on nuScenes open-loop planning is not persuasive at all and could only lead to unjustified and wrong conclusions, which may impede the development of the field.  As a member of the community, we call for stopping using nuScenes open-loop planning as well.
+- [2024/10/14] As kindly pointed out in an [issue](https://github.com/Thinklab-SJTU/Bench2Drive/issues/112), typos were discovered in the ability calculation. We have corrected the typos and updated the multi-ability results. This update will **not affect driving score and success rate**.
+- [2024/10/14] As kindly pointed out in an [issue](https://github.com/Thinklab-SJTU/Bench2DriveZoo/issues/46), a bug was discovered in the B2D_vad_dataset. We leave it here to be consistent with existing results. We do not anticipate any major influence caused by this bug. Users may fix the bug according to their needs.
+- [2024/09/26] Bench2Drive is accepted at NeurIPS 2024 Datasets and Benchmarks Track.
+- [2024/08/27] We update the latest results under the new protocols with **two new metrics and fixed bugs**.
+- [2024/08/19] **[Major Updates]** To better assess driving performance, we add two additional metrics: Driving Efficiency and Driving Smoothness. Consequently, we remove the penalty for minimum speed in calculating the Drive Score and extend the TickRunTime from 2000 to 4000 to allow for a more lenient driving evaluation. We are currently reassessing all baselines.
+- [2024/08/10] We update the team_code agent of UniAD and VAD to fix the camera projection bug mentioned in 2024/07/29. Their corresponding scores will be uploaded soon with new metrics introduced.
+- [2024/07/29] As kindly suggested in an [issue](https://github.com/Thinklab-SJTU/Bench2Drive/issues/36), there is a bug in the team code agent of UniAD and VAD during evaluation, i.e, **the BACK CAMERA's extrinsic is wrong**. The training process is correct. To be consistent with the reported results, we do not modify the code right now. Users' are strongly encouraged to use the correct extrinsics.
+- [2024/07/22] We add more reminders in the evaluation code to avoid the miss of logs. According to [Haochen](https://github.com/georgeliu233)'s kind suggestion, we add automatic cleaning code in the evaluation toolkit. Users' may set in their bash script to restart the evaluation infinitely until finishing the evaluation since CARLA is easy to crash.
+- [2024/07/10] We further clean and add more clips in the Full set (13638 clips). Since HuggingFace only allows up to 10000 files per repo, we use two repos to store the Full set. As suggested in this issue [issue](https://github.com/Thinklab-SJTU/Bench2Drive/issues/17), we add a filelist and sha256 of clips for each set.
+- [2024/06/19] Due to a typo in the upload script for HuggingFace, all clips of scenario VehicleTurningRoutePedestrian are empty in the HuggingFace version. We have fixed that. Please check your data to make sure they are not empty.
+- [2024/06/05] Bench2Drive realases the Full dataset (10000 clips), evaluation tools, baseline code, and benchmark results.
+- [2024/04/27] Bench2Drive releases the Mini (10 clips) and Base (1000 clips) split of the official training data.
 
 ## Dataset <a name="dataset"></a>
-  - The datasets has 3 subsets, collected by **our strong world model based RL expert [Think2Drive](https://arxiv.org/abs/2402.16720)**, namely Mini (10 clips), Base (1000 clips) and Full (10000 clips), to accommodate different levels of computational resource.
-  - [Detailed explanation](docs/anno.md) of dataset structure, annotation information, and visualization of data.
 
-| Subset  | Hugging Face<img src="./assets/hf-logo.png" alt="Hugging Face" width="18"/> | Baidu Cloud<img src="https://nd-static.bdstatic.com/m-static/v20-main/favicon-main.ico" alt="Baidu Yun" width="18"/> | Approx. Size | File List|
-| :---: |  :---: | :---: | :---: | :---: |
-| Mini |   [Download script](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/download_mini.sh) |  - |  4G | [Mini Json File](./docs/bench2drive_mini_10.json) |
-| Base |  [Hugging Face Link](https://huggingface.co/datasets/rethinklab/Bench2Drive) |  [Baidu Cloud Link](https://pan.baidu.com/s/1ZIL-MPhLbgdBYmHkHncn8Q?pwd=1234) |  400G |  [Base Json File](./docs/bench2drive_base_1000.json)|
-| Full |  [Full HF Link - 9888 files](https://huggingface.co/datasets/rethinklab/Bench2Drive-Full)/[Sup HF Link - 3814 file](https://huggingface.co/datasets/rethinklab/Bench2Drive-Full-Sup)   | - | 4T | [Full/Sup Json File](./docs/bench2drive_full+sup_13638.json)|
+- With the 0.0.4 update, we released a new Think2Drive-collected training set containing 44 scenarios × 25 routes (1,100 routes in total). The new training set is **strictly uniform over scenarios** — every scenario contributes exactly 25 routes — unlike the previous Base set whose scenario distribution is uneven. Due to the large size of the depth data, we split the dataset into two parts, both available below. The new features introduced in this update are summarized [here](docs/v004_update.md).
+
+|      Subset      |                                                                                    Hugging Face                                                                                    |                                 Baidu Cloud                                 | Approx. Size |                          File List                          |
+| :---------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------: | :----------: | :----------------------------------------------------------: |
+| 0.0.4 (w/o depth) |                                                 [Hugging Face Link](https://huggingface.co/datasets/rethinklab/Bench2Drive-V0.0.4)                                                 |                                      -                                      |     400G     |                              -                              |
+|    0.0.4 depth    |                                              [Hugging Face Link](https://huggingface.co/datasets/rethinklab/Bench2Drive-V0.0.4-depth)                                              |                                      -                                      |     7.3T     |                              -                              |
+|       Mini       |                                          [Download script](https://github.com/Thinklab-SJTU/Bench2Drive/blob/main/tools/download_mini.sh)                                          |                                      -                                      |      4G      |      [Mini Json File](./docs/bench2drive_mini_10.json)      |
+|       Base       |                                                     [Hugging Face Link](https://huggingface.co/datasets/rethinklab/Bench2Drive)                                                     | [Baidu Cloud Link](https://pan.baidu.com/s/1ZIL-MPhLbgdBYmHkHncn8Q?pwd=1234) |     400G     |     [Base Json File](./docs/bench2drive_base_1000.json)     |
+|       Full       | [Full HF Link - 9888 files](https://huggingface.co/datasets/rethinklab/Bench2Drive-Full)/[Sup HF Link - 3814 file](https://huggingface.co/datasets/rethinklab/Bench2Drive-Full-Sup) |                                      -                                      |      4T      | [Full/Sup Json File](./docs/bench2drive_full+sup_13638.json) |
 
 Note that the Mini Set is 10 representative scenes. You may download them by manually select file names from the Base set.
 
 Use the command line: *huggingface-cli download --repo-type dataset --resume-download rethinklab/Bench2Drive --local-dir Bench2Drive-Base* to download from hugginface. User may consider [mirror site](https://hf-mirror.com/) if Huggingface is blocked. Use [BaiduPCS-Go](https://github.com/qjfoidnh/BaiduPCS-Go) to download from Baidu Cloud. Both command lines are resumable.
 
 ## Student Model Code (with Think2Drive as Teacher Model)
-  - [Uniad/VAD](https://github.com/Thinklab-SJTU/Bench2DriveZoo/tree/uniad/vad) in Bench2Drive
-  - [TCP/ADMLP](https://github.com/Thinklab-SJTU/Bench2DriveZoo/tree/tcp/admlp) in Bench2Drive
+
+- [Uniad/VAD](https://github.com/Thinklab-SJTU/Bench2DriveZoo/tree/uniad/vad) in Bench2Drive
+- [TCP/ADMLP](https://github.com/Thinklab-SJTU/Bench2DriveZoo/tree/tcp/admlp) in Bench2Drive
+
 ## Setup
-  - Download and setup CARLA 0.9.15
-    ```bash
-        mkdir carla
-        cd carla
-        wget https://carla-releases.s3.us-east-005.backblazeb2.com/Linux/CARLA_0.9.15.tar.gz
-        tar -xvf CARLA_0.9.15.tar.gz
-        cd Import && wget https://carla-releases.s3.us-east-005.backblazeb2.com/Linux/AdditionalMaps_0.9.15.tar.gz
-        cd .. && bash ImportAssets.sh
-        export CARLA_ROOT=YOUR_CARLA_PATH
-        echo "$CARLA_ROOT/PythonAPI/carla/dist/carla-0.9.15-py3.7-linux-x86_64.egg" >> YOUR_CONDA_PATH/envs/YOUR_CONDA_ENV_NAME/lib/python3.7/site-packages/carla.pth # python 3.8 also works well, please set YOUR_CONDA_PATH and YOUR_CONDA_ENV_NAME
-    ```
+
+- Download and setup CARLA 0.9.15
+  ```bash
+  mkdir carla
+      cd carla
+      wget https://carla-releases.s3.us-east-005.backblazeb2.com/Linux/CARLA_0.9.15.tar.gz
+      tar -xvf CARLA_0.9.15.tar.gz
+      cd Import && wget https://carla-releases.s3.us-east-005.backblazeb2.com/Linux/AdditionalMaps_0.9.15.tar.gz
+      cd .. && bash ImportAssets.sh
+      export CARLA_ROOT=YOUR_CARLA_PATH
+      echo "$CARLA_ROOT/PythonAPI/carla/dist/carla-0.9.15-py3.7-linux-x86_64.egg" >> YOUR_CONDA_PATH/envs/YOUR_CONDA_ENV_NAME/lib/python3.7/site-packages/carla.pth # python 3.8 also works well, please set YOUR_CONDA_PATH and YOUR_CONDA_ENV_NAME
+  ```
 
 ## Eval Tools
-  - Add your agent to leaderboard/team_code/your_agent.py & Link your model folder under the Bench2Drive directory.
-    ```bash
-        Bench2Drive\ 
-          assets\
-          docs\
-          leaderboard\
-            team_code\
-              --> Please add your agent HEAR
-          scenario_runner\
-          tools\
-          --> Please link your model folder HEAR
-    ```
-  - Debug Mode
-    ```bash
-        # Verify the correctness of the team agent， need to set GPU_RANK, TEAM_AGENT, TEAM_CONFIG
-        bash leaderboard/scripts/run_evaluation_debug.sh
-    ```
-  - Multi-Process Multi-GPU Parallel Eval. If your team_agent saves any image for debugging, it might take lots of disk space.
-    ```bash
-        # Please set TASK_NUM, GPU_RANK_LIST, TASK_LIST, TEAM_AGENT, TEAM_CONFIG, recommend GPU: Task(1:2).
-        # It is normal that certain model can not finsih certain routes, no matter how many times we restart the evaluation. It should be treated as failing as it usually happens in the routes where agents behave badly.
-        bash leaderboard/scripts/run_evaluation_multi_uniad.sh
-    ```
-  - Visualization - make a video for debugging with canbus info printed on the sequential images.
-    ```bash
-        python tools/generate_video.py -f your_rgb_folder/
-    ```
-  - Metric: **Make sure there are exactly 220 routes in your json. Failed/Crashed status is also acceptable. Otherwise, the metric is inaccurate.**
-    ```bash
-        # Merge eval json and get driving score and success rate
-        # This script will assume the total number of routes with results is 220. If there is not enough, the missed ones will be treated as 0 score.
-        python tools/merge_route_json.py -f your_json_folder/
 
-        # Get multi-ability results
-        python tools/ability_benchmark.py -r merge.json
+- Add your agent to leaderboard/team_code/your_agent.py & Link your model folder under the Bench2Drive directory.
+  ```bash
+  Bench2Drive\ 
+        assets\
+        docs\
+        leaderboard\
+          team_code\
+            --> Please add your agent HEAR
+        scenario_runner\
+        tools\
+        --> Please link your model folder HEAR
+  ```
+- Debug Mode
+  ```bash
+  # Verify the correctness of the team agent， need to set GPU_RANK, TEAM_AGENT, TEAM_CONFIG
+      bash leaderboard/scripts/run_evaluation_debug.sh
+  ```
+- Multi-Process Multi-GPU Parallel Eval. If your team_agent saves any image for debugging, it might take lots of disk space.
+  ```bash
+  # Please set TASK_NUM, GPU_RANK_LIST, TASK_LIST, TEAM_AGENT, TEAM_CONFIG, recommend GPU: Task(1:2).
+      # It is normal that certain model can not finsih certain routes, no matter how many times we restart the evaluation. It should be treated as failing as it usually happens in the routes where agents behave badly.
+      bash leaderboard/scripts/run_evaluation_multi_uniad.sh
+  ```
+- Visualization - make a video for debugging with canbus info printed on the sequential images.
+  ```bash
+  python tools/generate_video.py -f your_rgb_folder/
+  ```
+- Metric: **Make sure there are exactly 220 routes in your json. Failed/Crashed status is also acceptable. Otherwise, the metric is inaccurate.**
+  ```bash
+  # Merge eval json and get driving score and success rate
+      # This script will assume the total number of routes with results is 220. If there is not enough, the missed ones will be treated as 0 score.
+      python tools/merge_route_json.py -f your_json_folder/
+  
+      # Get multi-ability results
+      python tools/ability_benchmark.py -r merge.json
+  
+      # Get driving efficiency and driving smoothness results
+      python tools/efficiency_smoothness_benchmark.py -f merge.json -m your_metric_folder/
+  ```
 
-        # Get driving efficiency and driving smoothness results
-        python tools/efficiency_smoothness_benchmark.py -f merge.json -m your_metric_folder/
-    ```
 ## Deal with CARLA
 
 - CARLA has complex dependencies and is not stable. Please check the issue section of CARLA **very carefully**.
@@ -138,25 +153,100 @@ Use the command line: *huggingface-cli download --repo-type dataset --resume-dow
 
 ## Benchmark <a name="benchmark"></a>
 
-- V0.0.3(Currently in use)
-  - Fix typos in the ability calculation. ([Issue #112](https://github.com/Thinklab-SJTU/Bench2Drive/issues/112))
-  ![benchmark](./assets/benchmark_v3.jpg)
+- V0.0.4(Currently in use)
+  
+  - Update details are [here](./docs/v004_update.md).
 
+**Close-loop Metric**
+
+| Method | Driving Score ↑ | Success Rate ↑ | Efficiency ↑ | Comfort ↑ |
+| ------ | --------------: | -------------: | -----------: | --------: |
+| [LEAD](https://arxiv.org/abs/2512.20563) |     **95.59** |    **87.28** |      201.55 |     20.56 |
+| [Simlingo](https://arxiv.org/abs/2503.09594) |         86.55 |        70.45 | **251.72** |     35.47 |
+| [Drive-π0](https://arxiv.org/abs/2505.16278) |         69.71 |        45.91 |      178.07 |     10.80 |
+| [DriveTransformer](https://arxiv.org/abs/2503.07656) |         60.20 |        35.91 |      168.87 |     17.22 |
+| [DriveAdapter](https://arxiv.org/abs/2308.00398) |         54.96 |        30.45 |       91.82 |     20.63 |
+| [ThinkTwice](https://arxiv.org/abs/2305.06242) |         52.84 |        27.73 |       90.73 |     19.76 |
+| [TCP](https://arxiv.org/abs/2206.08129) |         51.44 |        26.36 |       75.67 |     30.16 |
+| [UniAD](https://arxiv.org/abs/2212.10156) |         38.69 |        19.09 |      120.16 |     64.09 |
+| [VAD](https://arxiv.org/abs/2303.12077) |         38.65 |        17.27 |      163.74 | **67.34** |
+| [ADMLP](https://arxiv.org/abs/2305.10430) |         35.39 |         0.00 |       64.92 |     20.95 |
+
+**Multi-Ability Results (%) ↑**
+
+| Method | Overtaking | Merging | Emergency_Brake | Give_Way | Traffic_Signs | Mean |
+| ------ | ---------: | ------: | --------------: | -------: | ------------: | ----: |
+| [LEAD](https://arxiv.org/abs/2512.20563) |     **89.86** |    **73.44** |        **98.25** | **50.00** |     **97.67** | **81.84** |
+| [Simlingo](https://arxiv.org/abs/2503.09594) |         63.77 |     60.94 |           91.23 | **50.00** |         90.70 |     71.34 |
+| [Drive-π0](https://arxiv.org/abs/2505.16278) |         24.64 |     39.06 |           73.68 |     33.33 |         66.86 |     47.52 |
+| [DriveTransformer](https://arxiv.org/abs/2503.07656) |         30.43 |     39.06 |           49.12 |      0.00 |         61.63 |     36.05 |
+| [DriveAdapter](https://arxiv.org/abs/2308.00398) |         26.09 |     21.88 |           64.90 |     33.33 |         69.18 |     43.08 |
+| [ThinkTwice](https://arxiv.org/abs/2305.06242) |         20.29 |     20.31 |           59.64 |     33.33 |         66.86 |     40.09 |
+| [TCP](https://arxiv.org/abs/2206.08129) |         14.49 |     14.06 |           59.64 |     33.33 |         63.95 |     37.10 |
+| [UniAD](https://arxiv.org/abs/2212.10156) |         11.59 |     10.94 |           40.35 |     33.33 |          8.14 |     20.87 |
+| [VAD](https://arxiv.org/abs/2303.12077) |         13.04 |     17.19 |           29.82 |     16.67 |         19.77 |     19.30 |
+| [ADMLP](https://arxiv.org/abs/2305.10430) |          0.00 |      0.00 |            0.00 |      0.00 |         45.35 |      9.07 |
+
+- V0.0.3(Last Major Version)
+  
+  - Fix typos in the ability calculation. ([Issue #112](https://github.com/Thinklab-SJTU/Bench2Drive/issues/112))
+    ![benchmark](./assets/benchmark_v3.jpg)
 - V0.0.2(Depracated)
+  
   - Fix the BACK CAMERA's extrinsic bug. ([Issue #36](https://github.com/Thinklab-SJTU/Bench2Drive/issues/36))
   - Turn up tickruntime (2000 -> 4000).
   - Drive Score removes min speed penalty.
   - Code Version
     - [Bench2Drive](https://github.com/Thinklab-SJTU/Bench2Drive/tree/cd1883c937470ea4d144bf6c7d8922e76d792f07)
     - [Bench2DriveZoo](https://github.com/Thinklab-SJTU/Bench2DriveZoo/tree/914b328f26b5534fd13b04d5fc644c8d82196d7b)
-  ![depracated benchmark](./assets/benchmark_v2.PNG)
-
+      ![depracated benchmark](./assets/benchmark_v2.PNG)
 - V0.0.1(Depracated)
+  
   - Initial Version
   - Code Version
     - [Bench2Drive](https://github.com/Thinklab-SJTU/Bench2Drive/tree/ee62902eeb8a9f7ab50fa62009c2de12bf645220)
     - [Bench2DriveZoo](https://github.com/Thinklab-SJTU/Bench2DriveZoo/tree/31432e868c3ca1bef5c7fa39ba4bd4e7a3e7538a)
-  ![depracated benchmark](./assets/benchmark.jpg)
+      ![depracated benchmark](./assets/benchmark.jpg)
+
+## Thanks to our contributors
+
+We sincerely thank every contributor in the community who reported issues, submitted pull requests, and shared feedback that helped improve this work.
+
+<p align="center">
+<a href="https://github.com/christianll9" title="christianll9"><img src="https://avatars.githubusercontent.com/christianll9?v=4&s=64" width="48" alt="christianll9"/></a>
+<a href="https://github.com/c60evaporator" title="c60evaporator"><img src="https://avatars.githubusercontent.com/c60evaporator?v=4&s=64" width="48" alt="c60evaporator"/></a>
+<a href="https://github.com/starlighttt123" title="starlighttt123"><img src="https://avatars.githubusercontent.com/starlighttt123?v=4&s=64" width="48" alt="starlighttt123"/></a>
+<a href="https://github.com/oym1994" title="oym1994"><img src="https://avatars.githubusercontent.com/oym1994?v=4&s=64" width="48" alt="oym1994"/></a>
+<a href="https://github.com/curryqka" title="curryqka"><img src="https://avatars.githubusercontent.com/curryqka?v=4&s=64" width="48" alt="curryqka"/></a>
+<a href="https://github.com/ymoghadd" title="ymoghadd"><img src="https://avatars.githubusercontent.com/ymoghadd?v=4&s=64" width="48" alt="ymoghadd"/></a>
+<a href="https://github.com/scuizhibin" title="scuizhibin"><img src="https://avatars.githubusercontent.com/scuizhibin?v=4&s=64" width="48" alt="scuizhibin"/></a>
+<a href="https://github.com/weimengchuan" title="weimengchuan"><img src="https://avatars.githubusercontent.com/weimengchuan?v=4&s=64" width="48" alt="weimengchuan"/></a>
+<a href="https://github.com/YiHuang108" title="YiHuang108"><img src="https://avatars.githubusercontent.com/YiHuang108?v=4&s=64" width="48" alt="YiHuang108"/></a>
+<a href="https://github.com/AvinsWang" title="AvinsWang"><img src="https://avatars.githubusercontent.com/AvinsWang?v=4&s=64" width="48" alt="AvinsWang"/></a>
+<br/>
+<a href="https://github.com/CHAROla1" title="CHAROla1"><img src="https://avatars.githubusercontent.com/CHAROla1?v=4&s=64" width="48" alt="CHAROla1"/></a>
+<a href="https://github.com/HJkim0726" title="HJkim0726"><img src="https://avatars.githubusercontent.com/HJkim0726?v=4&s=64" width="48" alt="HJkim0726"/></a>
+<a href="https://github.com/Eden-Wang1710" title="Eden-Wang1710"><img src="https://avatars.githubusercontent.com/Eden-Wang1710?v=4&s=64" width="48" alt="Eden-Wang1710"/></a>
+<a href="https://github.com/array-svg" title="array-svg"><img src="https://avatars.githubusercontent.com/array-svg?v=4&s=64" width="48" alt="array-svg"/></a>
+<a href="https://github.com/FanGShiYuu" title="FanGShiYuu"><img src="https://avatars.githubusercontent.com/FanGShiYuu?v=4&s=64" width="48" alt="FanGShiYuu"/></a>
+<a href="https://github.com/swc-17" title="swc-17"><img src="https://avatars.githubusercontent.com/swc-17?v=4&s=64" width="48" alt="swc-17"/></a>
+<a href="https://github.com/xiaobh1519" title="xiaobh1519"><img src="https://avatars.githubusercontent.com/xiaobh1519?v=4&s=64" width="48" alt="xiaobh1519"/></a>
+<a href="https://github.com/ChipsICU" title="ChipsICU"><img src="https://avatars.githubusercontent.com/ChipsICU?v=4&s=64" width="48" alt="ChipsICU"/></a>
+<a href="https://github.com/newbrains1" title="newbrains1"><img src="https://avatars.githubusercontent.com/newbrains1?v=4&s=64" width="48" alt="newbrains1"/></a>
+<a href="https://github.com/Fengtao22" title="Fengtao22"><img src="https://avatars.githubusercontent.com/Fengtao22?v=4&s=64" width="48" alt="Fengtao22"/></a>
+<br/>
+<a href="https://github.com/wyield" title="wyield"><img src="https://avatars.githubusercontent.com/wyield?v=4&s=64" width="48" alt="wyield"/></a>
+<a href="https://github.com/iuhiyuh" title="iuhiyuh"><img src="https://avatars.githubusercontent.com/iuhiyuh?v=4&s=64" width="48" alt="iuhiyuh"/></a>
+<a href="https://github.com/ChuXX325" title="ChuXX325"><img src="https://avatars.githubusercontent.com/ChuXX325?v=4&s=64" width="48" alt="ChuXX325"/></a>
+<a href="https://github.com/zhanghui75" title="zhanghui75"><img src="https://avatars.githubusercontent.com/zhanghui75?v=4&s=64" width="48" alt="zhanghui75"/></a>
+<a href="https://github.com/zhoujixiang" title="zhoujixiang"><img src="https://avatars.githubusercontent.com/zhoujixiang?v=4&s=64" width="48" alt="zhoujixiang"/></a>
+<a href="https://github.com/happytianhao" title="happytianhao"><img src="https://avatars.githubusercontent.com/happytianhao?v=4&s=64" width="48" alt="happytianhao"/></a>
+<a href="https://github.com/toyosatomimi98" title="toyosatomimi98"><img src="https://avatars.githubusercontent.com/toyosatomimi98?v=4&s=64" width="48" alt="toyosatomimi98"/></a>
+<a href="https://github.com/junhengm1" title="junhengm1"><img src="https://avatars.githubusercontent.com/junhengm1?v=4&s=64" width="48" alt="junhengm1"/></a>
+<a href="https://github.com/yuchen-he" title="yuchen-he"><img src="https://avatars.githubusercontent.com/yuchen-he?v=4&s=64" width="48" alt="yuchen-he"/></a>
+<a href="https://github.com/TianleLiu0303" title="TianleLiu0303"><img src="https://avatars.githubusercontent.com/TianleLiu0303?v=4&s=64" width="48" alt="TianleLiu0303"/></a>
+</p>
+
 
 ## License <a name="license"></a>
 

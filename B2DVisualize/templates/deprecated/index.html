@@ -1,0 +1,1317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WebUI Debug</title>
+    <style>
+        .images {
+            display: flex;
+            gap: 10px;
+        }
+        .json-container {
+            margin-top: 20px;
+            overflow-x: auto;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 5px;
+            text-align: left;
+        }
+        .json-entry {
+            margin: 5px 0;
+        }
+        .json-key {
+            font-weight: bold;
+        }
+        .json-value {
+            margin-left: 20px;
+        }
+        .json-collapse {
+            cursor: pointer;
+            color: blue;
+        }
+        .json-input-filter {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="user-bar" style="
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 50px;
+        background: #f4f4f4;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        box-sizing: border-box;
+        z-index: 3000;
+    ">
+        <span id="user-greeting" style="font-size: 1.2em; color: #333;">Not Logged In</span>
+        <button id="user-action-button" style="
+            padding: 5px 15px;
+            font-size: 1em;
+            color: white;
+            background: #007BFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        ">Log In</button>
+    </div>
+
+    <h1>WebUI Debug</h1>
+    <a href="./overview" target="_blank">Check out overview</a>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.rel_path.label }}<br>
+            {{ form.rel_path(size=50) }}
+        </p>
+        <p>
+            {{ form.json_number.label }}<br>
+            {{ form.json_number() }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+
+    {% if selected_number %}
+    <!-- <h2>Selected Number: {{ selected_number }}</h2> -->
+    
+    <div class="entry-exit-container">
+        <label for="entry-input">Entry Frame:</label>
+        <input id="entry-input" type="number" min="0">
+        <button onclick="markEntryExit('entry')">Edit Entry Frame</button>
+        <br>
+        <label for="exit-input">Exit Frame:</label>
+        <input id="exit-input" type="number" min="0">
+        <button onclick="markEntryExit('exit')">Edit Exit Frame</button>
+    </div>
+    
+    <div class="topbar" style="
+        display: flex; 
+        align-items: center; 
+        justify-content: space-between; 
+        position: sticky; 
+        top: 0px; 
+        z-index: 1000; 
+        background: white; 
+        padding: 10px; 
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+        <!-- left navigation -->
+        <div style="display: flex; gap: 10px;">
+            <button type="button" onclick="changeNumber('prev')">Prev</button>
+            <button type="button" onclick="changeNumber('next')">Next</button>
+            <button type="button" onclick="viewHistory()">View History</button>
+        </div>
+
+        <div id="index-indicator", style="font-weight: bold">
+            Current index: {{ selected_number }}
+        </div>
+
+        <!-- right status and marking buttons -->
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <button id="view-button" onclick="toggleView()">Switch to Full View</button>
+            <div id="view-indicator" style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 120px;
+                height: 30px;
+                border-radius: 15px;
+                color: grey;
+                font-weight: bold;
+                text-align: center;">
+                Loading...
+            </div>
+            <div id="status-indicator" style="
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 120px;
+                height: 30px;
+                border-radius: 15px;
+                color: grey;
+                font-weight: bold;
+                text-align: center;">
+                Loading...
+            </div>
+
+            <!-- marking button -->
+            <button type="button" onclick="markStatus('raw')">Mark as Raw</button>
+            <button type="button" onclick="markStatus('controversy')">Mark as Controversial</button>
+            <button type="button" onclick="markStatus('verified')">Mark as Verified</button>
+        </div>
+    </div>
+
+    <div class="images">
+        {% if content.rgb_front != "not exist" %}
+            <img src="/media/{{ content.rgb_front }}" alt="RGB Front Image"
+                 style="max-height: 50vh; width: auto; height: auto; max-width: 49%;">
+        {% else %}
+            <p>RGB Front Image not found.</p>
+        {% endif %}
+    
+        {% if content.rgb_top_down != "not exist" %}
+            <img src="/media/{{ content.rgb_top_down }}" alt="RGB Top-down Image"
+                 style="max-height: 50vh; width: auto; height: auto; max-width: 49%;">
+        {% else %}
+            <p>RGB Top-down Image not found.</p>
+        {% endif %}
+    </div>
+    
+    <div class="json-container">
+        <h3>Annotation JSON:</h3>
+        <input class="json-input-filter" type="text" id="filter-anno" placeholder="Filter by keyword (space-separated)">
+        <button onclick="filterJson('anno_json', 'filter-anno')">Filter</button>
+        <button class="json-collapse" onclick="toggleCollapseAll('anno-json')">Hide / Show</button>
+        <div id="anno-json">
+            {{ content.anno_json | safe }}
+        </div>
+
+        <h3>Appendix JSON:</h3>
+        <input class="json-input-filter" type="text" id="filter-appendix" placeholder="Filter by keyword (space-separated)">
+        <button onclick="filterJson('appendix_json', 'filter-appendix')">Filter</button>
+        <button class="json-collapse" onclick="toggleCollapseAll('appendix-json')">Hide / Show</button>
+        <div id="appendix-json">
+            {{ content.appendix_json | safe }}
+        </div>
+
+        <h3>QA JSON:</h3>
+        <input class="json-input-filter" type="text" id="filter-qa" placeholder="Filter by keyword (space-separated)">
+        <button onclick="filterJson('qa_json', 'filter-qa')">Filter</button>
+        <button class="json-collapse" onclick="toggleCollapseAll('qa-json')">Hide / Show</button>
+        <div id="qa-json">
+            {{ content.qa_json | safe }}
+        </div>
+    </div>
+
+    {% endif %}
+
+    <div id="edit-modal" style="display: none;">
+        <div style="
+            background: rgba(255, 255, 255, 0.7); 
+            padding: 20px; 
+            border-radius: 8px; 
+            width: 50vw; 
+            max-width: 90%; 
+            height: 40vh;
+            margin: auto; 
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        ">
+            <h3>Edit Value</h3>
+            <label for="new-value-input">New Value:</label>
+            <textarea 
+                id="new-value-input" 
+                style="
+                    width: 100%; 
+                    height: 15vh; 
+                    resize: vertical; 
+                    overflow-y: auto; 
+                    margin-bottom: 10px; 
+                    padding: 5px; 
+                    box-sizing: border-box;
+                ">
+            </textarea>
+    
+            <!-- history container -->
+            <div id="history-container" style="
+                display: none; 
+                max-height: 25vh; 
+                overflow-y: auto; 
+                margin-top: 10px; 
+                padding: 5px; 
+                background: white; 
+                border: 1px solid #ccc; 
+                border-radius: 5px;
+                font-size: 0.9em;
+                color: #333;
+            ">
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+                <div style="display: flex; gap: 10px;">
+                    <button id="add-to-common-options" style="display: block; margin-top: 10px; padding: 5px; background-color: deepskyblue; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        Add to Common Options
+                    </button>
+                </div>
+
+                <div style="display: flex; gap: 10px;">
+                    <button id="controversy-button" style="display: block; margin-top: 10px; padding: 5px; background-color: orange; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        Mark as Controversial
+                    </button>
+                    <button id="history-button" style="display: block; margin-top: 10px; padding: 5px; background-color: yellowgreen; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        View History
+                    </button>
+                    <button id="submit-button" style="display: block; margin-top: 10px; padding: 5px; background-color: green; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        Submit
+                    </button>
+                    <button id="cancel-button" style="display: block; margin-top: 10px; padding: 5px; background-color: grey; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+
+            <!-- common options container -->
+            <div id="common-options-container" style="
+                background: #f8f9fa; 
+                padding: 10px; 
+                border: 1px solid #ccc; 
+                border-radius: 5px; 
+                max-height: 15vh; 
+                overflow-y: auto; 
+                margin-bottom: 10px;
+            ">
+            </div>
+        </div>
+        <div 
+            id="modal-overlay" 
+            style="
+                position: fixed; 
+                top: 0; 
+                left: 0; 
+                width: 100%; 
+                height: 100%; 
+                background: rgba(0, 0, 0, 0.4); 
+                z-index: 999;
+            "
+        ></div>
+    </div>
+
+    <!-- login -->
+    <div id="login-modal" style="
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        z-index: 2000;
+    ">
+        <h3>Login</h3>
+        <label for="username-input">Username:</label>
+        <input type="text" id="username-input" style="
+            width: 100%;
+            margin: 10px 0;
+            padding: 5px;
+        ">
+        <div style="text-align: right;">
+            <button id="login-submit-button">Submit</button>
+        </div>
+    </div>
+    <div id="login-overlay" style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 1999;
+    "></div>
+
+    
+    <!-- Footbar -->
+    <div class="footbar" style="
+    position: fixed; 
+    bottom: 0; 
+    left: 0; 
+    width: 100%; 
+    background: white; 
+    padding: 10px; 
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;">
+        <!-- input field and button -->
+        <div style="display: flex; align-items: center; gap: 10px;">
+        <label for="qa-filter-input" style="font-weight: bold;">QA Filter:</label>
+        <input id="qa-filter-input" type="text" placeholder="Enter IDs separated by space" style="
+            flex: 1;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;">
+        <button type="button" onclick="applyQAFilter()" style="
+            padding: 5px 15px;
+            background: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;">
+            Apply Filter
+        </button>
+        <button type="button" id="toggle-key-object-info-button" onclick="updateKeyObjectInfoStatus(1)" style="
+            padding: 5px 15px;
+            background: #28A745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;">
+            Hide key_object_info
+        </button>
+        <button type="button" id="stick-toggle" onclick="toggleStickImages()" style="
+            padding: 5px 15px;
+            background: #28A745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;">
+            Stick Images
+        </button>
+    </div>
+ 
+
+    <script>
+
+        const jsonFilters = {};
+
+        function updateFilterKeywords(jsonKey, inputId) {
+            const inputElement = document.getElementById(inputId);
+            const filterKeywords = inputElement.value.trim().split(/\s+/); // separate keys by spaces
+            jsonFilters[jsonKey] = filterKeywords; // update jsonFilters map
+        }
+
+        function refreshFilteredJson(jsonKey) {
+            const filterKeywords = jsonFilters[jsonKey] || []; // get current filter keys
+
+            authenticatedFetch("/filter", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    keywords: filterKeywords,
+                    key: jsonKey, // tell the backend which JSON to process
+                }),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.text(); // backend returns HTML
+            })
+            .then(htmlContent => {
+                const targetDiv = document.getElementById(jsonKey.replace('_', '-')); // find corresponding container
+                targetDiv.innerHTML = htmlContent; // update content
+            })
+            .catch(error => {
+                console.error("Error filtering JSON:", error);
+            });
+        }
+
+        // update keys & refresh
+        function filterJson(jsonKey, inputId) {
+            updateFilterKeywords(jsonKey, inputId); // update filter keys
+            refreshFilteredJson(jsonKey); // update content by filter
+        }
+
+        function changeNumber(direction) {
+            authenticatedFetch("/change_number", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ direction: direction }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert(data.error);
+                    return;
+                }
+
+                indicator = document.getElementById("index-indicator")
+                // update selected index
+                indicator.innerText = "Current Index: " + data.selected_number;
+
+                // update image
+                const imagesDiv = document.querySelector(".images");
+                imagesDiv.innerHTML = "";
+
+                if (data.content.rgb_front !== "not exist") {
+                    const frontImg = document.createElement("img");
+                    frontImg.src = "/media/" + data.content.rgb_front;
+                    frontImg.alt = "RGB Front Image";
+                    frontImg.style.maxWidth = "49%";
+                    frontImg.style.maxHeight = "50vh";
+                    frontImg.style.height = "auto";
+                    frontImg.style.width = "auto";
+                    imagesDiv.appendChild(frontImg);
+                } else {
+                    imagesDiv.innerHTML += "<p>RGB Front Image not found.</p>";
+                }
+
+                if (data.content.rgb_top_down !== "not exist") {
+                    const topDownImg = document.createElement("img");
+                    topDownImg.src = "/media/" + data.content.rgb_top_down;
+                    topDownImg.alt = "RGB Top-down Image";
+                    topDownImg.style.maxWidth = "49%";
+                    topDownImg.style.maxHeight = "50vh";
+                    topDownImg.style.height = "auto";
+                    topDownImg.style.width = "auto";
+                    imagesDiv.appendChild(topDownImg);
+                } else {
+                    imagesDiv.innerHTML += "<p>RGB Top-down Image not found.</p>";
+                }
+
+                // update JSON data
+                document.getElementById("anno-json").innerHTML = data.content.anno_json || "<p>not exist</p>";
+                document.getElementById("appendix-json").innerHTML = data.content.appendix_json || "<p>not exist</p>";
+                document.getElementById("qa-json").innerHTML = data.content.qa_json || "<p>not exist</p>";
+                refreshStatus();
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        // Toggle Collapse All
+        function toggleCollapseAll(jsonId) {
+            const container = document.getElementById(jsonId);
+            container.style.display = container.style.display === 'none' ? 'block' : 'none';
+        }
+
+        // function addEditButtons() {
+        //     document.querySelectorAll("td").forEach(td => {
+        //         // add edit button for leaves
+        //         if (td.childElementCount === 0) {
+        //             const keyPath = td.getAttribute("data-key"); // get key paths
+        //             const editButton = document.createElement("button");
+        //             editButton.textContent = "Edit";
+        //             editButton.onclick = () => showEditBox(td, keyPath);
+        //             td.appendChild(editButton);
+        //         }
+        //     });
+        // }
+
+        // function showEditBox(td, keyPath) {
+        //     const currentValue = td.firstChild.nodeValue;
+        //     const input = document.createElement("input");
+        //     input.value = currentValue;
+
+        //     const saveButton = document.createElement("button");
+        //     saveButton.textContent = "Save";
+        //     saveButton.onclick = () => {
+        //         const newValue = input.value;
+        //         fetch("/edit_json", {
+        //             method: "POST",
+        //             headers: { "Content-Type": "application/json" },
+        //             body: JSON.stringify({ key_path: keyPath.split(","), new_value: newValue })
+        //         }).then(response => {
+        //             if (response.ok) {
+        //                 td.firstChild.nodeValue = newValue;
+        //                 td.removeChild(input);
+        //                 td.removeChild(saveButton);
+        //             }
+        //         });
+        //     };
+
+        //     td.appendChild(input);
+        //     td.appendChild(saveButton);
+        // }
+
+        // document.addEventListener("DOMContentLoaded", addEditButtons);
+
+        function editValue(keyPath, currentValue) {
+            const modal = document.getElementById("edit-modal");
+            const overlay = document.getElementById("modal-overlay");
+            const inputElement = document.getElementById("new-value-input");
+            const historyButton = document.getElementById("history-button");
+            const historyContainer = document.getElementById("history-container");
+            const submitButton = document.getElementById("submit-button");
+            const cancelButton = document.getElementById("cancel-button");
+            const controversyButton = document.getElementById("controversy-button");
+            const commonOptionsContainer = document.getElementById("common-options-container");
+            const addOptionButton = document.getElementById("add-to-common-options");
+
+            // show marking window
+            modal.style.display = "block";
+            overlay.style.display = "block";
+            inputElement.value = currentValue;
+            historyContainer.style.display = "none"; // hide history
+            commonOptionsContainer.style.display = "none"; // hide common actions
+
+            // init controversy button
+            authenticatedFetch(`/get_status?path=${encodeURIComponent(keyPath)}`, {
+                method: "GET",
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "controversy") {
+                    controversyButton.textContent = "Close Controversy";
+                } else {
+                    controversyButton.textContent = "Mark as Controversial";
+                }
+            });
+
+            // deal with commomn options
+            const key = keyPath.split('/').pop();
+            if (key === "A") {
+                commonOptionsContainer.style.display = "block"; // show common options
+
+                // get common options
+                authenticatedFetch(`/get_options`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        path: keyPath.split('/'), // path -> list
+                    }),
+                })
+                .then(response => response.json())
+                .then(optionsData => {
+                    const commonOptionsContainer = document.getElementById("common-options-container");
+
+                    commonOptionsContainer.innerHTML = ""; // clean old options
+
+                    optionsData.forEach(option => {
+                        const optionItem = document.createElement("div");
+                        optionItem.style = "margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 10px;";
+                        optionItem.innerHTML = `
+                            <strong>Option:</strong> ${option}
+                            <button style="
+                                margin-right: 10px; 
+                                padding: 5px 10px; 
+                                background-color: #4CAF50; 
+                                color: white; 
+                                border: none; 
+                                border-radius: 5px; 
+                                cursor: pointer;
+                            " onclick="applyOption('${option}')">Apply</button>
+                            <button style="
+                                padding: 5px 10px; 
+                                background-color: #f44336; 
+                                color: white; 
+                                border: none; 
+                                border-radius: 5px; 
+                                cursor: pointer;
+                            " onclick="removeOption('${keyPath}', '${option}')">Remove</button>
+                        `;
+                        commonOptionsContainer.appendChild(optionItem);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error fetching options:", error);
+                    alert("Failed to fetch common options.");
+                });
+
+                // add current input field's content to common options
+                addOptionButton.onclick = () => {
+                    const newOption = inputElement.value.trim();
+                    if (newOption !== "") {
+                        authenticatedFetch("/add_option", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({
+                                path: keyPath.split('/'), // path -> list
+                                value: newOption,
+                            }),
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                alert("Added to common options!");
+                                commonOptionsContainer.innerHTML = "";
+                                refreshCommonOptions(keyPath); // Refresh the options after adding
+                            } else {
+                                alert("Failed to add option: " + data.error);
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Error:", error);
+                        });
+                    }
+                };
+            }
+
+            // load history
+            historyButton.onclick = () => {
+                authenticatedFetch(`/history`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        path: keyPath, // path -> list
+                    }),
+                })
+                .then(response => response.json())
+                .then(historyData => {
+                    historyContainer.innerHTML = ""; // clean old history
+                    if (historyData.length === 0) {
+                        historyContainer.innerHTML = "<p>No history available.</p>";
+                    } else {
+                        historyData.forEach(entry => {
+                            const historyItem = document.createElement("div");
+                            historyItem.style = "margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 10px;";
+                            historyItem.innerHTML = `
+                                <strong>Time:</strong> ${entry.timestamp}<br>
+                                <strong>Old Value:</strong> ${entry.old_value}<br>
+                                <strong>New Value:</strong> ${entry.new_value}<br>
+                            `;
+                            historyContainer.appendChild(historyItem);
+                        });
+                    }
+                    historyContainer.style.display = "block"; // show history field
+                })
+                .catch(error => {
+                    console.error("Error fetching history:", error);
+                    alert("Failed to fetch history.");
+                });
+            };
+
+            // submit editing
+            submitButton.onclick = () => {
+                const newValue = inputElement.value.trim();
+                if (newValue !== "") {
+                    authenticatedFetch("/edit_json", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({
+                            key_path: keyPath.split('/'), // path -> list
+                            new_value: newValue,
+                        }),
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert("Edited successfully!");
+                            modal.style.display = "none";
+                            overlay.style.display = "none";
+                            refreshFilteredJson(keyPath.split('/')[0]); // Reload
+                        } else {
+                            alert("Operation failed: " + data.error);
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                    });
+                }
+            };
+
+            // logic of controversy button
+            controversyButton.onclick = () => {
+                const currentStatus = controversyButton.textContent === "Mark as Controversial" ? "controversy" : "raw";
+                authenticatedFetch(`/mark_value`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        path: keyPath.split('/'), // path -> list
+                        status: currentStatus,
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(currentStatus === "controversy" ? "Marked as controversial!" : "Controversy closed!");
+                        modal.style.display = "none";
+                        overlay.style.display = "none";
+                        refreshFilteredJson(keyPath.split('/')[0]); // Reload
+                        refreshStatus();
+                    } else {
+                        alert("Operation failed: " + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+            };
+
+            // cancel button
+            cancelButton.onclick = () => {
+                modal.style.display = "none";
+                overlay.style.display = "none";
+            };
+
+            // window closes if click on background mask
+            overlay.onclick = () => {
+                modal.style.display = "none";
+                overlay.style.display = "none";
+            };
+        }
+
+        // delete common options
+        function removeOption(keyPath, optionValue) {
+            authenticatedFetch("/remove_option", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    path: keyPath.split('/'), // path -> list
+                    value: optionValue,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Option removed successfully!");
+                    refreshCommonOptions(keyPath); // refresh common options
+                } else {
+                    alert("Failed to remove option: " + data.error);
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        }
+
+        // refresh common options
+        function refreshCommonOptions(keyPath) {
+            authenticatedFetch(`/get_options`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    path: keyPath.split('/'), // path -> list
+                }),
+            })
+            .then(response => response.json())
+            .then(optionsData => {
+                const commonOptionsContainer = document.getElementById("common-options-container");
+
+                commonOptionsContainer.innerHTML = ""; // clean old options
+
+                optionsData.forEach(option => {
+                    const optionItem = document.createElement("div");
+                    optionItem.style = "margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 10px;";
+                    optionItem.innerHTML = `
+                        <strong>Option:</strong> ${option}
+                        <button style="
+                            margin-right: 10px; 
+                            padding: 5px 10px; 
+                            background-color: #4CAF50; 
+                            color: white; 
+                            border: none; 
+                            border-radius: 5px; 
+                            cursor: pointer;
+                        " onclick="applyOption('${option}')">Apply</button>
+                        <button style="
+                            padding: 5px 10px; 
+                            background-color: #f44336; 
+                            color: white; 
+                            border: none; 
+                            border-radius: 5px; 
+                            cursor: pointer;
+                        " onclick="removeOption('${keyPath}', '${option}')">Remove</button>
+                    `;
+                    commonOptionsContainer.appendChild(optionItem);
+                });
+            })
+            .catch(error => {
+                console.error("Error fetching options:", error);
+                alert("Failed to fetch common options.");
+            });
+        }
+
+        function applyOption(option) {
+            const inputElement = document.getElementById("new-value-input");
+            if (inputElement) {
+                inputElement.value = option; // fill input field with selected option
+            }
+        }
+
+        function deleteValue(keyPath) {
+            if (confirm("Are you sure to delete this value?")) {
+                authenticatedFetch("/delete_json", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ key_path: keyPath.split("/"), })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Deletion successful!");
+                        refreshFilteredJson(keyPath.split("/")[0]) // reload
+                    } else {
+                        alert("Deletion failed:" + data.error);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+            }
+        }
+
+        function addValue(keyPath, childType) {
+            const newValue = prompt(`Please enter new ${childType} value:`);
+            if (newValue !== null) {
+                authenticatedFetch("/add_json", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ key_path: keyPath.split("/"), child_type: childType, new_value: newValue })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Appended successfully!");
+                        refreshFilteredJson(keyPath.split("/")[0]) // reload
+                    } else {
+                        alert("Operation failed: " + data.error);
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+            }
+        }
+
+        function viewHistory() {
+            authenticatedFetch("/get_all_history", {
+                method: "GET",
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(historyData => {
+                let modal = document.createElement("div");
+                modal.id = "history-modal";
+                modal.style = `
+                    position: fixed; 
+                    top: 50%; 
+                    left: 50%; 
+                    transform: translate(-50%, -50%);
+                    background: white; 
+                    border-radius: 8px; 
+                    padding: 20px; 
+                    width: 600px; 
+                    max-height: 80%; 
+                    overflow-y: auto; 
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
+                    z-index: 1000;
+                `;
+
+                let modalContent = `<h3>Modification History</h3>`;
+                if (historyData.length === 0) {
+                    modalContent += "<p>No history available.</p>";
+                } else {
+                    modalContent += "<ul style='list-style: none; padding: 0;'>";
+                    historyData.forEach(entry => {
+                        modalContent += `
+                            <li style="margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
+                                <strong>Timestamp:</strong> ${entry.timestamp}<br>
+                                <strong>Action:</strong> ${entry.action}<br>
+                                <strong>Path:</strong> ${entry.path}<br>
+                                <strong>Old Value:</strong> ${entry.old_value}<br>
+                                <strong>New Value:</strong> ${entry.new_value}
+                            </li>
+                        `;
+                    });
+                    modalContent += "</ul>";
+                }
+
+                modalContent += `
+                    <div style="text-align: right; margin-top: 10px;">
+                        <button onclick="closeHistoryModal()">Close</button>
+                    </div>
+                `;
+                modal.innerHTML = modalContent;
+
+                // half-transparent background
+                let overlay = document.createElement("div");
+                overlay.id = "history-overlay";
+                overlay.style = `
+                    position: fixed; 
+                    top: 0; 
+                    left: 0; 
+                    width: 100%; 
+                    height: 100%; 
+                    background: rgba(0, 0, 0, 0.4); 
+                    z-index: 999;
+                `;
+                overlay.onclick = closeHistoryModal;
+
+                document.body.appendChild(overlay);
+                document.body.appendChild(modal);
+            })
+            .catch(error => {
+                console.error("Error fetching history:", error);
+                alert("Failed to fetch history.");
+            });
+        }
+
+        function closeHistoryModal() {
+            const modal = document.getElementById("history-modal");
+            const overlay = document.getElementById("history-overlay");
+            if (modal) document.body.removeChild(modal);
+            if (overlay) document.body.removeChild(overlay);
+        }
+
+        function markStatus(status) {
+            authenticatedFetch(`/mark?status=${status}`, {
+                method: "POST",
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        alert(`File marked as ${status}`);
+                        refreshStatus();
+                    } else {
+                        alert("Failed to mark file: " + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error("Error marking file:", error);
+                });
+        }
+
+        function refreshStatus() {
+            authenticatedFetch(`/get_status`, {
+                method: "GET",
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const statusIndicator = document.getElementById("status-indicator");
+                    const status = data.status;
+
+                    if (status === "raw") {
+                        statusIndicator.innerText = "Raw";
+                        statusIndicator.style.backgroundColor = "lightgrey";
+                        statusIndicator.style.color = "black";
+                    } else if (status === "controversy") {
+                        statusIndicator.innerText = "Controversy";
+                        statusIndicator.style.backgroundColor = "orange";
+                        statusIndicator.style.color = "white";
+                    } else if (status === "verified") {
+                        statusIndicator.innerText = "Verified";
+                        statusIndicator.style.backgroundColor = "green";
+                        statusIndicator.style.color = "white";
+                    } else {
+                        statusIndicator.innerText = "Unknown";
+                        statusIndicator.style.backgroundColor = "red";
+                        statusIndicator.style.color = "white";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error fetching status:", error);
+                });
+        }
+
+        // select VQA view / Full view
+        function toggleView(toggle=1) {
+            authenticatedFetch(`/toggle_view?toggle=${toggle}`, { method: "POST" })
+                .then(response => response.json())
+                .then(data => {
+                    const viewButton = document.getElementById("view-button");
+                    const viewIndicator = document.getElementById("view-indicator");
+                    if (data.current_view === "VQA View") {
+                        viewButton.textContent = "Switch to Full View";
+                        viewIndicator.textContent = "VQA View";
+                        viewIndicator.style.backgroundColor = "purple";
+                        viewIndicator.style.color = "white";
+                    } else if (data.current_view === "Full View") {
+                        viewButton.textContent = "Switch to VQA View";
+                        viewIndicator.textContent = "Full View";
+                        viewIndicator.style.backgroundColor = "deepskyblue";
+                        viewIndicator.style.color = "white";
+                    }
+                    refreshFilteredJson("anno_json");
+                    refreshFilteredJson("appendix_json");
+                    refreshFilteredJson("qa_json");
+                })
+                .catch(error => console.error("Error toggling view:", error));
+        }
+
+        function applyQAFilter() {
+            // get value of input field
+            const input = document.getElementById('qa-filter-input').value.trim();
+
+            // make a list by separating input by spaces
+            const idList = input.split(/\s+/).filter(id => id.length > 0);
+
+            // call backend API
+            authenticatedFetch('/qa_filter', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ids: idList })
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error("Failed to apply QA filter.");
+                }
+            })
+            .then(data => {
+                console.log("Filter applied successfully:", data);
+                refreshFilteredJson('qa_json')
+            })
+            .catch(error => {
+                console.error("Error applying QA filter:", error);
+                alert("Failed to apply QA filter.");
+            });
+        }
+
+        function updateKeyObjectInfoButtonState(flag) {
+            const button = document.getElementById("toggle-key-object-info-button");
+            if (flag) {
+                button.textContent = "Hide key_object_info";
+                button.style.background = "#28A745"; // green
+            } else {
+                button.textContent = "Show key_object_info";
+                button.style.background = "#DC3545"; // red
+            }
+        }
+
+        function updateKeyObjectInfoStatus(toggle=1) {
+            authenticatedFetch("/toggle_key_object_info", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ toggle: toggle }), 
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.flag !== undefined) {
+                        updateKeyObjectInfoButtonState(data.flag);
+                        refreshFilteredJson('qa_json')
+                    } else {
+                        console.error("Invalid response:", data);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error fetching key object info status:", error);
+                });
+        }
+
+        function toggleStickImages() {
+            const imagesDiv = document.querySelector('.images');
+            const button = document.getElementById('stick-toggle');
+            const isSticky = button.textContent.includes('Unstick');
+
+            // stick images or not
+            if (isSticky) {
+                imagesDiv.style.position = '';
+                imagesDiv.style.top = '';
+                button.textContent = 'Stick Images';
+                button.style.background = "#28A745";
+            } else {
+                imagesDiv.style.position = 'sticky';
+                imagesDiv.style.top = '42px';
+                button.textContent = 'Unstick Images';
+                button.style.background = "#DC3545";
+            }
+        }
+
+        function showLoginModal() {
+            const loginModal = document.getElementById("login-modal");
+            const loginOverlay = document.getElementById("login-overlay");
+
+            loginModal.style.display = "block";
+            loginOverlay.style.display = "block";
+
+            document.getElementById("login-submit-button").onclick = () => {
+                const username = document.getElementById("username-input").value.trim();
+
+                if (username) {
+                    // check if user exists
+                    fetch(`/check_user?username=${encodeURIComponent(username)}`, {
+                        method: "GET",
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.exists) {
+                            alert(`Welcome back, ${username}!`);
+                            localStorage.setItem("username", username);
+                            updateUrlWithUsername(username); // refresh URL
+                            hideLoginModal();
+                        } else {
+                            if (confirm(`User "${username}" does not exist. Create new user?`)) {
+                                // create new user
+                                fetch(`/create_user`, {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify({ username }),
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        alert(`User "${username}" created successfully.`);
+                                        localStorage.setItem("username", username);
+                                        updateUrlWithUsername(username); // update URL
+                                        hideLoginModal();
+                                    } else {
+                                        alert(`Failed to create user: ${data.error}`);
+                                    }
+                                });
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("Failed to check user.");
+                    });
+                } else {
+                    alert("Username cannot be empty!");
+                }
+            };
+
+            function hideLoginModal() {
+                updateUserBar();
+                loginModal.style.display = "none";
+                loginOverlay.style.display = "none";
+            }
+        }
+
+        function updateUserBar() {
+            // const username = localStorage.getItem("username");
+            const username = "default user";
+            const userGreeting = document.getElementById("user-greeting");
+            const userActionButton = document.getElementById("user-action-button");
+
+            if (username) {
+                userGreeting.textContent = `Hello, ${username} (  = w = )`;
+                userActionButton.textContent = "Log Out";
+                userActionButton.onclick = () => {
+                    localStorage.removeItem("username");
+                    removeUsernameFromUrl();
+                    updateUserBar();
+                };
+            } else {
+                userGreeting.textContent = "Not Logged In";
+                userActionButton.textContent = "Log In";
+                userActionButton.onclick = () => showLoginModal();
+            }
+        }
+
+        async function fetchEntryExit() {
+            try {
+                const response = await authenticatedFetch('/get_entry_exit', { method: 'POST' });
+                const data = await response.json();
+
+                if (data.success) {
+                    document.getElementById('entry-input').value = data.entry;
+                    document.getElementById('exit-input').value = data.exit;
+                } else {
+                    alert('Failed to fetch entry/exit: ' + data.error);
+                }
+            } catch (error) {
+                console.error('Error fetching entry/exit:', error);
+            }
+        }
+
+        function markEntryExit(side) {
+            const inputId = side === 'entry' ? 'entry-input' : 'exit-input';
+            const frame = document.getElementById(inputId).value;
+
+            authenticatedFetch(`/mark_entry_exit?side=${side}&frame=${frame}`, {
+                method: 'POST',
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.success) {
+                        alert(`${side} frame updated to ${frame}`);
+                        fetchEntryExit();
+                    } else {
+                        alert('Failed to update frame: ' + data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error(`Error updating ${side} frame:`, error);
+                });
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            refreshStatus();
+            toggleView(0);
+            updateKeyObjectInfoStatus(0);
+            fetchEntryExit();
+        });
+
+        window.onload = () => {
+            const username = "default user"; //localStorage.getItem("username");
+            if (!username) {
+                showLoginModal();
+            }
+            updateUserBar();
+        };
+
+        function authenticatedFetch(url, options = {}) {
+            const username = "default user"; //localStorage.getItem("username");
+            if (!username) {
+                alert("Please log in first.");
+                showLoginModal();
+                return Promise.reject("User not logged in.");
+            }
+
+            // make sure header exist
+            options.headers = options.headers || {};
+            options.headers["Content-Type"] = "application/json";
+
+            // add username to body or query
+            if (options.method === "POST" && options.body) {
+                const body = JSON.parse(options.body);
+                body.username = username;
+                options.body = JSON.stringify(body);
+            } else if (url.includes("?")) {
+                url += `&username=${encodeURIComponent(username)}`;
+            } else {
+                url += `?username=${encodeURIComponent(username)}`;
+            }
+
+            return fetch(url, options);
+        }
+
+        function updateUrlWithUsername(username) {
+            const url = new URL(window.location.href);
+            url.searchParams.set("username", username);
+            window.history.replaceState({}, document.title, url);
+        }
+
+        function removeUsernameFromUrl() {
+            const url = new URL(window.location.href);
+            url.searchParams.delete("username");
+            window.history.replaceState({}, document.title, url);
+        }
+
+    </script>
+</body>
+</html>

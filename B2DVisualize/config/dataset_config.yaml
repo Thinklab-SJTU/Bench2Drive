@@ -1,0 +1,74 @@
+dataset:
+  root_dir: /path/to/dataset
+
+index:
+  digits: 5
+  path: anno
+  suffix: .json.gz
+
+directories:
+  anno:
+    digits: 5
+    path: anno
+    suffix: .json.gz
+    visualizer: json
+
+  depth_image:
+    digits: 5
+    path: camera/depth_front
+    suffix: .npz
+    visualizer: depth
+  
+  bev_image:
+    digits: 5
+    path: camera/rgb_top_down
+    suffix: .jpg
+    visualizer: image
+  
+  front_image:
+    digits: 5
+    path: camera/rgb_front
+    suffix: .jpg
+    visualizer: image
+
+  instance_image:
+    digits: 5
+    path: camera/instance_front
+    suffix: .png
+    visualizer: image
+  
+  lidar:
+    digits: 5
+    path: lidar
+    suffix: .laz
+    visualizer: lidar
+  
+  radar:
+    digits: 5
+    path: radar
+    suffix: .h5
+    visualizer: radar
+  
+  bev_rendered:
+    digits: 5
+    path: bev/rendered
+    suffix: .jpg
+    visualizer: image
+  
+  bev_masks:
+    digits: 5
+    path: bev/birdview
+    suffix: .npz
+    visualizer: bev
+
+layout:
+  left:
+    # - bev_rendered
+    # - bev_masks
+    - bev_image
+    - depth_image
+    - lidar
+    - radar
+  right:
+    - front_image
+    - anno

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+<style>
+body {
+  margin: 0;
+  padding: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f0f0f0;
+}
+
+/* ---------- Top control bar ---------- */
+.top-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+/* ---------- Layout ---------- */
+.container {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 110px);
+}
+
+/* Columns */
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: auto;
+}
+
+/* Initial widths */
+#left-column {
+  width: 50%;
+}
+
+#right-column {
+  width: 50%;
+}
+
+/* Splitter */
+.splitter {
+  width: 10px;
+  cursor: col-resize;
+  background: #bbb;
+}
+
+.splitter:hover {
+  background: #999;
+}
+
+/* ---------- Module window ---------- */
+.module-window {
+  border: 1px solid #333;
+  background: #fff;
+}
+
+.module-header {
+  background: #000;
+  color: #fff;
+  padding: 6px 10px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.module-content {
+  padding: 6px;
+  overflow: auto;
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= Top Controls ================= -->
+<div class="top-bar">
+
+  <label>Scene:</label>
+  <select id="scene-select" onchange="onSceneChange()">
+    {% for s in scenes %}
+      <option value="{{ s }}" {% if s == scene %}selected{% endif %}>{{ s }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Index:</label>
+  <select id="index-select" onchange="onIndexChange()">
+    {% for i in indices %}
+      <option value="{{ i }}" {% if i == current_index %}selected{% endif %}>
+        {{ "%05d"|format(i) }}
+      </option>
+    {% endfor %}
+  </select>
+
+  <button onclick="navigate('prev')">Prev</button>
+  <button onclick="navigate('next')">Next</button>
+
+</div>
+
+<hr>
+
+<!-- ================= Main Layout ================= -->
+<div class="container" id="split-container">
+
+  <div class="column" id="left-column">
+    {% for m in layout.left %}
+      <div class="module-window">
+        <div class="module-header">{{ m }}</div>
+        <div class="module-content">
+          {{ rendered.get(m, "")|safe }}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="splitter" id="splitter"></div>
+
+  <div class="column" id="right-column">
+    {% for m in layout.right %}
+      <div class="module-window">
+        <div class="module-header">{{ m }}</div>
+        <div class="module-content">
+          {{ rendered.get(m, "")|safe }}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+</div>
+
+<script>
+/* ============================================================
+ * Navigation (Scene / Index / Prev / Next)
+ * ============================================================ */
+function navigate(action) {
+  const scene = document.getElementById("scene-select").value;
+  const index = document.getElementById("index-select").value;
+
+  const params = new URLSearchParams();
+  params.set("scene", scene);
+  params.set("index", index);
+  if (action) params.set("action", action);
+
+  window.location.search = params.toString();
+}
+
+/* ============================================================
+ * JSON filter logic (unchanged, but now safe)
+ * ============================================================ */
+const FILTER_STORAGE_KEY = "json_module_filters";
+
+function getProxyUrl(endpoint) {
+  if (endpoint.startsWith("/")) {
+    endpoint = endpoint.slice(1);
+  }
+  let basePath = window.location.pathname;
+  if (!basePath.endsWith("/")) {
+    basePath = basePath.substring(0, basePath.lastIndexOf("/") + 1);
+  }
+  return basePath + endpoint;
+}
+
+function loadFilters() {
+  const saved = localStorage.getItem(FILTER_STORAGE_KEY);
+  return saved ? JSON.parse(saved) : {};
+}
+
+function saveFilter(moduleName, value) {
+  const filters = loadFilters();
+  filters[moduleName] = value;
+  localStorage.setItem(FILTER_STORAGE_KEY, JSON.stringify(filters));
+}
+
+function applyFilter(moduleName) {
+  const input = document.getElementById("filter_" + moduleName);
+  if (!input) return;
+
+  const raw = input.value;
+  saveFilter(moduleName, raw);
+
+  const keywords = raw.split(",").map(k => k.trim()).filter(k => k);
+  const params = new URLSearchParams(window.location.search);
+
+  fetch(getProxyUrl("filter"), {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      scene: params.get("scene"),
+      index: params.get("index"),
+      module_name: moduleName,
+      keywords: keywords
+    })
+  })
+  .then(resp => resp.json())
+  .then(data => {
+    if (data.html) {
+      document.getElementById("content_" + moduleName).innerHTML = data.html;
+    }
+  });
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  const filters = loadFilters();
+  for (const [moduleName, value] of Object.entries(filters)) {
+    const input = document.getElementById("filter_" + moduleName);
+    if (input) {
+      input.value = value;
+      applyFilter(moduleName);
+    }
+  }
+});
+
+/* ============================================================
+ * Splitter (draggable, persistent)
+ * ============================================================ */
+const SPLIT_KEY = "layout_split_percent";
+
+const splitter = document.getElementById("splitter");
+const left = document.getElementById("left-column");
+const right = document.getElementById("right-column");
+const container = document.getElementById("split-container");
+
+let dragging = false;
+
+splitter.addEventListener("mousedown", (e) => {
+  dragging = true;
+  document.body.style.cursor = "col-resize";
+  e.preventDefault();
+});
+
+document.addEventListener("mousemove", (e) => {
+  if (!dragging) return;
+
+  const rect = container.getBoundingClientRect();
+  let percent = ((e.clientX - rect.left) / rect.width) * 100;
+
+  percent = Math.max(10, Math.min(90, percent));
+  left.style.width = percent + "%";
+  right.style.width = (100 - percent) + "%";
+});
+
+document.addEventListener("mouseup", () => {
+  if (!dragging) return;
+  dragging = false;
+  document.body.style.cursor = "default";
+
+  localStorage.setItem(SPLIT_KEY, parseFloat(left.style.width));
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+  const saved = localStorage.getItem(SPLIT_KEY);
+  if (saved) {
+    left.style.width = saved + "%";
+    right.style.width = (100 - saved) + "%";
+  }
+});
+
+function onSceneChange() {
+  const scene = document.getElementById("scene-select").value;
+
+  const params = new URLSearchParams();
+  params.set("scene", scene);
+  // DO NOT set index here → backend will use first index
+
+  window.location.search = params.toString();
+}
+
+function onIndexChange() {
+  const scene = document.getElementById("scene-select").value;
+  const index = document.getElementById("index-select").value;
+
+  const params = new URLSearchParams();
+  params.set("scene", scene);
+  params.set("index", index);
+
+  window.location.search = params.toString();
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QA Path Overview</title>
+    <style>
+        .qa-folder-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .folder-name {
+            font-size: 16px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .status-indicator {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>QA Path Overview</h1>
+
+    {% if error %}
+        <p class="error">{{ error }}</p>
+    {% else %}
+        <div class="qa-folders">
+            <h3>Folders in QA Path:</h3>
+            <ul>
+                {% for folder in folders %}
+                    <li class="qa-folder-item">
+                        <span class="folder-name">{{ folder }}</span>
+                        <div class="status-indicators" id="status-{{ folder }}">
+                            <!-- status indicators will be here inserted by JavaScript -->
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <!-- use Jinja2 to pass folder_status to JavaScript -->
+    <script>
+        var folderStatusData = {{ folder_status|tojson }}; // Jinja2 converts folder_status to JSON format JavaScript object
+
+        function createStatusIndicator(folder, status, label, color, textColor, count) {
+            var statusIndicator = document.createElement("span");
+            statusIndicator.className = "status-indicator";
+            statusIndicator.style.backgroundColor = color;
+            statusIndicator.style.color = textColor;
+            statusIndicator.innerText = label + ": " + count; // show status and file amount
+            document.getElementById("status-" + folder).appendChild(statusIndicator);
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // iterate status of all folders and add status indicators
+            for (var folder in folderStatusData) {
+                var status = folderStatusData[folder];
+                
+                if (status.raw > 0) {
+                    createStatusIndicator(folder, "Raw", "Raw", "lightgrey", "black", status.raw);
+                }
+
+                if (status.controversial > 0) {
+                    createStatusIndicator(folder, "Controversy", "Controversial", "orange", "white", status.controversial);
+                }
+
+                if (status.verified > 0) {
+                    createStatusIndicator(folder, "Verified", "Verified", "green", "white", status.verified);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
