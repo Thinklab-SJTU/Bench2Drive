@@ -48,9 +48,11 @@ def seg_compute_comfort_metric(acceleration,
     deriv_order: int = 1,
     time_interval: float = 0.1,
     per_step: int = 20):
+    metric_kwargs = dict(window_size=window_size, poly_order=poly_order,
+                         deriv_order=deriv_order, time_interval=time_interval)
     episode_len = len(angular_velocity)
     if episode_len <= per_step:
-        res = compute_comfort_metric( acceleration, angular_velocity, forward_vector, right_vector, location, rotation)
+        res = compute_comfort_metric(acceleration, angular_velocity, forward_vector, right_vector, location, rotation, **metric_kwargs)
         return 1. if res else 0.
     seg_data = chunk_arrays([acceleration, angular_velocity, forward_vector, right_vector, location, rotation], per_step)
     
@@ -58,7 +60,7 @@ def seg_compute_comfort_metric(acceleration,
     for index in range(len(seg_data[0])):
         if len(seg_data[0][index]) < per_step:
             continue
-        res.append(compute_comfort_metric(seg_data[0][index], seg_data[1][index], seg_data[2][index], seg_data[3][index], seg_data[4][index], seg_data[5][index]))
+        res.append(compute_comfort_metric(seg_data[0][index], seg_data[1][index], seg_data[2][index], seg_data[3][index], seg_data[4][index], seg_data[5][index], **metric_kwargs))
     return res.count(True) / len(res)
     pass
 
@@ -74,6 +76,7 @@ def compute_comfort_metric(
     deriv_order: int = 1,
     time_interval: float = 0.1
 ):
+    """Check comfort using acceleration in m/s² and angular velocity in rad/s."""
     window_size = min(window_size, len(acceleration))
     if not (poly_order < window_size):
         raise ValueError(f"{poly_order} < {window_size} does not hold!")
@@ -82,7 +85,8 @@ def compute_comfort_metric(
     _2d_forward_vector = np.array([[vec[0], vec[1]] for vec in forward_vector])
     _2d_right_vector = np.array([[vec[0], vec[1]] for vec in right_vector])
     _z_angular_rate = np.array([a[2] for a in angular_velocity])
-    _z_yaw_rate = _phase_unwrap(_z_angular_rate)
+    # Angular velocity is a rate, not a wrapped heading angle.
+    _z_yaw_rate = _z_angular_rate
     
     lon_acc = np.einsum('ij,ij->i', _2d_acceleration, _2d_forward_vector)
     lat_acc = np.einsum('ij,ij->i', _2d_acceleration, _2d_right_vector)
@@ -92,6 +96,8 @@ def compute_comfort_metric(
         _z_yaw_rate,
         polyorder=poly_order,
         window_length=window_size,
+        deriv=1,
+        delta=time_interval,  # Differentiate rad/s over seconds to obtain rad/s².
         axis=-1,
     )
     
@@ -259,6 +265,8 @@ def read_from_json(filepath, metric_dir=None):
                 temp_dict["rotation"].append(v["rotation"])
         for k, v in temp_dict.items():
             temp_dict[k] = np.array(v)
+        # get_metric_info logs CARLA Actor.get_angular_velocity() in degrees/s.
+        temp_dict["angular_velocity"] = np.deg2rad(temp_dict["angular_velocity"])
         all_data.append(temp_dict)
         if len(record["infractions"]["min_speed_infractions"]) < 1:
             continue
