@@ -38,7 +38,7 @@ What can Think2Drive + Bench2Drive provide ? <b>Please click to view the video.<
   
   - **Strictly uniform training data.** The new Think2Drive-collected training set (44 scenarios × 25 routes = 1,100 routes) is strictly uniform over scenarios, unlike the previous Base set whose scenario distribution is uneven.
   - **New modality: 3D occupancy (3D occ).**
-  - **Separate validation set** of 220 routes (44 scenarios × 5) for more reliable evaluation.
+  - **Separate validation set** of 220 routes for more reliable evaluation.
   - Various bug fixes across the dataset and [Bench2DriveZoo](https://github.com/Thinklab-SJTU/Bench2DriveZoo).
   
   See details [here](./docs/v004_update.md). 
