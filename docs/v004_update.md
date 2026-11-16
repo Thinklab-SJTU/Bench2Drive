@@ -1,6 +1,6 @@
 **Bench2Drive Benchmark**
 
-1. We released a new evaluation set with 220 routes (44 scenarios * 5) in it. The xml file is at `leaderboard/data/bench2drive_0.0.4_val.xml`
+1. We released a new evaluation set with 220 routes in it. The xml file is at `leaderboard/data/bench2drive_0.0.4_val.xml`
 2. Results:
 
 | Method        | Driving Score | Success Rate | Efficiency |   Comfort | Overtaking |   Merging | Emergency_Brake |  Give_Way | Traffic_Signs |      Mean |
